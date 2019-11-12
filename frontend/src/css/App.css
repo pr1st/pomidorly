@@ -1,4 +1,4 @@
-.App {
+.App .Timer {
   text-align: center;
   margin: auto;
   max-width: 600px;
@@ -6,11 +6,13 @@
 
 .Timer {
   border: 1px solid steelblue;
+  margin-top: 2px;
 }
 
 .Timer button {
   margin-left: 5px;
   margin-bottom: 1px;
+  margin-top: 1px;
 }
 
 .Timer .Options {
@@ -33,4 +35,24 @@
 
 .Timer .Time.Break {
   background-color: green;
+}
+
+.Header {
+  background-color: lightgreen;
+}
+
+.Header button {
+  margin-left: 3px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.Header .Login {
+  display: inline;
+  margin-left: 70%;
+}
+
+.Header .Page {
+  display: inline;
+  margin-left: 5%;
 }
