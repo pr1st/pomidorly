@@ -13,6 +13,8 @@ Refresh token
 * **Request Headers**
 
   Token: `segsdfgsdfgsdfggfgf...`
+  
+  Accept: `application/json`
 
 * **Response Headers(if success response)**
 
