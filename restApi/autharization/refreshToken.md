@@ -25,7 +25,7 @@ Refresh token
 
     ```json
     {
-        "Token": "asfjakfajfjfkalf",
+        "token": "asfjakfajfjfkalf",
         "expiresIn": 3600
     }
     ```

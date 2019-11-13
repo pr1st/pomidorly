@@ -1,10 +1,10 @@
-# Authorication POST
+# Registration POST
 
-Get tokens from server
+Registrates a user
 
 * **URL**
 
-  `/api/v1/auth`
+  `/api/v1/signup`
 
 * **Method**
 
@@ -12,13 +12,11 @@ Get tokens from server
 
 * **Request Headers**
 
-  Accept: `application/json`
-
   Content-Type: `application/json`
 
 * **Response Headers(if success response)**
 
-  Content-Type: `application/json`
+  `No headers`
 
 * **Data Params**
 
@@ -34,17 +32,12 @@ Get tokens from server
   * **Code:** 200 OK
   **Content**
 
-      ```json
-    {
-        "Token": "asfjakfajfjfkalf",
-        "expiresIn": 3600
-    }
-    ```
+  `No body`
 
 * **Error Response**
-
-  * **Code:** 404 NOT FOUND  
-  **Cause:** `if combination login/password is not correct`
+  
+  * **Code:** 409 CONFLICT
+  **Cause:** `if user with this name already exists`
 
   * **Code:** 400 BAD REQUEST  
   **Cause:** `if given fields in data params are not correct`
