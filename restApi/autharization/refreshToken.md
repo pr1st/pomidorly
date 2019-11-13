@@ -12,25 +12,25 @@ Refresh token
 
 * **Request Headers**
 
-  Refresh-Token: `segsdfgsdfgsdfggfgf...`
+  Token: `segsdfgsdfgsdfggfgf...`
 
 * **Response Headers(if success response)**
 
-  Access-Token: `JhbGciOiJIUzI1NiIsI...`
-
-  Refresh-Token: `7E2cBab30RMHrH...`
+   Content-Type: `application/json`
 
 * **Success Response**
 
   * **Code:** 200 OK
   **Content**
 
-  `No body`
+    ```json
+    {
+        "Token": "asfjakfajfjfkalf",
+        "expiresIn": 3600
+    }
+    ```
 
 * **Error Response**
 
   * **Code:** 401 UNAUTHORIZED  
   **Cause:** `if given token is not viable`
-
-  * **Code:** 400 BAD REQUEST  
-  **Cause:** `if given fields in data params are not correct`

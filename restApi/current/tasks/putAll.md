@@ -31,13 +31,13 @@ Doing all changes in one transaction, if one failed, return exception
             "tag": "customTag",
             "description": "customDesc1",
             "numberOfPomidors": 3,
-            "inQueue": 124
+            "inQueue": 4
         },{
             "id": 2,
             "tag": "customTag",
             "description": "customDesc2",
             "numberOfPomidors": 4,
-            "inQueue": 126
+            "inQueue": 3
         }
     ]
     ```

@@ -12,13 +12,13 @@ Get tokens from server
 
 * **Request Headers**
 
+  Accept: `application/json`
+
   Content-Type: `application/json`
 
 * **Response Headers(if success response)**
 
-  Access-Token: `JhbGciOiJIUzI1NiIsI...`
-
-  Refresh-Token: `7E2cBab30RMHrH...`
+  Content-Type: `application/json`
 
 * **Data Params**
 
@@ -34,7 +34,12 @@ Get tokens from server
   * **Code:** 200 OK
   **Content**
 
-  `No body`
+      ```json
+    {
+        "Token": "asfjakfajfjfkalf",
+        "expiresIn": 3600
+    }
+    ```
 
 * **Error Response**
 

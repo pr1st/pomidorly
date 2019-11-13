@@ -2,7 +2,7 @@
 
 Creates a new task
 
-Puts it at the end of a queue(returns inQueue value that is least among current)
+Puts it at the end of a queue
 
 * **URL**
 
@@ -47,7 +47,7 @@ Puts it at the end of a queue(returns inQueue value that is least among current)
          "tag": "customTag",
          "description": "customDesc1",
          "numberOfPomidors": 3,
-         "inQueue": 124.3
+         "inQueue": 3
     }
     ```
 

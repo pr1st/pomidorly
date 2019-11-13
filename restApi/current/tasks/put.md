@@ -28,7 +28,7 @@ Updates task for this entity with given :id
          "tag": "newCustomTag",
          "description": "newCustomDesc1",
          "numberOfPomidors": 1234,
-         "inQueue": 124.5
+         "inQueue": 3
     }
     ```
 
