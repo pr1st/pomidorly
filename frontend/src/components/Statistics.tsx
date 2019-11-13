@@ -5,7 +5,11 @@ import "bootstrap/dist/css/bootstrap.css"
 class Statistics extends React.Component<{}, {}> {
 
     render() {
-        return null
+        return (
+            <div>
+                Statistics
+            </div>
+        )
     }
 }
 

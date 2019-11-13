@@ -6,20 +6,24 @@ import classNames from "classnames";
 type Props = {
     toMain: () => void,
     toStatistics: () => void,
+    toSignUp: () => void,
+    toSignIn: () => void,
     // userName: string
 }
 
 const Header = (props: Props) => {
-    const {toMain, toStatistics} = props;
+    const {toMain, toStatistics, toSignIn, toSignUp} = props;
     const btnClass = classNames("btn", "btn-outline-success", "btn-lg");
     let login;
     if (true) {
         login = (
-            <div className={"Login"}>
-                <button className={btnClass}>
+            <div className={classNames("Login")}>
+                <button className={btnClass}
+                        onClick={toSignIn}>
                     Sign in
                 </button>
-                <button className={btnClass}>
+                <button className={btnClass}
+                        onClick={toSignUp}>
                     Sign up
                 </button>
             </div>
