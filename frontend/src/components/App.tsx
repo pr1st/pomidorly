@@ -8,18 +8,20 @@ import SignUpContainer from "../containers/SignUpContainer";
 import SignInContainer from "../containers/SignInContainer";
 
 export type StateProps = {
-    currentPage: string
+    currentPage: string,
+    userName: string
 }
 
 export type DispatchProps = {
     toMain: () => void,
     toStatistics: () => void,
     toSignIn: () => void,
-    toSignUp: () => void
+    toSignUp: () => void,
+    logOut: () => void
 }
 
 const App = (props: StateProps & DispatchProps) => {
-    const {toStatistics, toMain, currentPage, toSignIn, toSignUp} = props;
+    const {toStatistics, toMain, currentPage, toSignIn, toSignUp, logOut, userName} = props;
     let inner;
     switch (currentPage) {
         case MAIN_PAGE:
@@ -45,7 +47,9 @@ const App = (props: StateProps & DispatchProps) => {
             <Header toMain={toMain}
                     toStatistics={toStatistics}
                     toSignIn={toSignIn}
-                    toSignUp={toSignUp}/>
+                    toSignUp={toSignUp}
+                    logOut={logOut}
+                    userName={userName}/>
             {inner}
         </div>
     )

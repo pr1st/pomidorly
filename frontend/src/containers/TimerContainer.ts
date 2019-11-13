@@ -1,8 +1,15 @@
 import { connect } from 'react-redux';
 import Timer, {DispatchProps, StateProps} from "../components/Timer";
 import {Dispatch} from "react";
-import {getTimerConfig, nextSecond, pauseTimer, skipTimer, startTimer, stopTimer} from "../actions/timer";
-import {TimerActions, TimerConfigState} from "../types/timer";
+import {
+    nextSecond,
+    pauseTimer,
+    setTimerConfig,
+    skipTimer,
+    startTimer,
+    stopTimer
+} from "../actions/timer";
+import {TimerConfigState} from "../types/timer";
 import {AppState} from "../types";
 
 
@@ -12,14 +19,14 @@ const mapStateToProps = (state: AppState) : StateProps => {
     };
 };
 
-const mapDispatchToProps = (dispatch : Dispatch<TimerActions>) : DispatchProps  => {
+const mapDispatchToProps = (dispatch : Dispatch<any>) : DispatchProps  => {
     return ({
         nextSecond: () => dispatch(nextSecond()),
         pauseTimer: () => dispatch(pauseTimer()),
         skipTimer: () => dispatch(skipTimer()),
         startTimer: () => dispatch(startTimer()),
         stopTimer: () => dispatch(stopTimer()),
-        setConfig: (timerConfig: TimerConfigState) => dispatch(getTimerConfig(timerConfig))
+        setConfig: (timerConfig: TimerConfigState) => dispatch(setTimerConfig(timerConfig))
     })
 };
 

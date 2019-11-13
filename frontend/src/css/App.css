@@ -4,6 +4,35 @@
   max-width: 600px;
 }
 
+.App .SignIn {
+  text-align: left;
+  margin: auto;
+  max-width: 300px;
+  display: grid;
+}
+
+.App .SignUp {
+  text-align: left;
+  margin: auto;
+  max-width: 300px;
+  display: grid;
+}
+
+.Error {
+  background-color: red;
+  text-align: center;
+  color: azure;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 200px;
+}
+
+.App .Statistics {
+  text-align: center;
+  margin: auto;
+  max-width: 600px;
+}
+
 .Timer {
   border: 1px solid steelblue;
   margin-top: 2px;
@@ -49,10 +78,10 @@
 
 .Header .Login {
   display: inline;
-  margin-left: 70%;
+  margin-left: 52%;
 }
 
 .Header .Page {
   display: inline;
-  margin-left: 5%;
+  margin-left: 15%;
 }

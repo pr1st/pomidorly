@@ -8,14 +8,15 @@ type Props = {
     toStatistics: () => void,
     toSignUp: () => void,
     toSignIn: () => void,
-    // userName: string
+    userName: string,
+    logOut: () => void
 }
 
 const Header = (props: Props) => {
-    const {toMain, toStatistics, toSignIn, toSignUp} = props;
+    const {toMain, toStatistics, toSignIn, toSignUp, userName, logOut} = props;
     const btnClass = classNames("btn", "btn-outline-success", "btn-lg");
     let login;
-    if (true) {
+    if (userName === "") {
         login = (
             <div className={classNames("Login")}>
                 <button className={btnClass}
@@ -28,16 +29,30 @@ const Header = (props: Props) => {
                 </button>
             </div>
         )
+    } else {
+        login = (
+            <div className={classNames("Login")}>
+                <h3>
+                    {userName}
+                </h3>
+                <button className={btnClass}
+                        onClick={logOut}>
+                    Log out
+                </button>
+            </div>
+        )
     }
     return (
         <div className={classNames("Header")}>
             <div className={classNames("Page")}>
                 <button className={btnClass}
-                        onClick={toMain}>
+                        onClick={toMain}
+                        disabled={userName === ""}>
                     Main
                 </button>
                 <button className={btnClass}
-                        onClick={toStatistics}>
+                        onClick={toStatistics}
+                        disabled={userName === ""}>
                     Statistics
                 </button>
             </div>

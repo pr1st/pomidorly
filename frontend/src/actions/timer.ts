@@ -6,9 +6,11 @@ import {
     StartTimerAction, STOP_TIMER, StopTimerAction,
     TimerConfigState
 } from "../types/timer";
+import {Dispatch} from "react";
+import {AppState} from "../types";
 
 
-export function getTimerConfig(config: TimerConfigState) : GetTimerConfigAction {
+function getTimerConfig(config: TimerConfigState) : GetTimerConfigAction {
     return {
         type: GET_TIMER_CONFIG,
         config
@@ -42,5 +44,17 @@ export function stopTimer() : StopTimerAction {
 export function skipTimer() : SkipTimerAction {
     return {
         type: SKIP_TIMER
+    }
+}
+
+export function fetchTimerConfig() {
+    return (dispatch: Dispatch<any>, getState: () => AppState) => {
+
+    }
+}
+
+export function setTimerConfig(config: TimerConfigState) {
+    return (dispatch: Dispatch<any>, getState: () => AppState) => {
+
     }
 }
