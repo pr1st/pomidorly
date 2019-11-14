@@ -14,7 +14,7 @@ type Props = {
 
 const Header = (props: Props) => {
     const {toMain, toStatistics, toSignIn, toSignUp, userName, logOut} = props;
-    const btnClass = classNames("btn", "btn-outline-success", "btn-lg");
+    const btnClass = classNames("btn", "btn-success", "btn-lg");
     let login;
     if (userName === "") {
         login = (
@@ -32,9 +32,9 @@ const Header = (props: Props) => {
     } else {
         login = (
             <div className={classNames("Login")}>
-                <h3>
+                <p>
                     {userName}
-                </h3>
+                </p>
                 <button className={btnClass}
                         onClick={logOut}>
                     Log out

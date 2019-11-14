@@ -11,7 +11,7 @@ import {
 
 const initialState: TimerState = {
     config: {
-        pomidorDuration: 25,
+        pomidorDuration: 20,
         shortBreakDuration: 5,
         longBreakDuration: 15,
         numberOfPomidorsBeforeLongBreak: 4,

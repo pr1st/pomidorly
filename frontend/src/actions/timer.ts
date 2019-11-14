@@ -8,6 +8,14 @@ import {
 } from "../types/timer";
 import {Dispatch} from "react";
 import {AppState} from "../types";
+import {
+    ACCEPT,
+    APPLICATION_JSON,
+    CONTENT_TYPE, lastCatchResponseError,
+    request,
+    TOKEN,
+    unAuthorisedAction
+} from "./request";
 
 
 function getTimerConfig(config: TimerConfigState) : GetTimerConfigAction {
@@ -49,12 +57,51 @@ export function skipTimer() : SkipTimerAction {
 
 export function fetchTimerConfig() {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
-
+        return request(
+            dispatch,
+            "GET",
+            "timer",
+            {
+                [ACCEPT]: APPLICATION_JSON,
+                [TOKEN]: getState().auth.token.token,
+            }
+        )
+            .then(res => {
+                if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
+                    return res.data
+                } else {
+                    throw Promise.reject("No Content-type header");
+                }
+            })
+            .then(res => {
+                const config = (res as TimerConfigState);
+                dispatch(getTimerConfig(config));
+            })
+            .catch(unAuthorisedAction(dispatch))
+            .catch(lastCatchResponseError(dispatch))
     }
 }
 
 export function setTimerConfig(config: TimerConfigState) {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
-
+        return request(
+            dispatch,
+            "PUT",
+            "timer",
+            {
+                [CONTENT_TYPE]: APPLICATION_JSON,
+                [TOKEN]: getState().auth.token.token
+            },
+            config
+        )
+            .then(res => {
+                if (res.status === 204) {
+                    dispatch(fetchTimerConfig())
+                } else {
+                    throw Promise.reject("No 204 response");
+                }
+            })
+            .catch(unAuthorisedAction(dispatch))
+            .catch(lastCatchResponseError(dispatch))
     }
 }

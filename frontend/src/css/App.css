@@ -79,8 +79,17 @@
 .Header .Login {
   display: inline;
   margin-left: 52%;
+  position: relative;
 }
 
+.Header .Login p {
+  display: inline;
+  position: relative;
+  font-size: 25px;
+  color: steelblue;
+  left: -5px;
+  top: 7px;
+}
 .Header .Page {
   display: inline;
   margin-left: 15%;

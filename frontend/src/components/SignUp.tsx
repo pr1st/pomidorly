@@ -42,6 +42,13 @@ class SignUp extends React.Component<DispatchProps & StateProps, State> {
         })
     };
 
+    setPasswordAgain = (passwordAgain: string) => {
+        this.setState({
+            ...this.state,
+            passwordAgain
+        })
+    };
+
     signUp = () => {
         const {name, password, passwordAgain} = this.state
         const {setErrorMessage, signUp} = this.props
@@ -91,7 +98,7 @@ class SignUp extends React.Component<DispatchProps & StateProps, State> {
                         value={passwordAgain}
                         onChange={
                             (e: { target: HTMLInputElement }) => {
-                                this.setPassword(e.target.value)
+                                this.setPasswordAgain(e.target.value)
                             }
                         }
                     />

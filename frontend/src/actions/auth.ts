@@ -10,8 +10,23 @@ import {
 } from "../types/auth";
 import {AppState} from "../types";
 import {Dispatch} from "react";
+import {
+    ACCEPT,
+    APPLICATION_JSON,
+    CONTENT_TYPE,
+    lastCatchResponseError,
+    request,
+    TOKEN, unAuthorisedAction
+} from "./request";
+import {changePageToMain, changePageToSignIn} from "./currentPage";
+import {fetchTimerConfig} from "./timer";
 
-function localSignIn(userName: string, token: {token:string, expiresIn: number}) : SignInAction {
+type Token = {
+    token:string,
+    expiresIn: number
+}
+
+function localSignIn(userName: string, token: Token) : SignInAction {
     return {
         type: SIGN_IN,
         userName,
@@ -19,7 +34,7 @@ function localSignIn(userName: string, token: {token:string, expiresIn: number})
     }
 }
 
-function localRefreshToken(token: {token:string, expiresIn: number}) : RefreshTokenAction {
+function localRefreshToken(token: Token) : RefreshTokenAction {
     return {
         type: REFRESH_TOKEN,
         token
@@ -43,18 +58,97 @@ export function setErrorMessage(message: string) : SetErrorMessageAction {
 
 function refreshToken() {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
-
+        return request(
+            dispatch,
+            "POST",
+            "refresh",
+            {
+                [ACCEPT]: APPLICATION_JSON,
+                [TOKEN]: getState().auth.token.token
+            },
+        )
+            .then(res => {
+                if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
+                    return res.data
+                } else {
+                    throw Promise.reject("No Content-type header");
+                }
+            })
+            .then(res => {
+                const token = (res as Token);
+                dispatch(localRefreshToken(token));
+            })
+            .catch(unAuthorisedAction(dispatch))
+            .catch(lastCatchResponseError(dispatch))
     }
 }
 
 export function signUp(userName: string, password: string) {
-    return (dispatch: Dispatch<any>, getState: () => AppState) => {
-
+    return (dispatch: Dispatch<any>) => {
+        return request(
+            dispatch,
+            "POST",
+            "signup",
+            {
+                [CONTENT_TYPE]: APPLICATION_JSON
+            },
+            {
+                login: userName,
+                password: password
+            }
+        )
+            .then(() => dispatch(changePageToSignIn()))
+            .catch(error => {
+            if (error.response.status === 409) {
+                dispatch(setErrorMessage("User with this name already exists"));
+            } else {
+                throw error
+            }})
+            .catch(lastCatchResponseError(dispatch))
     }
 }
 
 export function signIn(userName: string, password: string) {
-    return (dispatch: Dispatch<any>, getState: () => AppState) => {
-
+    return (dispatch: Dispatch<any>) => {
+        return request(
+            dispatch,
+            "POST",
+            "signin",
+            {
+                [CONTENT_TYPE]: APPLICATION_JSON,
+                [ACCEPT]: APPLICATION_JSON
+            },
+            {
+                login: userName,
+                password: password
+            }
+        )
+            .then(res => {
+                console.log("in1")
+                console.log(res)
+                if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
+                    return res.data
+                } else {
+                    console.log("in3")
+                    throw Promise.reject("No Content-type header");
+                }
+            })
+            .then(res => {
+                console.log("in2")
+                console.log(res)
+                const token = (res as Token);
+                dispatch(localSignIn(userName, token));
+                dispatch(fetchTimerConfig());
+                dispatch(changePageToMain());
+            ///////////////////////////make refresh
+            })
+            .catch(error => {
+                if (error.response.status === 404) {
+                    dispatch(setErrorMessage("Combination login/password is not correct"))
+                } else {
+                    throw error
+                }
+            })
+            .catch(lastCatchResponseError(dispatch))
     }
 }
