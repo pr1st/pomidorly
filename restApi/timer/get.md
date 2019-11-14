@@ -37,5 +37,5 @@ Returns timer config of user
 
 * **Error Response**
   
-  * **Code:** 401 UNAUTHORIZED  
+  * **Code:** 401 UNAUTHORISED  
   **Cause:** `if given token is not viable`

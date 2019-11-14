@@ -66,8 +66,13 @@ class SignUp extends React.Component<DispatchProps & StateProps, State> {
         const {errorMessage} = this.props
         const btnClass = classNames("btn", "btn-primary", "btn-lg");
         return (
-            <div className={classNames("SignUp")}>
-                <label>
+            <div onKeyDown={e => {
+                if (e.keyCode === 13 || e.which === 13) {
+                    e.preventDefault();
+                    this.signUp()
+                }
+            }} className={classNames("SignUp")}>
+                <label >
                     Name
                     <input
                         className={classNames("form-control")}

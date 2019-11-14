@@ -51,11 +51,16 @@ class SignIn extends React.Component<DispatchProps & StateProps,State> {
     };
 
     render() {
-        const {name, password} = this.state
-        const {errorMessage} = this.props
+        const {name, password} = this.state;
+        const {errorMessage} = this.props;
         const btnClass = classNames("btn", "btn-primary", "btn-lg");
         return (
-            <div className={classNames("SignIn")}>
+            <div onKeyDown={e => {
+                if (e.keyCode === 13 || e.which === 13) {
+                    e.preventDefault();
+                    this.signIn()
+                }
+            }} className={classNames("SignIn")}>
                 <label>
                     Name
                     <input
