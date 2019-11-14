@@ -6,7 +6,7 @@ To install dependencies
 
 Until server is done use
 
-### `node server.js`
+### `node src/server.js`
 
 ## Available Scripts
 
