@@ -1,10 +1,10 @@
 # Current tasks DELETE
 
-Deletes a task for this entity with given :id
+Deletes a task for this entity with given id
 
 * **URL**
 
-  `/api/v1/current/tasks/:id`
+  `/api/v1/current/tasks/{id}`
 
 * **Method**
 

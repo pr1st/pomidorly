@@ -1,10 +1,12 @@
 # Current tasks PUT
 
-Updates task for this entity with given :id
+Updates task for this entity with given id
+
+Data param "numberOfPomidors" positive integer value
 
 * **URL**
 
-  `/api/v1/current/tasks/:id`
+  `/api/v1/current/tasks/{id}`
 
 * **Method**
 
@@ -24,11 +26,9 @@ Updates task for this entity with given :id
 
      ```json
      {
-         "id": 2, //should be equal to :id in url params, otherwise return 400 bad request
          "tag": "newCustomTag",
          "description": "newCustomDesc1",
-         "numberOfPomidors": 1234,
-         "inQueue": 3
+         "numberOfPomidors": 1234
     }
     ```
 

@@ -4,6 +4,8 @@ Creates a new task
 
 Puts it at the end of a queue
 
+Data param "numberOfPomidors" positive integer value
+
 * **URL**
 
   `/api/v1/current/tasks`
@@ -18,13 +20,9 @@ Puts it at the end of a queue
 
   Content-Type: `application/json`
 
-  Accept: `application/json`
-
 * **Response Headers(if success response)**
 
-  Content-Type: `application/json`
-
-  Location: `api/v1/current/tasks/2`
+  `No headers`
 
 * **Data Params**
 
@@ -41,15 +39,7 @@ Puts it at the end of a queue
   * **Code:** 201  CREATED  
   **Content**
 
-     ```json
-     {
-         "id": 2, // id should be as in location header
-         "tag": "customTag",
-         "description": "customDesc1",
-         "numberOfPomidors": 3,
-         "inQueue": 3
-    }
-    ```
+  `No body`
 
 * **Error Response**
   
