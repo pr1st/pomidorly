@@ -14,7 +14,7 @@ Registrates a user
 
   Content-Type: `application/json`
 
-* **Response Headers(if success response)**
+* **Response Headers**
 
   `No headers`
 
@@ -29,7 +29,7 @@ Registrates a user
 
 * **Success Response**
 
-  * **Code:** 200 OK
+  * **Code:** 204 NO CONTENT
   **Content**
 
   `No body`

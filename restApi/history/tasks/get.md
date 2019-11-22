@@ -2,15 +2,15 @@
 
 Returns a list of done tasks
 
-Returns no more than count tasks, if count is not set returns as (count=+infinity)
+Returns no more than count tasks, default (count=+infinity) (as mush as it is possible)
 
-Return tasks which value "timeFinished" are lower or equal than startingWith, if startingWith is not set returns as (startingWith=+infinity)
+Return tasks starting with task number in startingWith, default (startingWith=0)
 
-count: integer, startingWith: long
+count: int, startingWith: int
 
 * **URL**
 
-  `/api/v1/history/tasks[?count=5][?startingWith=3600000]`
+  `/api/v1/history/tasks[?count=5][?startingWith=2]`
 
 * **Method**
 

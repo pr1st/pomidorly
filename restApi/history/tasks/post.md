@@ -16,13 +16,9 @@ Creates a new done task
 
   Content-Type: `application/json`
 
-  Accept: `application/json`
+* **Response Headers**
 
-* **Response Headers(if success response)**
-
-  Content-Type: `application/json`
-
-  Location: `api/v1/current/tasks/2`
+  `No headers`
 
 * **Data Params**
 
@@ -39,14 +35,7 @@ Creates a new done task
   * **Code:** 201  CREATED  
   **Content**
 
-     ```json
-    {
-        "id": 2, // id should be as in location header
-        "tag": "customTag",
-        "description": "customDesc",
-        "timeFinished": 123456
-    }
-    ```
+     `No body`
 
 * **Error Response**
   
