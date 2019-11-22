@@ -20,7 +20,7 @@ Data param "numberOfPomidors" positive integer value
 
   Content-Type: `application/json`
 
-* **Response Headers(if success response)**
+* **Response Headers**
 
   `No headers`
 
