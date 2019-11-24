@@ -29,3 +29,6 @@ Swaps 2 tasks places in queue with ids: id1, id2
   
   * **Code:** 401 UNAUTHORIZED  
   **Cause:** `if given token is not viable`
+  
+  * **Code:** 404 UNAUTHORIZED  
+  **Cause:** `if one of fiven ids is not found`

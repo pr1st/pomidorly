@@ -13,14 +13,15 @@ export type DispatchProps = {
     pauseTimer: () => void,
     stopTimer: () => void,
     skipTimer: () => void,
-    setConfig: (timerConfig: TimerConfigState) => void
+    setConfig: (timerConfig: TimerConfigState) => void,
+    doPomidor: () => void
 }
 
 let interval : NodeJS.Timeout;
 let isRunning = false;
 
 const Timer = ( props: StateProps & DispatchProps) => {
-    const { nextSecond, pauseTimer, skipTimer, startTimer, stopTimer, setConfig} = props;
+    const { nextSecond, pauseTimer, skipTimer, startTimer, stopTimer, setConfig, doPomidor} = props;
     const { numberOfPomidorsBeforeLongBreak,  alarmWhenZero} = props.config;
     const {isBreak, currentPomidor, time, isActive} = props.currentState;
 
@@ -32,6 +33,9 @@ const Timer = ( props: StateProps & DispatchProps) => {
             if (time === 1) {
                 if (alarmWhenZero) {
                     beepSound.play();
+                }
+                if (!isBreak) {
+                    doPomidor()
                 }
             }
             nextSecond()
@@ -79,7 +83,12 @@ const Timer = ( props: StateProps & DispatchProps) => {
                 </button>
                 <button
                     className={btnClass}
-                    onClick={skipTimer}
+                    onClick={e => {
+                        skipTimer()
+                        if (!isBreak) {
+                            doPomidor()
+                        }
+                    }}
                 >
                     Skip
                 </button>

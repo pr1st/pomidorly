@@ -1,6 +1,8 @@
 import React from 'react';
 import {CurrentTasksState, CurrentTaskState} from "../types/currentTasks";
 import CurrentTask from "./CurrentTask";
+import classNames from "classnames";
+import AddCurrentTask from "./AddCurrentTask";
 
 export type StateProps = {
     tasks: CurrentTasksState
@@ -16,8 +18,10 @@ export type DispatchProps = {
 const CurrentTasksTable = ({ updateTask, swapTask, deleteTask, addTask, tasks}: StateProps & DispatchProps) => {
     const sortedTasks = tasks.sort((a, b) => a.inQueue - b.inQueue);
     return (
-        <div>
-            <table className="table table-bordered table-responsive-md table-striped text-center">
+        <div className={classNames("CurrentTasks")}>
+            <h1>Current Tasks</h1>
+            <AddCurrentTask addTask={addTask}/>
+            <table className="table table-bordered table-responsive-md table-striped">
                 <tbody>
                 <tr>
                     <th>Tag</th>
@@ -25,7 +29,7 @@ const CurrentTasksTable = ({ updateTask, swapTask, deleteTask, addTask, tasks}: 
                     <th>Pomidors</th>
                     <th>Sort</th>
                     <th>Update</th>
-                    <th>Delete</th>
+                    <th>Remove</th>
                 </tr>
                 {sortedTasks
                     .map((task, index) => {
@@ -46,6 +50,7 @@ const CurrentTasksTable = ({ updateTask, swapTask, deleteTask, addTask, tasks}: 
                                         swapTask(taskId, sortedTasks[index+1].id)
                                     }
                                 }}
+                                key={id}
                             />
                         )
                     })}

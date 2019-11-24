@@ -20,6 +20,7 @@ import {
 } from "./request";
 import {changePageToMain, changePageToSignIn} from "./currentPage";
 import {fetchTimerConfig} from "./timer";
+import {fetchCurrentTasks} from "./currentTasks";
 
 type Token = {
     token:string,
@@ -41,7 +42,14 @@ function localRefreshToken(token: Token) : RefreshTokenAction {
     }
 }
 
-export function logOut() : LogOutAction {
+export function logOut() {
+    return (dispatch: Dispatch<any>, getState: () => AppState) => {
+        closeInterval();
+        dispatch(localLogOut())
+    }
+}
+
+function localLogOut() : LogOutAction {
     return {
         type: LOG_OUT
     }
@@ -80,9 +88,8 @@ function refreshToken() {
             .then(res => {
                 const token = (res as Token);
                 dispatch(localRefreshToken(token));
-                const interval = setInterval(() => {
+                startInterval(() => {
                     dispatch(refreshToken())
-                    clearInterval(interval)
                 }, token.expiresIn - 1000)
             })
             .catch(unAuthorisedAction(dispatch))
@@ -142,9 +149,9 @@ export function signIn(userName: string, password: string) {
                 dispatch(localSignIn(userName, token));
                 dispatch(fetchTimerConfig());
                 dispatch(changePageToMain());
-                const interval = setInterval(() => {
+                dispatch(fetchCurrentTasks());
+                startInterval(() => {
                     dispatch(refreshToken())
-                    clearInterval(interval)
                 }, token.expiresIn - 1000)
             })
             .catch(error => {
@@ -156,4 +163,16 @@ export function signIn(userName: string, password: string) {
             })
             .catch(lastCatchResponseError(dispatch))
     }
+}
+
+let intervalId: any
+function startInterval(callback: any, time : number) {
+    intervalId = setInterval(() => {
+        callback();
+        closeInterval()
+    }, time)
+}
+
+function closeInterval() {
+    clearInterval(intervalId)
 }
