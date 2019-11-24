@@ -94,3 +94,39 @@
   display: inline;
   margin-left: 15%;
 }
+
+.CurrentTasks table button {
+  background-color: rgba(255,255,255,0);
+  border-color: rgba(255,255,255,0);
+}
+
+.CurrentTasks .AddCurrentTask label {
+  margin-left: 20px;
+  width: max-content;
+}
+
+.CurrentTasks .AddCurrentTask button {
+  margin-left: 20px;
+  margin-top: 20px;
+  height: 40px;
+}
+
+.CurrentTasks label {
+  display: list-item;
+  list-style-type: none;
+  color: red;
+  font-size: large;
+  text-decoration: underline;
+}
+
+.CurrentTasks label.Param {
+  width: max-content;
+  color: black;
+  font-size: medium;
+  text-decoration: none;
+}
+
+.CurrentTasks .modal-footer button {
+  background: blue;
+  border: blue;
+}

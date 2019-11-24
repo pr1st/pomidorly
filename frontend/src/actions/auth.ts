@@ -20,6 +20,7 @@ import {
 } from "./request";
 import {changePageToMain, changePageToSignIn} from "./currentPage";
 import {fetchTimerConfig} from "./timer";
+import {fetchCurrentTasks} from "./currentTasks";
 
 type Token = {
     token:string,
@@ -41,7 +42,14 @@ function localRefreshToken(token: Token) : RefreshTokenAction {
     }
 }
 
-export function logOut() : LogOutAction {
+export function logOut() {
+    return (dispatch: Dispatch<any>, getState: () => AppState) => {
+        closeInterval();
+        dispatch(localLogOut())
+    }
+}
+
+function localLogOut() : LogOutAction {
     return {
         type: LOG_OUT
     }
@@ -58,6 +66,9 @@ export function setErrorMessage(message: string) : SetErrorMessageAction {
 
 function refreshToken() {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
+        if (getState().auth.userName === "") {
+            return () => {}
+        }
         return request(
             dispatch,
             "POST",
@@ -77,6 +88,9 @@ function refreshToken() {
             .then(res => {
                 const token = (res as Token);
                 dispatch(localRefreshToken(token));
+                startInterval(() => {
+                    dispatch(refreshToken())
+                }, token.expiresIn - 1000)
             })
             .catch(unAuthorisedAction(dispatch))
             .catch(lastCatchResponseError(dispatch))
@@ -124,23 +138,21 @@ export function signIn(userName: string, password: string) {
             }
         )
             .then(res => {
-                console.log("in1")
-                console.log(res)
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
                     return res.data
                 } else {
-                    console.log("in3")
                     throw Promise.reject("No Content-type header");
                 }
             })
             .then(res => {
-                console.log("in2")
-                console.log(res)
                 const token = (res as Token);
                 dispatch(localSignIn(userName, token));
                 dispatch(fetchTimerConfig());
                 dispatch(changePageToMain());
-            ///////////////////////////make refresh
+                dispatch(fetchCurrentTasks());
+                startInterval(() => {
+                    dispatch(refreshToken())
+                }, token.expiresIn - 1000)
             })
             .catch(error => {
                 if (error.response.status === 404) {
@@ -151,4 +163,16 @@ export function signIn(userName: string, password: string) {
             })
             .catch(lastCatchResponseError(dispatch))
     }
+}
+
+let intervalId: any
+function startInterval(callback: any, time : number) {
+    intervalId = setInterval(() => {
+        callback();
+        closeInterval()
+    }, time)
+}
+
+function closeInterval() {
+    clearInterval(intervalId)
 }

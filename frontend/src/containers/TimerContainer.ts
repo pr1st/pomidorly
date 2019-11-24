@@ -11,6 +11,7 @@ import {
 } from "../actions/timer";
 import {TimerConfigState} from "../types/timer";
 import {AppState} from "../types";
+import {doOnePomidor} from "../actions/currentTasks";
 
 
 const mapStateToProps = (state: AppState) : StateProps => {
@@ -26,7 +27,10 @@ const mapDispatchToProps = (dispatch : Dispatch<any>) : DispatchProps  => {
         skipTimer: () => dispatch(skipTimer()),
         startTimer: () => dispatch(startTimer()),
         stopTimer: () => dispatch(stopTimer()),
-        setConfig: (timerConfig: TimerConfigState) => dispatch(setTimerConfig(timerConfig))
+        setConfig: (timerConfig: TimerConfigState) => dispatch(setTimerConfig(timerConfig)),
+        doPomidor: () => {
+            dispatch(doOnePomidor())
+        }
     })
 };
 

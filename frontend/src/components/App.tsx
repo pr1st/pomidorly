@@ -6,6 +6,7 @@ import Header from "./Header";
 import StatisticsContainer from "../containers/StatisticsContainer";
 import SignUpContainer from "../containers/SignUpContainer";
 import SignInContainer from "../containers/SignInContainer";
+import CurrentTasksContainer from "../containers/CurrentTasksContainer";
 
 export type StateProps = {
     currentPage: string,
@@ -26,7 +27,10 @@ const App = (props: StateProps & DispatchProps) => {
     switch (currentPage) {
         case MAIN_PAGE:
             inner = (
-                <TimerContainer/>
+                <div>
+                    <TimerContainer/>
+                    <CurrentTasksContainer/>
+                </div>
             );
             break;
         case STATISTICS_PAGE:
