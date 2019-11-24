@@ -57,10 +57,13 @@ function signIn(name, pass, response) {
 
 function refresh(token, response) {
     if (token === user.token) {
+        console.log(tokenI)
+        console.log("res " + token)
+        console.log("send " + tokens[tokenI])
         user.token = tokens[tokenI];
         tokenI++;
         tokenResponse.token = user.token;
-        tokenResponse.expiresIn = 3600;
+        tokenResponse.expiresIn = 1000 * 60; //60 sec
         response.statusCode = 200;
         response.setHeader("Content-type", "application/json");
         response.end(JSON.stringify(tokenResponse));
