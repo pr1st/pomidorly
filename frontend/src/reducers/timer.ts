@@ -1,6 +1,5 @@
 import {
     GET_TIMER_CONFIG,
-    NEXT_SECOND,
     PAUSE_TIMER, SKIP_TIMER,
     START_TIMER,
     STOP_TIMER,
@@ -18,7 +17,8 @@ const initialState: TimerState = {
         alarmWhenZero: false
     },
     currentState: {
-        time: 25 * 60,
+        startTime: 0,
+        timeRemaining: 25 * 60 * 60 + 500,
         isActive: false,
         currentPomidor: 0,
         isBreak: false
@@ -34,14 +34,13 @@ export function timeReducer(
             return {
                 config: action.config,
                 currentState: {
-                    time: action.config.pomidorDuration * 60,
+                    startTime: 0,
+                    timeRemaining: action.config.pomidorDuration * 60 * 1000 + 500,
                     isActive: false,
                     currentPomidor: 0,
                     isBreak: false
                 }
             };
-        case NEXT_SECOND:
-            return nextSecond(state);
         case START_TIMER:
             return startTimer(state);
         case PAUSE_TIMER:
@@ -55,21 +54,6 @@ export function timeReducer(
     }
 }
 
-function nextSecond(state: TimerState): TimerState {
-    if (!state.currentState.isActive)
-        return state;
-    if (state.currentState.time - 1 > 0) {
-        const currentState = {...state.currentState};
-        const config = {...state.config};
-        currentState.time--;
-        return {
-            config,
-            currentState
-        }
-    }
-    return skipTimer(state)
-}
-
 function startTimer(state: TimerState): TimerState {
     return {
         config: {
@@ -77,19 +61,27 @@ function startTimer(state: TimerState): TimerState {
         },
         currentState: {
             ...state.currentState,
-            isActive: true
+            isActive: true,
+            startTime: Date.now()
         }
     }
 }
 
 function pauseTimer(state: TimerState): TimerState {
+    let newTimeRemain = state.currentState.timeRemaining - (Date.now() - state.currentState.startTime);
+    if (newTimeRemain < 0) {
+        newTimeRemain = 0
+    }
+    if (!state.currentState.isActive)
+        return state
     return {
         config: {
             ...state.config
         },
         currentState: {
             ...state.currentState,
-            isActive: false
+            isActive: false,
+            timeRemaining: newTimeRemain
         }
     }
 }
@@ -99,9 +91,9 @@ function stopTimer(state: TimerState): TimerState {
     const {isBreak, currentPomidor} = state.currentState;
     if (isBreak) {
         const {longBreakDuration, shortBreakDuration} = state.config;
-        newTime = 60 * (currentPomidor === 0 ? longBreakDuration : shortBreakDuration)
+        newTime = 1000 * 60 * (currentPomidor === 0 ? longBreakDuration : shortBreakDuration) + 500
     } else {
-        newTime = state.config.pomidorDuration * 60
+        newTime = state.config.pomidorDuration * 60 * 1000 + 500
     }
     return {
         config: {
@@ -110,7 +102,7 @@ function stopTimer(state: TimerState): TimerState {
         currentState: {
             ...state.currentState,
             isActive: false,
-            time: newTime
+            timeRemaining: newTime
         }
     }
 }
@@ -120,17 +112,18 @@ function skipTimer(state: TimerState): TimerState {
     const config = {...state.config};
     if (currentState.isBreak) {
         currentState.isBreak = false;
-        currentState.time = config.pomidorDuration * 60;
+        currentState.timeRemaining = config.pomidorDuration * 60 * 1000 + 500;
         currentState.isActive = false
     } else {
         currentState.isBreak = true;
         currentState.isActive = true;
+        currentState.startTime = Date.now();
         if (currentState.currentPomidor + 1 === config.numberOfPomidorsBeforeLongBreak) {
             currentState.currentPomidor = 0;
-            currentState.time = config.longBreakDuration * 60
+            currentState.timeRemaining = config.longBreakDuration * 60 * 1000 + 500
         } else {
             currentState.currentPomidor++;
-            currentState.time = config.shortBreakDuration * 60
+            currentState.timeRemaining = config.shortBreakDuration * 60 * 1000 + 500
         }
     }
     return {

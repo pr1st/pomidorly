@@ -1,8 +1,7 @@
 import {
     GET_TIMER_CONFIG,
     GetTimerConfigAction,
-    NEXT_SECOND,
-    NextSecondAction, PAUSE_TIMER, PauseTimerAction, SKIP_TIMER, SkipTimerAction, START_TIMER,
+     PAUSE_TIMER, PauseTimerAction, SKIP_TIMER, SkipTimerAction, START_TIMER,
     StartTimerAction, STOP_TIMER, StopTimerAction,
     TimerConfigState
 } from "../types/timer";
@@ -22,12 +21,6 @@ function getTimerConfig(config: TimerConfigState) : GetTimerConfigAction {
     return {
         type: GET_TIMER_CONFIG,
         config
-    }
-}
-
-export function nextSecond() : NextSecondAction {
-    return {
-        type: NEXT_SECOND
     }
 }
 

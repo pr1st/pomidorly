@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import Timer, {DispatchProps, StateProps} from "../components/Timer";
 import {Dispatch} from "react";
 import {
-    nextSecond,
     pauseTimer,
     setTimerConfig,
     skipTimer,
@@ -22,7 +21,6 @@ const mapStateToProps = (state: AppState) : StateProps => {
 
 const mapDispatchToProps = (dispatch : Dispatch<any>) : DispatchProps  => {
     return ({
-        nextSecond: () => dispatch(nextSecond()),
         pauseTimer: () => dispatch(pauseTimer()),
         skipTimer: () => dispatch(skipTimer()),
         startTimer: () => dispatch(startTimer()),
