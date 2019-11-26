@@ -114,6 +114,9 @@ var requestHandler = function requestHandler(request, response) {
             } else if (request.url === "/api/v1/current/tasks" && request.headers.accept === "application/json") {
                 getCurTasks(request.headers.token, response);
                 return;
+            } else if (request.url === "/api/v1/history/tasks" && request.headers.accept === "application/json") {
+                getHisTasks(request.headers.token, response);
+                return;
             }
         }
 
@@ -136,6 +139,11 @@ var requestHandler = function requestHandler(request, response) {
                 var arr = request.url.split("/");
                 var id = arr[arr.length - 1];
                 deleteCurTasks(id, request.headers.token, response);
+                return;
+            } else if (request.url.startsWith("/api/v1/history/tasks/")) {
+                var arr = request.url.split("/");
+                var id = arr[arr.length - 1];
+                deleteHisTasks(id, request.headers.token, response);
                 return;
             }
         }
@@ -162,6 +170,9 @@ var requestHandler = function requestHandler(request, response) {
                     return;
                 } else if (request.url === "/api/v1/current/tasks") {
                     createCurTasks(body.tag, body.description, body.numberOfPomidors, request.headers.token, response);
+                    return;
+                } else if (request.url === "/api/v1/history/tasks") {
+                    createHisTasks(body.tag, body.description, body.timeFinished, request.headers.token, response);
                     return;
                 }
             } else if (request.method === "PUT") {
@@ -324,3 +335,75 @@ function swapCurTasks(id1, id2, token, response) {
         response.end();
     }
 }
+
+
+var hisId = 3;
+
+const hisTasks = [
+    {
+        id:1,
+        description: "DESC1",
+        timeFinished:1574781003753,
+        tag:"TAG1"
+    },
+    {
+        id:2,
+        description: "DESC2",
+        timeFinished:1574781007516,
+        tag:"TAG2"
+    }
+];
+
+
+function getHisTasks(token, response) {
+    if (token === user.token) {
+        response.statusCode = 200;
+        response.setHeader("Content-type", "application/json");
+        response.end(JSON.stringify(hisTasks.filter(d => d !== undefined)));
+    } else {
+        response.statusCode = 401;
+        response.end();
+    }
+}
+
+function createHisTasks(tag, description, timeFinished, token, response) {
+    if (token === user.token) {
+        hisTasks.push({
+            id: hisId,
+            tag: tag,
+            description: description,
+            timeFinished: timeFinished
+        });
+        hisId++;
+        response.statusCode = 201;
+        response.end();
+    } else {
+        response.statusCode = 401;
+        response.end();
+    }
+}
+
+function getHisTaskById(id) {
+    return hisTasks.findIndex(t => {
+        return t != undefined && t.id == id;
+    });
+}
+
+
+function deleteHisTasks(id, token, response) {
+    if (token === user.token) {
+        var taskById = getHisTaskById(id);
+        if (hisTasks[taskById] !== undefined) {
+            hisTasks[taskById] = undefined;
+            response.statusCode = 204;
+            response.end();
+        } else {
+            response.statusCode = 404;
+            response.end();
+        }
+    } else {
+        response.statusCode = 401;
+        response.end();
+    }
+}
+

@@ -7,6 +7,7 @@ import StatisticsContainer from "../containers/StatisticsContainer";
 import SignUpContainer from "../containers/SignUpContainer";
 import SignInContainer from "../containers/SignInContainer";
 import CurrentTasksContainer from "../containers/CurrentTasksContainer";
+import HistoryTasksContainer from "../containers/HistoryTasksContainer";
 
 export type StateProps = {
     currentPage: string,
@@ -30,6 +31,7 @@ const App = (props: StateProps & DispatchProps) => {
                 <div>
                     <TimerContainer/>
                     <CurrentTasksContainer/>
+                    <HistoryTasksContainer/>
                 </div>
             );
             break;
