@@ -2,15 +2,9 @@
 
 Returns a list of done tasks
 
-Returns no more than count tasks, default (count=+infinity) (as mush as it is possible)
-
-Return tasks starting with task number in startingWith, default (startingWith=0)
-
-count: int, startingWith: int
-
 * **URL**
 
-  `/api/v1/history/tasks[?count=5][?startingWith=2]`
+  `/api/v1/history/tasks`
 
 * **Method**
 
