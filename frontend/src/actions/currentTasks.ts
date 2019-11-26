@@ -10,6 +10,7 @@ import {
     TOKEN,
     unAuthorisedAction
 } from "./request";
+import {createHistoryTask} from "./historyTasks";
 
 function localGetCurrentTasksAction(tasks: CurrentTasksState) : GetCurrentTasksAction {
     return {
@@ -22,6 +23,7 @@ export function doOnePomidor() {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
         const task = getState().currentTasks.sort((a, b) => a.inQueue - b.inQueue)[0]
         task.numberOfPomidors = task.numberOfPomidors - 1;
+        dispatch(createHistoryTask(task.tag, task.description, Date.now()))
         if (task.numberOfPomidors === 0) {
             dispatch(deleteCurrentTask(task.id))
         } else {

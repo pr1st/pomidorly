@@ -21,6 +21,7 @@ import {
 import {changePageToMain, changePageToSignIn} from "./currentPage";
 import {fetchTimerConfig} from "./timer";
 import {fetchCurrentTasks} from "./currentTasks";
+import {fetchHistoryTasks} from "./historyTasks";
 
 type Token = {
     token:string,
@@ -150,6 +151,7 @@ export function signIn(userName: string, password: string) {
                 dispatch(fetchTimerConfig());
                 dispatch(changePageToMain());
                 dispatch(fetchCurrentTasks());
+                dispatch(fetchHistoryTasks());
                 startInterval(() => {
                     dispatch(refreshToken())
                 }, token.expiresIn - 1000)

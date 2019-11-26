@@ -3,6 +3,7 @@ import {CurrentPageActions, CurrentPageState} from "./currentPage";
 import {AuthActions, AuthState} from "./auth";
 import {FetchActions, FetchState} from "./fetch";
 import {CurrentTasksActions, CurrentTasksState} from "./currentTasks";
+import {HistoryTasksActions, HistoryTasksState} from "./historyTasks";
 
 // actions
 export type AppActions =
@@ -10,7 +11,8 @@ export type AppActions =
     CurrentPageActions |
     AuthActions |
     FetchActions |
-    CurrentTasksActions
+    CurrentTasksActions |
+    HistoryTasksActions
 
 // state
 export type AppState = {
@@ -18,6 +20,7 @@ export type AppState = {
     currentPage: CurrentPageState,
     auth: AuthState,
     fetching: FetchState,
-    currentTasks: CurrentTasksState
+    currentTasks: CurrentTasksState,
+    historyTasks: HistoryTasksState
 }
 
