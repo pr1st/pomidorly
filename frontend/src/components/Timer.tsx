@@ -8,7 +8,6 @@ import "bootstrap"
 export type StateProps = TimerState
 
 export type DispatchProps = {
-    nextSecond: () => void,
     startTimer: () => void,
     pauseTimer: () => void,
     stopTimer: () => void,
@@ -17,90 +16,110 @@ export type DispatchProps = {
     doPomidor: () => void
 }
 
-let interval : NodeJS.Timeout;
-let isRunning = false;
+type State = {
+    currentTime: number
+}
 
-const Timer = ( props: StateProps & DispatchProps) => {
-    const { nextSecond, pauseTimer, skipTimer, startTimer, stopTimer, setConfig, doPomidor} = props;
-    const { numberOfPomidorsBeforeLongBreak,  alarmWhenZero} = props.config;
-    const {isBreak, currentPomidor, time, isActive} = props.currentState;
+class Timer extends React.Component<StateProps & DispatchProps, State> {
+    constructor(props: StateProps & DispatchProps) {
+        super(props);
+        this.state = {
+            currentTime: Date.now()
+        }
+    }
+    interval : any
+    componentDidMount(): void {
+        this.interval = setInterval(() => {
+            this.setState({
+                currentTime: Date.now()
+            })
+        }, 300)
+    }
 
-    if (isActive && !isRunning) {
-        isRunning = true;
-        interval = setInterval(() => {
-            clearInterval(interval);
-            isRunning = false;
-            if (time === 1) {
-                if (alarmWhenZero) {
-                    beepSound.play();
-                }
-                if (!isBreak) {
-                    doPomidor()
-                }
-            }
-            nextSecond()
-        }, 1000)
-     }
-    const btnClass = classNames("btn", "btn-outline-primary", "btn-lg")
-    const min = Math.floor(time/60)
-    const sec = time % 60
-    const actionState = isActive ? isBreak ? "Break" : "Action" : "Pause"
+    componentWillUnmount(): void {
+        clearInterval(this.interval)
+    }
 
-    return (
-        <div className={classNames("Timer")}>
-            <div className={"Options"}>
-                <button
-                    className={classNames(btnClass)}
-                    data-toggle="modal"
-                    data-target="#timerConfigModal"
-                    data-backdrop="static"
-                >
-                    Config
-                </button>
-                <TimerConfigDialog {...props.config} setConfig={setConfig}/>
+    render() {
+        const {pauseTimer, skipTimer, startTimer, stopTimer, setConfig, doPomidor} = this.props;
+        const {numberOfPomidorsBeforeLongBreak, alarmWhenZero} = this.props.config;
+        const {timeRemaining, isBreak, currentPomidor, startTime, isActive} = this.props.currentState;
+
+        const btnClass = classNames("btn", "btn-outline-primary", "btn-lg");
+        let time;
+        if (isActive) {
+            const diff = (this.state.currentTime - startTime);
+            time = (timeRemaining - diff) / 1000;
+        } else {
+            time = timeRemaining / 1000;
+        }
+        const min = Math.floor(time / 60);
+        const sec = Math.floor(time % 60);
+        if (min === 0 && sec === 0) {
+            if (alarmWhenZero)
+                beepSound.play();
+            if (!isBreak)
+                doPomidor();
+            skipTimer();
+        }
+        const actionState = isActive ? isBreak ? "Break" : "Action" : "Pause";
+
+        return (
+            <div className={classNames("Timer")}>
+                <div className={"Options"}>
+                    <button
+                        className={classNames(btnClass)}
+                        data-toggle="modal"
+                        data-target="#timerConfigModal"
+                        data-backdrop="static"
+                    >
+                        Config
+                    </button>
+                    <TimerConfigDialog {...this.props.config} setConfig={setConfig}/>
+                </div>
+                <div className={classNames("Time", actionState)}>{min}:{(sec < 10) ? "0" + sec : sec}</div>
+                <h5>{actionState}</h5>
+                <p>Pomidors: {currentPomidor}/{numberOfPomidorsBeforeLongBreak}</p>
+                <div>
+                    <button
+                        className={btnClass}
+                        onClick={startTimer}
+                    >
+                        Start
+                    </button>
+                    <button
+                        className={btnClass}
+                        onClick={pauseTimer}
+                    >
+                        Pause
+                    </button>
+                    <button
+                        className={btnClass}
+                        onClick={stopTimer}
+                    >
+                        Stop
+                    </button>
+                    <button
+                        className={btnClass}
+                        onClick={e => {
+                            skipTimer()
+                            if (!isBreak) {
+                                doPomidor()
+                            }
+                        }}
+                    >
+                        Skip
+                    </button>
+                </div>
             </div>
-            <div className={classNames("Time", actionState)}>{min}:{(sec < 10) ? "0"+sec : sec}</div>
-            <h5>{actionState}</h5>
-            <p>Pomidors: {currentPomidor}/{numberOfPomidorsBeforeLongBreak}</p>
-            <div>
-                <button
-                    className={btnClass}
-                    onClick={startTimer}
-                >
-                    Start
-                </button>
-                <button
-                    className={btnClass}
-                    onClick={pauseTimer}
-                >
-                    Pause
-                </button>
-                <button
-                    className={btnClass}
-                    onClick={stopTimer}
-                >
-                    Stop
-                </button>
-                <button
-                    className={btnClass}
-                    onClick={e => {
-                        skipTimer()
-                        if (!isBreak) {
-                            doPomidor()
-                        }
-                    }}
-                >
-                    Skip
-                </button>
-            </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Timer;
 
 // future technologies
-const beepSound = new  Audio(
+const beepSound = new Audio(
     "data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAG" +
     "DgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/" +
     "ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMA" +
