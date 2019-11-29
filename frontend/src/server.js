@@ -121,7 +121,7 @@ var requestHandler = function requestHandler(request, response) {
         }
 
         if (request.method === "POST") {
-            if (request.url === "/api/v1/refresh" && request.headers.accept === "application/json") {
+            if (request.url === "/api/v1/auth/refresh" && request.headers.accept === "application/json") {
                 // @ts-ignore
                 refresh(request.headers.token, response);
                 return;
