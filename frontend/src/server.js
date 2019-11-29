@@ -121,7 +121,7 @@ var requestHandler = function requestHandler(request, response) {
         }
 
         if (request.method === "POST") {
-            if (request.url === "/api/v1/refresh" && request.headers.accept === "application/json") {
+            if (request.url === "/api/v1/auth/refresh" && request.headers.accept === "application/json") {
                 // @ts-ignore
                 refresh(request.headers.token, response);
                 return;
@@ -160,11 +160,11 @@ var requestHandler = function requestHandler(request, response) {
             console.log(body);
 
             if (request.method === "POST") {
-                if (request.url === "/api/v1/signin" && request.headers.accept === "application/json") {
+                if (request.url === "/api/v1/auth/signin" && request.headers.accept === "application/json") {
                     // @ts-ignore
                     signIn(body.login, body.password, response);
                     return;
-                } else if (request.url === "/api/v1/signup") {
+                } else if (request.url === "/api/v1/auth/signup") {
                     // @ts-ignore
                     signUp(body.login, body.password, response);
                     return;
