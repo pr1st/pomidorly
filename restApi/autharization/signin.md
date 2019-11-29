@@ -4,7 +4,7 @@ Get tokens from server
 
 * **URL**
 
-  `/api/v1/signin`
+  `/api/v1/auth/signin`
 
 * **Method**
 
