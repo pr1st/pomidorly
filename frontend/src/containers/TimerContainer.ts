@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import Timer, {DispatchProps, StateProps} from "../components/Timer";
 import {Dispatch} from "react";
 import {
+    fetchTimerConfig,
     pauseTimer,
-    setTimerConfig,
+    putTimerConfig,
     skipTimer,
     startTimer,
     stopTimer
@@ -25,7 +26,10 @@ const mapDispatchToProps = (dispatch : Dispatch<any>) : DispatchProps  => {
         skipTimer: () => dispatch(skipTimer()),
         startTimer: () => dispatch(startTimer()),
         stopTimer: () => dispatch(stopTimer()),
-        setConfig: (timerConfig: TimerConfigState) => dispatch(setTimerConfig(timerConfig)),
+        setConfig: (timerConfig: TimerConfigState) => {
+            dispatch(putTimerConfig(timerConfig))
+            dispatch(fetchTimerConfig())
+        },
         doPomidor: () => {
             dispatch(doOnePomidor())
         }

@@ -1,13 +1,13 @@
 // actions
-export const GET_TIMER_CONFIG = "GET_TIMER_CONFIG";
+export const SET_TIMER_CONFIG = "SET_TIMER_CONFIG";
 export const START_TIMER = "START_TIMER";
 export const PAUSE_TIMER = "PAUSE_TIMER";
 export const STOP_TIMER = "STOP_TIMER";
 export const SKIP_TIMER = "SKIP_TIMER";
 
 
-export interface GetTimerConfigAction {
-    type: typeof GET_TIMER_CONFIG
+export interface SetTimerConfigAction {
+    type: typeof SET_TIMER_CONFIG
     config: TimerConfigState
 }
 
@@ -28,7 +28,7 @@ export interface SkipTimerAction {
 }
 
 export type TimerActions =
-    GetTimerConfigAction
+    SetTimerConfigAction
     | StartTimerAction
     | PauseTimerAction
     | StopTimerAction

@@ -1,6 +1,7 @@
 import {
-    GET_TIMER_CONFIG,
-    PAUSE_TIMER, SKIP_TIMER,
+    PAUSE_TIMER,
+    SET_TIMER_CONFIG,
+    SKIP_TIMER,
     START_TIMER,
     STOP_TIMER,
     TimerActions,
@@ -30,7 +31,7 @@ export function timeReducer(
     action: TimerActions
 ): TimerState {
     switch (action.type) {
-        case GET_TIMER_CONFIG:
+        case SET_TIMER_CONFIG:
             return {
                 config: action.config,
                 currentState: {

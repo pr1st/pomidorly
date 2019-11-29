@@ -3,7 +3,7 @@ import {endFetching, startFetching} from "./fetch";
 import {serverApi, serverPort, serverProtocol, serverURL} from "../config";
 import {changePageToSignIn} from "./currentPage";
 import {logOut, setErrorMessage} from "./auth";
-import axios from "axios"
+import axios from "axios";
 
 export const CONTENT_TYPE = "content-type";
 export const ACCEPT = "Accept";
