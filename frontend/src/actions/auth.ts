@@ -129,7 +129,7 @@ export function signIn(userName: string, password: string) {
         return request(
             dispatch,
             "POST",
-            "signin",
+            "auth/signin",
             {
                 [CONTENT_TYPE]: APPLICATION_JSON,
                 [ACCEPT]: APPLICATION_JSON
