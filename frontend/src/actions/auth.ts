@@ -43,13 +43,6 @@ function localRefreshToken(token: Token) : RefreshTokenAction {
     }
 }
 
-export function logOut() {
-    return (dispatch: Dispatch<any>, getState: () => AppState) => {
-        closeInterval();
-        dispatch(localLogOut())
-    }
-}
-
 function localLogOut() : LogOutAction {
     return {
         type: LOG_OUT
@@ -63,17 +56,25 @@ export function setErrorMessage(message: string) : SetErrorMessageAction {
     }
 }
 
+export function logOut() {
+    return (dispatch: Dispatch<any>) => {
+        return Promise.resolve()
+            .then(() => {
+                closeInterval();
+                dispatch(localLogOut());
+            })
+    }
+}
 
-
-function refreshToken() {
+export function refreshToken() {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
         if (getState().auth.userName === "") {
-            return () => {}
+            return Promise.resolve()
         }
         return request(
             dispatch,
             "POST",
-            "refresh",
+            "auth/refresh",
             {
                 [ACCEPT]: APPLICATION_JSON,
                 [TOKEN]: getState().auth.token.token
@@ -103,7 +104,7 @@ export function signUp(userName: string, password: string) {
         return request(
             dispatch,
             "POST",
-            "signup",
+            "auth/signup",
             {
                 [CONTENT_TYPE]: APPLICATION_JSON
             },
@@ -114,11 +115,11 @@ export function signUp(userName: string, password: string) {
         )
             .then(() => dispatch(changePageToSignIn()))
             .catch(error => {
-            if (error.response.status === 409) {
-                dispatch(setErrorMessage("User with this name already exists"));
-            } else {
-                throw error
-            }})
+                if (error.response.status === 409) {
+                    dispatch(setErrorMessage("User with this name already exists"));
+                } else {
+                    throw error
+                }})
             .catch(lastCatchResponseError(dispatch))
     }
 }
