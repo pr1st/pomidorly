@@ -1,4 +1,5 @@
 import {AuthActions, AuthState} from "../types/auth";
+import {CurrentPageActions} from "../types/currentPage";
 
 
 const initState: AuthState = {
@@ -10,7 +11,7 @@ const initState: AuthState = {
     errorMessage: ""
 };
 
-export const auth = (state: AuthState = initState, action: AuthActions) : AuthState => {
+export const auth = (state: AuthState = initState, action: AuthActions | CurrentPageActions) : AuthState => {
     // @ts-ignore
     switch (action.type) {
         case "SIGN_IN": {
@@ -40,8 +41,6 @@ export const auth = (state: AuthState = initState, action: AuthActions) : AuthSt
                 errorMessage: action.message
             }
         }
-        // hacks, dont do it at home
-        //@ts-ignore
         case "CHANGE_PAGE": {
             return {
                 ...state,

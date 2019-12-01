@@ -9,12 +9,12 @@ describe("Test fetch reducers", () => {
     });
 
     it("start fetching action", () => {
-        state = fetching(state, {type: START_FETCHING});
-        expect(state).toBe(true);
+        const newState = fetching(state, {type: START_FETCHING});
+        expect(newState).toBe(true);
     });
 
     it("end fetching action", () => {
-        state = fetching(state, {type: END_FETCHING});
-        expect(state).toBe(false);
+        const newState = fetching(state, {type: END_FETCHING});
+        expect(newState).toBe(false);
     });
 });

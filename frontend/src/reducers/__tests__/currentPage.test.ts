@@ -14,8 +14,8 @@ describe("Test current page reducers", () => {
             type: CHANGE_PAGE,
             page: SIGN_UP
         };
-        state = currentPage(state, action);
-        expect(state).toEqual(SIGN_UP);
+        const newState = currentPage(state, action);
+        expect(newState).toEqual(SIGN_UP);
     });
 
     it("log out action", () => {
@@ -23,7 +23,7 @@ describe("Test current page reducers", () => {
             type: LOG_OUT
         };
         // @ts-ignore
-        state = currentPage(state, action);
-        expect(state).toEqual(SIGN_IN);
+        const newState = currentPage(state, action);
+        expect(newState).toEqual(SIGN_IN);
     });
 });
