@@ -3,7 +3,7 @@ import {
     createCurrentTask,
     deleteCurrentTask,
     doOnePomidor,
-    fetchCurrentTasks,
+    fetchCurrentTasks, swapCurrentTasks,
     updateCurrentTask
 } from "../currentTasks";
 import {createHistoryTask} from "../historyTasks";
@@ -137,6 +137,91 @@ describe("Test current task actions", () => {
             [TOKEN]: initState.auth.token.token
         });
         expect(mockedRequest[4]).toEqual(requestTask);
+
+        // @ts-ignore
+        const mocked = dispatch.mock.calls[0];
+        expect(mocked.length).toEqual(1);
+    });
+
+    it("update current task", async () => {
+        const requestTask = {
+            id: 2,
+            tag: "dddd",
+            description: "asd",
+            numberOfPomidors: 3,
+            inQueue: 2
+        };
+        // @ts-ignore
+        request.mockResolvedValue({
+            status: 204
+        });
+
+        // @ts-ignore
+        await updateCurrentTask(requestTask)(dispatch, getState);
+
+        // @ts-ignore
+        const mockedRequest = request.mock.calls[0];
+        expect(mockedRequest.length).toEqual(5);
+        expect(mockedRequest[1]).toEqual("PUT");
+        expect(mockedRequest[2]).toEqual(`current/tasks/${requestTask.id}`);
+        expect(mockedRequest[3]).toEqual({
+            [CONTENT_TYPE]: APPLICATION_JSON,
+            [TOKEN]: initState.auth.token.token
+        });
+        expect(mockedRequest[4]).toEqual({
+            tag: requestTask.tag,
+            description: requestTask.description,
+            numberOfPomidors: requestTask.numberOfPomidors,
+        });
+
+        // @ts-ignore
+        const mocked = dispatch.mock.calls[0];
+        expect(mocked.length).toEqual(1);
+    });
+
+    it("delete current task", async () => {
+        const requestTaskId = 2;
+        // @ts-ignore
+        request.mockResolvedValue({
+            status: 204
+        });
+
+        // @ts-ignore
+        await deleteCurrentTask(requestTaskId)(dispatch, getState);
+
+        // @ts-ignore
+        const mockedRequest = request.mock.calls[0];
+        expect(mockedRequest.length).toEqual(4);
+        expect(mockedRequest[1]).toEqual("DELETE");
+        expect(mockedRequest[2]).toEqual(`current/tasks/${requestTaskId}`);
+        expect(mockedRequest[3]).toEqual({
+            [TOKEN]: initState.auth.token.token
+        });
+
+        // @ts-ignore
+        const mocked = dispatch.mock.calls[0];
+        expect(mocked.length).toEqual(1);
+    });
+
+    it("swap current tasks", async () => {
+        const requestTaskId1 = 2;
+        const requestTaskId2 = 4;
+        // @ts-ignore
+        request.mockResolvedValue({
+            status: 204
+        });
+
+        // @ts-ignore
+        await swapCurrentTasks(requestTaskId1, requestTaskId2)(dispatch, getState);
+
+        // @ts-ignore
+        const mockedRequest = request.mock.calls[0];
+        expect(mockedRequest.length).toEqual(4);
+        expect(mockedRequest[1]).toEqual("POST");
+        expect(mockedRequest[2]).toEqual(`current/tasks/swap/${requestTaskId1}/${requestTaskId2}`);
+        expect(mockedRequest[3]).toEqual({
+            [TOKEN]: initState.auth.token.token
+        });
 
         // @ts-ignore
         const mocked = dispatch.mock.calls[0];
