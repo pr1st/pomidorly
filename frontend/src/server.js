@@ -337,22 +337,9 @@ function swapCurTasks(id1, id2, token, response) {
 }
 
 
-var hisId = 3;
+var hisId = 30;
 
-const hisTasks = [
-    {
-        id:1,
-        description: "DESC1",
-        timeFinished:1574781003753,
-        tag:"TAG1"
-    },
-    {
-        id:2,
-        description: "DESC2",
-        timeFinished:1574781007516,
-        tag:"TAG2"
-    }
-];
+const hisTasks = [{"id":0,"tag":"t","description":"d","timeFinished":1576991276967},{"id":1,"tag":"t","description":"d","timeFinished":1577671045873},{"id":2,"tag":"t","description":"d","timeFinished":1577235195765},{"id":3,"tag":"t","description":"d","timeFinished":1576923387358},{"id":4,"tag":"t","description":"d","timeFinished":1576432283677},{"id":5,"tag":"t","description":"d","timeFinished":1576658241833},{"id":6,"tag":"t","description":"d","timeFinished":1575412052612},{"id":7,"tag":"t","description":"d","timeFinished":1576759526683},{"id":8,"tag":"t","description":"d","timeFinished":1575970041896},{"id":9,"tag":"t","description":"d","timeFinished":1575430605421},{"id":10,"tag":"t","description":"d","timeFinished":1576917878189},{"id":11,"tag":"t","description":"d","timeFinished":1576648800588},{"id":12,"tag":"t","description":"d","timeFinished":1577178022885},{"id":13,"tag":"t","description":"d","timeFinished":1576502107431},{"id":14,"tag":"t","description":"d","timeFinished":1576887970138},{"id":15,"tag":"t","description":"d","timeFinished":1575445744028},{"id":16,"tag":"t","description":"d","timeFinished":1576822600579},{"id":17,"tag":"t","description":"d","timeFinished":1575627581032},{"id":18,"tag":"t","description":"d","timeFinished":1576147426984},{"id":19,"tag":"t","description":"d","timeFinished":1575934861483},{"id":20,"tag":"t","description":"d","timeFinished":1575735602474},{"id":21,"tag":"t","description":"d","timeFinished":1575706612986},{"id":22,"tag":"t","description":"d","timeFinished":1576151339382},{"id":23,"tag":"t","description":"d","timeFinished":1576241660457},{"id":24,"tag":"t","description":"d","timeFinished":1576474395099},{"id":25,"tag":"t","description":"d","timeFinished":1577195918715},{"id":26,"tag":"t","description":"d","timeFinished":1577214606496},{"id":27,"tag":"t","description":"d","timeFinished":1577025683478},{"id":28,"tag":"t","description":"d","timeFinished":1577709395250},{"id":29,"tag":"t","description":"d","timeFinished":1576304962806}]
 
 
 function getHisTasks(token, response) {

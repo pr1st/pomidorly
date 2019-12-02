@@ -16,7 +16,7 @@ const HistoryTask = (props: StateProps & DispatchProps) => {
         <tr>
             <td>{tag}</td>
             <td>{description}</td>
-            <td>{new Date(timeFinished).toLocaleTimeString()}</td>
+            <td>{new Date(timeFinished).toLocaleString()}</td>
             <td>
                 <button
                     className={classNames("btn", "btn-outline-primary")}
