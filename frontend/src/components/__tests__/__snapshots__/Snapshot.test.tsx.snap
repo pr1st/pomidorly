@@ -763,7 +763,7 @@ exports[`Component snapshot test HistoryTask 1`] = `
     AAA
   </td>
   <td>
-    7:00:00 AM
+    1/1/1970, 7:00:00 AM
   </td>
   <td>
     <button
@@ -820,7 +820,7 @@ exports[`Component snapshot test HistoryTasksTable 1`] = `
           ASDASDdd
         </td>
         <td>
-          7:00:00 AM
+          1/1/1970, 7:00:00 AM
         </td>
         <td>
           <button
@@ -847,7 +847,7 @@ exports[`Component snapshot test HistoryTasksTable 1`] = `
           ASDASDdd
         </td>
         <td>
-          7:00:00 AM
+          1/1/1970, 7:00:00 AM
         </td>
         <td>
           <button
@@ -874,7 +874,7 @@ exports[`Component snapshot test HistoryTasksTable 1`] = `
           ASDASDdd
         </td>
         <td>
-          7:00:00 AM
+          1/1/1970, 7:00:00 AM
         </td>
         <td>
           <button
@@ -980,435 +980,287 @@ exports[`Component snapshot test Statistics 1`] = `
 <div
   className="Statistics"
 >
-  Statistics
-</div>
-`;
-
-exports[`Component snapshot test Timer 1`] = `
-<div
-  className="Timer"
->
+  <h3>
+    Tasks done from the first day
+  </h3>
   <div
-    className="Options"
+    className="ReactChart "
+    onClick={[Function]}
+    style={
+      Object {
+        "height": 0,
+        "position": "relative",
+        "width": 0,
+      }
+    }
   >
-    <button
-      className="btn btn-outline-primary btn-lg"
-      data-backdrop="static"
-      data-target="#timerConfigModal"
-      data-toggle="modal"
+    <svg
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseMove={[Function]}
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+          "width": 0,
+        }
+      }
     >
-      Config
-    </button>
-    <div
-      className="modal fade"
-      id="timerConfigModal"
-      tabIndex={-1}
-    >
-      <div
-        className="modal-dialog"
+      <g
+        style={
+          Object {
+            "transform": "translate3d(0px, 0px, 0)",
+          }
+        }
       >
-        <div
-          className="modal-content"
+        <rect
+          height={0}
+          style={
+            Object {
+              "fill": "#333",
+              "opacity": 0,
+              "rx": 0,
+              "ry": 0,
+              "strokeWidth": 0,
+            }
+          }
+          width={0}
+          x={-0}
+          y={-0}
+        />
+        <g
+          className="axes"
         >
-          <div
-            className="modal-header"
+          <g
+            className="Axis"
+            style={
+              Object {
+                "pointerEvents": "none",
+                "transform": "translate3d(0, 0px, 0)",
+              }
+            }
           >
-            <h5
-              className="modal-title"
+            <path
+              className="domain"
+              d="
+        M 0, 6
+        V 0
+        H 0
+        V 6
+      "
+              style={
+                Object {
+                  "fill": "transparent",
+                  "opacity": 1,
+                  "stroke": "rgba(0,0,0, .1)",
+                  "strokeWidth": "1",
+                }
+              }
+            />
+            <g
+              className="ticks"
+              style={Object {}}
             >
-              Configuration properties
-            </h5>
-            <button
-              aria-label="Close"
-              className="close"
-              data-dismiss="modal"
-              onClick={[Function]}
-              type="button"
-            >
-              <span
-                aria-hidden="true"
+              <g
+                className="tick"
+                style={
+                  Object {
+                    "transform": "translate3d(0px, 0, 0)",
+                  }
+                }
               >
-                ×
-              </span>
-            </button>
-          </div>
-          <div
-            className="modal-body"
-          >
-            <div>
-              <label>
-                Pomidor duration
-                :
-                <input
-                  className="form-control"
-                  onChange={[Function]}
-                  type="number"
-                  value={2}
+                <line
+                  className="gridLine"
+                  style={
+                    Object {
+                      "fill": "transparent",
+                      "opacity": 1,
+                      "stroke": "rgba(0,0,0, .1)",
+                      "strokeWidth": "1",
+                    }
+                  }
+                  y1={0}
+                  y2={-0}
                 />
-              </label>
-            </div>
-            <div>
-              <label>
-                Short break duration
-                :
-                <input
-                  className="form-control"
-                  onChange={[Function]}
-                  type="number"
-                  value={1}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                Long break duration
-                :
-                <input
-                  className="form-control"
-                  onChange={[Function]}
-                  type="number"
-                  value={3}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                Number of pomidors before long break
-                :
-                <input
-                  className="form-control"
-                  onChange={[Function]}
-                  type="number"
-                  value={5}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                Alarm when zero
-                <select
-                  className="form-control"
-                  onChange={[Function]}
-                  value="false"
+                <g
+                  className="labelGroup"
                 >
-                  <option
-                    value="true"
+                  <line
+                    className="tickline"
+                    style={
+                      Object {
+                        "fill": "transparent",
+                        "opacity": 1,
+                        "stroke": "rgba(0,0,0, .1)",
+                        "strokeWidth": "1",
+                      }
+                    }
+                    x1={0}
+                    x2={0}
+                    y1={0}
+                    y2={6}
+                  />
+                  <text
+                    className="tickLabel"
+                    dominantBaseline="hanging"
+                    style={
+                      Object {
+                        "fill": "black",
+                        "fontFamily": "sans-serif",
+                        "fontSize": 10,
+                        "opacity": 1,
+                        "transform": "translate3d(0px, 20px, 0) rotate(0deg)",
+                      }
+                    }
+                    textAnchor="middle"
                   >
-                    true
-                  </option>
-                  <option
-                    value="false"
+                    .123
+                  </text>
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+            className="Axis"
+            style={
+              Object {
+                "pointerEvents": "none",
+                "transform": undefined,
+              }
+            }
+          >
+            <path
+              className="domain"
+              d="
+        M -6, 0
+        H 0
+        V 0
+        H -6
+      "
+              style={
+                Object {
+                  "fill": "transparent",
+                  "opacity": 1,
+                  "stroke": "rgba(0,0,0, .1)",
+                  "strokeWidth": "1",
+                }
+              }
+            />
+            <g
+              className="ticks"
+              style={Object {}}
+            >
+              <g
+                className="tick"
+                style={
+                  Object {
+                    "transform": "translate3d(0, 0px, 0)",
+                  }
+                }
+              >
+                <line
+                  className="gridLine"
+                  style={
+                    Object {
+                      "fill": "transparent",
+                      "opacity": 1,
+                      "stroke": "rgba(0,0,0, .1)",
+                      "strokeWidth": "1",
+                    }
+                  }
+                  x1={0}
+                  x2={0}
+                />
+                <g
+                  className="labelGroup"
+                >
+                  <line
+                    className="tickline"
+                    style={
+                      Object {
+                        "fill": "transparent",
+                        "opacity": 1,
+                        "stroke": "rgba(0,0,0, .1)",
+                        "strokeWidth": "1",
+                      }
+                    }
+                    x1={0}
+                    x2={-6}
+                    y1={0}
+                    y2={0}
+                  />
+                  <text
+                    className="tickLabel"
+                    dominantBaseline="central"
+                    style={
+                      Object {
+                        "fill": "black",
+                        "fontFamily": "sans-serif",
+                        "fontSize": 10,
+                        "opacity": 1,
+                        "transform": "translate3d(-20px, 0px, 0) rotate(0deg)",
+                      }
+                    }
+                    textAnchor="end"
                   >
-                    false
-                  </option>
-                </select>
-              </label>
-            </div>
-          </div>
-          <div
-            className="modal-footer"
-          >
-            <button
-              className="btn btn-primary"
-              data-dismiss="modal"
-              onClick={[Function]}
-              type="button"
-            >
-              Save changes
-            </button>
-            <button
-              className="btn btn-secondary"
-              data-dismiss="modal"
-              id="closeDialog"
-              onClick={[Function]}
-              type="button"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="Time Pause"
-  >
-    0
-    :
-    03
-  </div>
-  <h5>
-    Pause
-  </h5>
-  <p>
-    Pomidors: 
-    2
-    /
-    5
-  </p>
-  <div>
-    <button
-      className="btn btn-outline-primary btn-lg"
-      onClick={[Function]}
-    >
-      Start
-    </button>
-    <button
-      className="btn btn-outline-primary btn-lg"
-      onClick={[Function]}
-    >
-      Pause
-    </button>
-    <button
-      className="btn btn-outline-primary btn-lg"
-      onClick={[Function]}
-    >
-      Stop
-    </button>
-    <button
-      className="btn btn-outline-primary btn-lg"
-      onClick={[Function]}
-    >
-      Skip
-    </button>
-  </div>
-</div>
-`;
-
-exports[`Component snapshot test TimerConfigDialog 1`] = `
-<div
-  className="modal fade"
-  id="timerConfigModal"
-  tabIndex={-1}
->
-  <div
-    className="modal-dialog"
-  >
-    <div
-      className="modal-content"
-    >
-      <div
-        className="modal-header"
-      >
-        <h5
-          className="modal-title"
+                    3
+                  </text>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g
+          className="Series"
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
         >
-          Configuration properties
-        </h5>
-        <button
-          aria-label="Close"
-          className="close"
-          data-dismiss="modal"
-          onClick={[Function]}
-          type="button"
-        >
-          <span
-            aria-hidden="true"
-          >
-            ×
-          </span>
-        </button>
-      </div>
-      <div
-        className="modal-body"
-      >
-        <div>
-          <label>
-            Pomidor duration
-            :
-            <input
-              className="form-control"
-              onChange={[Function]}
-              type="number"
-              value={5}
+          <g>
+            <path
+              d="M0,0Z"
+              style={
+                Object {
+                  "area": Object {},
+                  "circle": Object {},
+                  "color": undefined,
+                  "fill": "none",
+                  "line": Object {},
+                  "opacity": 1,
+                  "rectangle": Object {},
+                  "stroke": "#4ab5eb",
+                  "strokeWidth": 2,
+                }
+              }
             />
-          </label>
-        </div>
-        <div>
-          <label>
-            Short break duration
-            :
-            <input
-              className="form-control"
-              onChange={[Function]}
-              type="number"
-              value={123}
+            <circle
+              cx={0}
+              cy={0}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              r={1}
+              style={
+                Object {
+                  "area": Object {},
+                  "circle": Object {},
+                  "color": undefined,
+                  "fill": "#4ab5eb",
+                  "line": Object {},
+                  "opacity": 1,
+                  "r": 2,
+                  "rectangle": Object {},
+                  "stroke": "#4ab5eb",
+                  "strokeWidth": "1",
+                }
+              }
             />
-          </label>
-        </div>
-        <div>
-          <label>
-            Long break duration
-            :
-            <input
-              className="form-control"
-              onChange={[Function]}
-              type="number"
-              value={2}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Number of pomidors before long break
-            :
-            <input
-              className="form-control"
-              onChange={[Function]}
-              type="number"
-              value={3}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Alarm when zero
-            <select
-              className="form-control"
-              onChange={[Function]}
-              value="false"
-            >
-              <option
-                value="true"
-              >
-                true
-              </option>
-              <option
-                value="false"
-              >
-                false
-              </option>
-            </select>
-          </label>
-        </div>
-      </div>
-      <div
-        className="modal-footer"
-      >
-        <button
-          className="btn btn-primary"
-          data-dismiss="modal"
-          onClick={[Function]}
-          type="button"
-        >
-          Save changes
-        </button>
-        <button
-          className="btn btn-secondary"
-          data-dismiss="modal"
-          id="closeDialog"
-          onClick={[Function]}
-          type="button"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Component snapshot test UpdateCurrentTaskDialog 1`] = `
-<div
-  className="modal fade"
-  id="updateCurrentTaskModal-1"
-  tabIndex={-1}
->
-  <div
-    className="modal-dialog"
-  >
-    <div
-      className="modal-content"
-    >
-      <div
-        className="modal-header"
-      >
-        <h5
-          className="modal-title"
-        >
-          Update task
-        </h5>
-        <button
-          aria-label="Close"
-          className="close"
-          data-dismiss="modal"
-          onClick={[Function]}
-          type="button"
-        >
-          <span
-            aria-hidden="true"
-          >
-            ×
-          </span>
-        </button>
-      </div>
-      <div
-        className="modal-body"
-      >
-        <div>
-          <label>
-            Id: 
-            1
-          </label>
-          <label
-            className="Param"
-          >
-            Tag
-            :
-            <input
-              className="form-control"
-              onChange={[Function]}
-              type="text"
-              value="ADSD"
-            />
-          </label>
-          <label
-            className="Param"
-          >
-            Description
-            :
-            <input
-              className="form-control"
-              onChange={[Function]}
-              type="text"
-              value="ASD"
-            />
-          </label>
-          <label
-            className="Param"
-          >
-            Number of pomidors
-            :
-            <input
-              className="form-control"
-              onChange={[Function]}
-              type="number"
-              value={2}
-            />
-          </label>
-        </div>
-      </div>
-      <div
-        className="modal-footer"
-      >
-        <button
-          className="btn btn-primary"
-          data-dismiss="modal"
-          onClick={[Function]}
-          type="button"
-        >
-          Save changes
-        </button>
-        <button
-          className="btn btn-secondary"
-          data-dismiss="modal"
-          onClick={[Function]}
-          type="button"
-        >
-          Close
-        </button>
-      </div>
-    </div>
+          </g>
+        </g>
+      </g>
+    </svg>
   </div>
 </div>
 `;
