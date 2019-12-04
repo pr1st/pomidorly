@@ -4,13 +4,13 @@ import {LOG_OUT} from "../../types/auth";
 
 
 describe("Test current page reducers", () => {
-    let state : CurrentPageState;
+    let state: CurrentPageState;
     beforeEach(() => {
         state = "";
     });
 
     it("change page action", () => {
-        const action : ChangePageToSignUpAction = {
+        const action: ChangePageToSignUpAction = {
             type: CHANGE_PAGE,
             page: SIGN_UP
         };
@@ -19,7 +19,7 @@ describe("Test current page reducers", () => {
     });
 
     it("log out action", () => {
-        const action= {
+        const action = {
             type: LOG_OUT
         };
         // @ts-ignore

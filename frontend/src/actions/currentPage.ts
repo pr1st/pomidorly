@@ -11,28 +11,28 @@ import {
 } from "../types/currentPage";
 
 
-export function changePageToMain() : ChangePageToMainAction {
+export function changePageToMain(): ChangePageToMainAction {
     return {
         type: CHANGE_PAGE,
         page: MAIN_PAGE
     }
 }
 
-export function changePageToStatistics() : ChangePageToStatisticsAction {
+export function changePageToStatistics(): ChangePageToStatisticsAction {
     return {
         type: CHANGE_PAGE,
         page: STATISTICS_PAGE
     }
 }
 
-export function changePageToSignIn() : ChangePageToSignInAction {
+export function changePageToSignIn(): ChangePageToSignInAction {
     return {
         type: CHANGE_PAGE,
         page: SIGN_IN
     }
 }
 
-export function changePageToSignUp() : ChangePageToSignUpAction {
+export function changePageToSignUp(): ChangePageToSignUpAction {
     return {
         type: CHANGE_PAGE,
         page: SIGN_UP

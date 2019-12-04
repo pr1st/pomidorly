@@ -15,32 +15,32 @@ import {
 } from "./request";
 
 
-export function setTimerConfig(config: TimerConfigState) : SetTimerConfigAction {
+export function setTimerConfig(config: TimerConfigState): SetTimerConfigAction {
     return {
         type: SET_TIMER_CONFIG,
         config
     }
 }
 
-export function startTimer() : StartTimerAction {
+export function startTimer(): StartTimerAction {
     return {
         type: START_TIMER
     }
 }
 
-export function pauseTimer() : PauseTimerAction {
+export function pauseTimer(): PauseTimerAction {
     return {
         type: PAUSE_TIMER
     }
 }
 
-export function stopTimer() : StopTimerAction {
+export function stopTimer(): StopTimerAction {
     return {
         type: STOP_TIMER
     }
 }
 
-export function skipTimer() : SkipTimerAction {
+export function skipTimer(): SkipTimerAction {
     return {
         type: SKIP_TIMER
     }

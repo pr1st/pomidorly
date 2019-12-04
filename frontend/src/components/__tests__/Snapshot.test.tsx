@@ -9,13 +9,11 @@ import HistoryTasksTable from "../HistoryTasksTable";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import Statistics from "../Statistics";
-import Timer from "../Timer";
-import TimerConfigDialog from "../TimerConfigDialog";
-import UpdateCurrentTaskDialog from "../UpdateCurrentTaskDialog";
 
 describe("Component snapshot test", () => {
 
-    const dummy = () => {};
+    const dummy = () => {
+    };
 
     it("AddCurrentTask", () => {
         const tree = renderer
@@ -56,23 +54,23 @@ describe("Component snapshot test", () => {
                     addTask={dummy}
                     tasks={[
                         {
-                            id:1,
-                            numberOfPomidors:123,
-                            inQueue:3,
-                            description:"ASDASD",
-                            tag:"ASD"
+                            id: 1,
+                            numberOfPomidors: 123,
+                            inQueue: 3,
+                            description: "ASDASD",
+                            tag: "ASD"
                         }, {
-                            id:2,
-                            numberOfPomidors:1233,
-                            inQueue:34,
-                            description:"ASDASDAS",
-                            tag:"ASDF"
+                            id: 2,
+                            numberOfPomidors: 1233,
+                            inQueue: 34,
+                            description: "ASDASDAS",
+                            tag: "ASDF"
                         }, {
-                            id:5,
-                            numberOfPomidors:123312,
-                            inQueue:2,
-                            description:"ds",
-                            tag:"d"
+                            id: 5,
+                            numberOfPomidors: 123312,
+                            inQueue: 2,
+                            description: "ds",
+                            tag: "d"
                         }
                     ]}
                 />
@@ -121,20 +119,20 @@ describe("Component snapshot test", () => {
                     deleteTask={dummy}
                     tasks={[
                         {
-                            id:1,
-                            description:"ASDASDdd",
-                            tag:"ASDd",
-                            timeFinished:123
+                            id: 1,
+                            description: "ASDASDdd",
+                            tag: "ASDd",
+                            timeFinished: 123
                         }, {
-                            id:2,
-                            description:"ASDASDdd",
-                            tag:"ASDd",
-                            timeFinished:123
+                            id: 2,
+                            description: "ASDASDdd",
+                            tag: "ASDd",
+                            timeFinished: 123
                         }, {
-                            id:5,
-                            description:"ASDASDdd",
-                            tag:"ASDd",
-                            timeFinished:123
+                            id: 5,
+                            description: "ASDASDdd",
+                            tag: "ASDd",
+                            timeFinished: 123
                         }
                     ]}
                 />
@@ -175,20 +173,20 @@ describe("Component snapshot test", () => {
                 <Statistics
                     tasks={[
                         {
-                            id:1,
-                            description:"ASDASDdd",
-                            tag:"ASDd",
-                            timeFinished:123
+                            id: 1,
+                            description: "ASDASDdd",
+                            tag: "ASDd",
+                            timeFinished: 123
                         }, {
-                            id:2,
-                            description:"ASDASDdd",
-                            tag:"ASDd",
-                            timeFinished:123
+                            id: 2,
+                            description: "ASDASDdd",
+                            tag: "ASDd",
+                            timeFinished: 123
                         }, {
-                            id:5,
-                            description:"ASDASDdd",
-                            tag:"ASDd",
-                            timeFinished:123
+                            id: 5,
+                            description: "ASDASDdd",
+                            tag: "ASDd",
+                            timeFinished: 123
                         }
                     ]}
                 />

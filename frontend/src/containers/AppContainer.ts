@@ -5,14 +5,14 @@ import {Dispatch} from "react";
 import {changePageToMain, changePageToSignIn, changePageToSignUp, changePageToStatistics} from "../actions/currentPage";
 import {logOut} from "../actions/auth";
 
-const mapStateToProps = (state: AppState) : StateProps => {
+const mapStateToProps = (state: AppState): StateProps => {
     return {
         currentPage: state.currentPage,
         userName: state.auth.userName
     };
 };
 
-const mapDispatchToProps = (dispatch : Dispatch<any>) : DispatchProps  => {
+const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => {
     return {
         toMain: () => dispatch(changePageToMain()),
         toStatistics: () => dispatch(changePageToStatistics()),

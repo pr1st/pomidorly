@@ -15,7 +15,7 @@ export type DispatchProps = {
     addTask: (tag: string, description: string, numberOfPomidors: number) => void
 }
 
-const CurrentTasksTable = ({ updateTask, swapTask, deleteTask, addTask, tasks}: StateProps & DispatchProps) => {
+const CurrentTasksTable = ({updateTask, swapTask, deleteTask, addTask, tasks}: StateProps & DispatchProps) => {
     const sortedTasks = tasks.sort((a, b) => a.inQueue - b.inQueue);
     return (
         <div className={classNames("CurrentTasks")}>
@@ -44,10 +44,10 @@ const CurrentTasksTable = ({ updateTask, swapTask, deleteTask, addTask, tasks}: 
                                 deleteTask={deleteTask}
                                 updateTask={updateTask}
                                 swapTask={(taskId, isMoveUp) => {
-                                    if (isMoveUp && (index-1 >= 0)){
-                                        swapTask(taskId, sortedTasks[index-1].id)
-                                    } else if (!isMoveUp && (index+1 < sortedTasks.length)) {
-                                        swapTask(taskId, sortedTasks[index+1].id)
+                                    if (isMoveUp && (index - 1 >= 0)) {
+                                        swapTask(taskId, sortedTasks[index - 1].id)
+                                    } else if (!isMoveUp && (index + 1 < sortedTasks.length)) {
+                                        swapTask(taskId, sortedTasks[index + 1].id)
                                     }
                                 }}
                                 key={id}

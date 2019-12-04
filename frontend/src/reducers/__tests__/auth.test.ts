@@ -11,7 +11,7 @@ import {auth} from "../auth";
 import {CHANGE_PAGE, MAIN_PAGE} from "../../types/currentPage";
 
 describe("Test fetch reducers", () => {
-    let initState : AuthState;
+    let initState: AuthState;
     beforeEach(() => {
         initState = {
             errorMessage: "",
@@ -24,7 +24,7 @@ describe("Test fetch reducers", () => {
     });
 
     it("sign in action", () => {
-        const action : SignInAction = {
+        const action: SignInAction = {
             type: SIGN_IN,
             userName: "user",
             token: {
@@ -43,7 +43,7 @@ describe("Test fetch reducers", () => {
     });
 
     it("refresh token action", () => {
-        const action : RefreshTokenAction = {
+        const action: RefreshTokenAction = {
             type: REFRESH_TOKEN,
             token: {
                 token: "ABCC",
@@ -66,7 +66,7 @@ describe("Test fetch reducers", () => {
             token: "asd",
             expiresIn: 1
         };
-        const  newState = auth(initState, {type: LOG_OUT});
+        const newState = auth(initState, {type: LOG_OUT});
         expect(newState).toEqual({
             errorMessage: "",
             userName: "",

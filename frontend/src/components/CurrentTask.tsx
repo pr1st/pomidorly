@@ -20,12 +20,12 @@ const CurrentTask = (props: StateProps & DispatchProps) => {
             <td>{description}</td>
             <td>{numberOfPomidors}</td>
             <td>
-                <button className={classNames("btn","btn-outline-dark")} onClick={e => {
+                <button className={classNames("btn", "btn-outline-dark")} onClick={e => {
                     swapTask(id, true)
                 }}>
                     ⮝
                 </button>
-                <button className={classNames("btn","btn-outline-dark")} onClick={e => {
+                <button className={classNames("btn", "btn-outline-dark")} onClick={e => {
                     swapTask(id, false)
                 }}>
                     ⮟
@@ -33,7 +33,7 @@ const CurrentTask = (props: StateProps & DispatchProps) => {
             </td>
             <td>
                 <button
-                    className={classNames("btn","btn-outline-warning")}
+                    className={classNames("btn", "btn-outline-warning")}
                     data-toggle="modal"
                     data-target={`#updateCurrentTaskModal-${id}`}
                     data-backdrop="static"
@@ -54,6 +54,6 @@ const CurrentTask = (props: StateProps & DispatchProps) => {
             </td>
         </tr>
     )
-}
+};
 
 export default CurrentTask;

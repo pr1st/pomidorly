@@ -1,13 +1,12 @@
-// actions
 import {END_FETCHING, EndFetchingAction, START_FETCHING, StartFetchingAction} from "../types/fetch";
 
-export function startFetching() : StartFetchingAction {
+export function startFetching(): StartFetchingAction {
     return {
         type: START_FETCHING
     }
 }
 
-export function endFetching() : EndFetchingAction {
+export function endFetching(): EndFetchingAction {
     return {
         type: END_FETCHING
     }

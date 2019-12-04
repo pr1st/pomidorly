@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Timer, {DispatchProps, StateProps} from "../components/Timer";
 import {Dispatch} from "react";
 import {
@@ -14,13 +14,13 @@ import {AppState} from "../types";
 import {doOnePomidor} from "../actions/currentTasks";
 
 
-const mapStateToProps = (state: AppState) : StateProps => {
+const mapStateToProps = (state: AppState): StateProps => {
     return {
         ...state.timer
     };
 };
 
-const mapDispatchToProps = (dispatch : Dispatch<any>) : DispatchProps  => {
+const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => {
     return ({
         pauseTimer: () => dispatch(pauseTimer()),
         skipTimer: () => dispatch(skipTimer()),

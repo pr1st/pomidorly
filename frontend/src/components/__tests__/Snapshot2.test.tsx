@@ -6,7 +6,8 @@ import React from "react";
 
 describe("second snapshot test", () => {
 
-    const dummy = () => {};
+    const dummy = () => {
+    };
 
 
     it("Timer", () => {
@@ -20,18 +21,18 @@ describe("second snapshot test", () => {
                     startTimer={dummy}
                     stopTimer={dummy}
                     config={{
-                        shortBreakDuration:1,
-                        pomidorDuration:2,
-                        alarmWhenZero:false,
-                        longBreakDuration:3,
-                        numberOfPomidorsBeforeLongBreak:5
+                        shortBreakDuration: 1,
+                        pomidorDuration: 2,
+                        alarmWhenZero: false,
+                        longBreakDuration: 3,
+                        numberOfPomidorsBeforeLongBreak: 5
                     }}
                     currentState={{
-                        isActive:false,
-                        currentPomidor:2,
-                        startTime:123,
-                        timeRemaining:3000,
-                        isBreak:false
+                        isActive: false,
+                        currentPomidor: 2,
+                        startTime: 123,
+                        timeRemaining: 3000,
+                        isBreak: false
                     }}
                 />
             )

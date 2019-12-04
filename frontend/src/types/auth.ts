@@ -1,4 +1,3 @@
-
 export const SIGN_IN = "SIGN_IN";
 export const REFRESH_TOKEN = "REFRESH_TOKEN";
 export const LOG_OUT = "LOG_OUT";

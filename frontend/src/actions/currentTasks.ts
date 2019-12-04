@@ -12,7 +12,7 @@ import {
 } from "./request";
 import {createHistoryTask} from "./historyTasks";
 
-function localGetCurrentTasksAction(tasks: CurrentTasksState) : GetCurrentTasksAction {
+function localGetCurrentTasksAction(tasks: CurrentTasksState): GetCurrentTasksAction {
     return {
         type: GET_CURRENT_TASKS,
         tasks
@@ -25,9 +25,9 @@ export function doOnePomidor() {
         task.numberOfPomidors = task.numberOfPomidors - 1;
         dispatch(createHistoryTask(task.tag, task.description, Date.now()))
         if (task.numberOfPomidors === 0) {
-            dispatch(deleteCurrentTask(task.id))
+            dispatch(deleteCurrentTask(task.id));
         } else {
-            dispatch(updateCurrentTask(task))
+            dispatch(updateCurrentTask(task));
         }
     }
 }
@@ -49,12 +49,10 @@ export function fetchCurrentTasks() {
                 } else {
                     throw Promise.reject("No Content-type header");
                 }
-            }).then(
-                res => {
-                    const tasks = (res as CurrentTasksState);
-                    dispatch(localGetCurrentTasksAction(tasks))
-                }
-            )
+            }).then(res => {
+                const tasks = (res as CurrentTasksState);
+                dispatch(localGetCurrentTasksAction(tasks))
+            })
             .catch(unAuthorisedAction(dispatch))
             .catch(lastCatchResponseError(dispatch))
     }

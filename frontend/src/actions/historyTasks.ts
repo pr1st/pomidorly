@@ -11,7 +11,7 @@ import {
 import {GET_HISTORY_TASKS, HistoryTasksActions, HistoryTasksState} from "../types/historyTasks";
 import {AppState} from "../types";
 
-function localGetHistoryTasksAction(tasks: HistoryTasksState) : HistoryTasksActions {
+function localGetHistoryTasksAction(tasks: HistoryTasksState): HistoryTasksActions {
     return {
         type: GET_HISTORY_TASKS,
         tasks
@@ -20,12 +20,13 @@ function localGetHistoryTasksAction(tasks: HistoryTasksState) : HistoryTasksActi
 
 export function fetchHistoryTasks() {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
-        return request(dispatch,
+        return request(
+            dispatch,
             "GET",
             "history/tasks",
             {
                 [ACCEPT]: APPLICATION_JSON,
-                [TOKEN]: getState().auth.token.token,
+                [TOKEN]: getState().auth.token.token
             }
         )
             .then(res => {
@@ -34,7 +35,8 @@ export function fetchHistoryTasks() {
                 } else {
                     throw Promise.reject("No Content-type header");
                 }
-            }).then(
+            })
+            .then(
                 res => {
                     const tasks = (res as HistoryTasksState);
                     dispatch(localGetHistoryTasksAction(tasks))
@@ -47,7 +49,8 @@ export function fetchHistoryTasks() {
 
 export function createHistoryTask(tag: string, description: string, timeFinished: number) {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
-        return request(dispatch,
+        return request(
+            dispatch,
             "POST",
             "history/tasks",
             {
@@ -74,7 +77,8 @@ export function createHistoryTask(tag: string, description: string, timeFinished
 
 export function deleteHistoryTask(taskId: number) {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
-        return request(dispatch,
+        return request(
+            dispatch,
             "DELETE",
             `history/tasks/${taskId}`,
             {
