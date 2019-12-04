@@ -1,137 +1,138 @@
 .App .Timer {
-  text-align: center;
-  margin: auto;
-  max-width: 600px;
+    text-align: center;
+    margin: auto;
+    max-width: 600px;
 }
 
 .App .SignIn {
-  text-align: left;
-  margin: auto;
-  max-width: 300px;
-  display: grid;
+    text-align: left;
+    margin: auto;
+    max-width: 300px;
+    display: grid;
 }
 
 .App .SignUp {
-  text-align: left;
-  margin: auto;
-  max-width: 300px;
-  display: grid;
+    text-align: left;
+    margin: auto;
+    max-width: 300px;
+    display: grid;
 }
 
 .Error {
-  background-color: red;
-  text-align: center;
-  color: azure;
-  padding: 10px;
-  margin-top: 20px;
-  border-radius: 200px;
+    background-color: red;
+    text-align: center;
+    color: azure;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 200px;
 }
 
 .App .Statistics {
-  text-align: center;
-  margin: auto;
-  max-width: 600px;
+    text-align: center;
+    margin: auto;
+    max-width: 600px;
 }
 
 .Timer {
-  border: 1px solid steelblue;
-  margin-top: 2px;
+    border: 1px solid steelblue;
+    margin-top: 2px;
 }
 
 .Timer button {
-  margin-left: 5px;
-  margin-bottom: 1px;
-  margin-top: 1px;
+    margin-left: 5px;
+    margin-bottom: 1px;
+    margin-top: 1px;
 }
 
 .Timer .Options {
-  text-align: left;
+    text-align: left;
 }
 
 .Timer .Time {
-  font-size: 70px;
-  width: 200px;
-  margin: auto;
-  background-color: blue;
-  border-radius: 300px;
-  color: bisque;
+    font-size: 70px;
+    width: 200px;
+    margin: auto;
+    background-color: blue;
+    border-radius: 300px;
+    color: bisque;
 }
 
 
 .Timer .Time.Action {
-  background-color: red;
+    background-color: red;
 }
 
 .Timer .Time.Break {
-  background-color: green;
+    background-color: green;
 }
 
 .Header {
-  background-color: lightgreen;
+    background-color: lightgreen;
 }
 
 .Header button {
-  margin-left: 3px;
-  margin-top: 3px;
-  margin-bottom: 3px;
+    margin-left: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 .Header .Login {
-  display: inline;
-  margin-left: 52%;
-  position: relative;
+    display: inline;
+    margin-left: 52%;
+    position: relative;
 }
 
 .Header .Login p {
-  display: inline;
-  position: relative;
-  font-size: 25px;
-  color: steelblue;
-  left: -5px;
-  top: 7px;
+    display: inline;
+    position: relative;
+    font-size: 25px;
+    color: steelblue;
+    left: -5px;
+    top: 7px;
 }
+
 .Header .Page {
-  display: inline;
-  margin-left: 15%;
+    display: inline;
+    margin-left: 15%;
 }
 
 .CurrentTasks table button {
-  background-color: rgba(255,255,255,0);
-  border-color: rgba(255,255,255,0);
+    background-color: rgba(255, 255, 255, 0);
+    border-color: rgba(255, 255, 255, 0);
 }
 
 .CurrentTasks .AddCurrentTask label {
-  margin-left: 20px;
-  width: max-content;
+    margin-left: 20px;
+    width: max-content;
 }
 
 .CurrentTasks .AddCurrentTask button {
-  margin-left: 20px;
-  margin-top: 20px;
-  height: 40px;
+    margin-left: 20px;
+    margin-top: 20px;
+    height: 40px;
 }
 
 .CurrentTasks label {
-  display: list-item;
-  list-style-type: none;
-  color: red;
-  font-size: large;
-  text-decoration: underline;
+    display: list-item;
+    list-style-type: none;
+    color: red;
+    font-size: large;
+    text-decoration: underline;
 }
 
 .CurrentTasks label.Param {
-  width: max-content;
-  color: black;
-  font-size: medium;
-  text-decoration: none;
+    width: max-content;
+    color: black;
+    font-size: medium;
+    text-decoration: none;
 }
 
 .CurrentTasks .modal-footer button {
-  background: blue;
-  border: blue;
+    background: blue;
+    border: blue;
 }
 
 .Statistics {
-  width: 600px;
-  height: 400px;
+    width: 600px;
+    height: 400px;
 }

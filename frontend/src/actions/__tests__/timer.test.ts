@@ -39,7 +39,7 @@ describe("Test timer actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: SET_TIMER_CONFIG, config: testConfig});
+        expect(actions[0]).toEqual({type: SET_TIMER_CONFIG, config: testConfig});
     });
 
     it("Start timer", () => {
@@ -47,7 +47,7 @@ describe("Test timer actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: START_TIMER});
+        expect(actions[0]).toEqual({type: START_TIMER});
     });
 
     it("Pause timer", () => {
@@ -55,7 +55,7 @@ describe("Test timer actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: PAUSE_TIMER});
+        expect(actions[0]).toEqual({type: PAUSE_TIMER});
     });
 
     it("Stop timer", () => {
@@ -63,14 +63,14 @@ describe("Test timer actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: STOP_TIMER});
+        expect(actions[0]).toEqual({type: STOP_TIMER});
     });
 
     it("Skip timer", () => {
         mockStore.dispatch(skipTimer());
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: SKIP_TIMER});
+        expect(actions[0]).toEqual({type: SKIP_TIMER});
     });
 
     describe("async actions", () => {
@@ -140,7 +140,7 @@ describe("Test timer actions", () => {
                     });
 
                     expect(mockStore.getActions().length).toBe(0);
-                })
-        })
-    })
+                });
+        });
+    });
 });

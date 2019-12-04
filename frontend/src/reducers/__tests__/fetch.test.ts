@@ -3,7 +3,7 @@ import {fetching} from "../fetch";
 
 
 describe("Test fetch reducers", () => {
-    let state : FetchState;
+    let state: FetchState;
     beforeEach(() => {
         state = false;
     });

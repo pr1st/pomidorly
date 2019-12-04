@@ -74,7 +74,7 @@ function pauseTimer(state: TimerState): TimerState {
         newTimeRemain = 0
     }
     if (!state.currentState.isActive)
-        return state
+        return state;
     return {
         config: {
             ...state.config
@@ -88,7 +88,7 @@ function pauseTimer(state: TimerState): TimerState {
 }
 
 function stopTimer(state: TimerState): TimerState {
-    let newTime
+    let newTime;
     const {isBreak, currentPomidor} = state.currentState;
     if (isBreak) {
         const {longBreakDuration, shortBreakDuration} = state.config;

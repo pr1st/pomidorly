@@ -5,7 +5,7 @@ import thunk from "redux-thunk";
 import {endFetching, startFetching} from "../fetch";
 import {serverApi, serverPort, serverProtocol, serverURL} from "../../config";
 import {changePageToSignIn} from "../currentPage";
-import {logOut, setErrorMessage} from "../auth";
+import {setErrorMessage} from "../auth";
 
 jest.mock("axios");
 
@@ -52,7 +52,7 @@ describe("Test requests to server", () => {
 
 
         return request(
-           requestData.dispatch,
+            requestData.dispatch,
             // @ts-ignore
             requestData.method,
             requestData.resource,

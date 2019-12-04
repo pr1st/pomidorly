@@ -25,9 +25,9 @@ export const request = (
         headers,
         data: body
     }).then(res => {
-            dispatch(endFetching())
-            return res
-        })
+        dispatch(endFetching());
+        return res
+    })
 };
 
 export function unAuthorisedAction(dispatch: Dispatch<any>) {

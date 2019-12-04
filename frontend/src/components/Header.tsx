@@ -1,5 +1,4 @@
 import React from 'react';
-
 import "bootstrap/dist/css/bootstrap.css"
 import classNames from "classnames";
 
@@ -59,6 +58,6 @@ const Header = (props: Props) => {
             {login}
         </div>
     )
-}
+};
 
 export default Header;

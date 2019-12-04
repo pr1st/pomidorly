@@ -171,7 +171,7 @@ describe("Test current task actions", () => {
         expect(mockedRequest[4]).toEqual({
             tag: requestTask.tag,
             description: requestTask.description,
-            numberOfPomidors: requestTask.numberOfPomidors,
+            numberOfPomidors: requestTask.numberOfPomidors
         });
 
         // @ts-ignore

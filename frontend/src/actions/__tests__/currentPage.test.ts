@@ -15,7 +15,7 @@ describe("Test currentPage actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: CHANGE_PAGE, page: MAIN_PAGE});
+        expect(actions[0]).toEqual({type: CHANGE_PAGE, page: MAIN_PAGE});
     });
 
     it("Change page to statistics", () => {
@@ -23,7 +23,7 @@ describe("Test currentPage actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: CHANGE_PAGE, page: STATISTICS_PAGE});
+        expect(actions[0]).toEqual({type: CHANGE_PAGE, page: STATISTICS_PAGE});
     });
 
     it("Change page to sign up", () => {
@@ -31,7 +31,7 @@ describe("Test currentPage actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: CHANGE_PAGE, page: SIGN_UP});
+        expect(actions[0]).toEqual({type: CHANGE_PAGE, page: SIGN_UP});
     });
 
     it("Change page to sign in", () => {
@@ -39,6 +39,6 @@ describe("Test currentPage actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: CHANGE_PAGE, page: SIGN_IN});
+        expect(actions[0]).toEqual({type: CHANGE_PAGE, page: SIGN_IN});
     });
 });

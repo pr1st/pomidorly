@@ -24,11 +24,11 @@ import {fetchCurrentTasks} from "./currentTasks";
 import {fetchHistoryTasks} from "./historyTasks";
 
 type Token = {
-    token:string,
+    token: string,
     expiresIn: number
 }
 
-function localSignIn(userName: string, token: Token) : SignInAction {
+function localSignIn(userName: string, token: Token): SignInAction {
     return {
         type: SIGN_IN,
         userName,
@@ -36,20 +36,20 @@ function localSignIn(userName: string, token: Token) : SignInAction {
     }
 }
 
-function localRefreshToken(token: Token) : RefreshTokenAction {
+function localRefreshToken(token: Token): RefreshTokenAction {
     return {
         type: REFRESH_TOKEN,
         token
     }
 }
 
-function localLogOut() : LogOutAction {
+function localLogOut(): LogOutAction {
     return {
         type: LOG_OUT
     }
 }
 
-export function setErrorMessage(message: string) : SetErrorMessageAction {
+export function setErrorMessage(message: string): SetErrorMessageAction {
     return {
         type: SET_ERROR_MESSAGE,
         message
@@ -82,7 +82,7 @@ export function refreshToken() {
         )
             .then(res => {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
-                    return res.data
+                    return res.data;
                 } else {
                     throw Promise.reject("No Content-type header");
                 }
@@ -91,11 +91,11 @@ export function refreshToken() {
                 const token = (res as Token);
                 dispatch(localRefreshToken(token));
                 startInterval(() => {
-                    dispatch(refreshToken())
+                    dispatch(refreshToken());
                 }, token.expiresIn - 1000)
             })
             .catch(unAuthorisedAction(dispatch))
-            .catch(lastCatchResponseError(dispatch))
+            .catch(lastCatchResponseError(dispatch));
     }
 }
 
@@ -118,9 +118,10 @@ export function signUp(userName: string, password: string) {
                 if (error.response.status === 409) {
                     dispatch(setErrorMessage("User with this name already exists"));
                 } else {
-                    throw error
-                }})
-            .catch(lastCatchResponseError(dispatch))
+                    throw error;
+                }
+            })
+            .catch(lastCatchResponseError(dispatch));
     }
 }
 
@@ -141,7 +142,7 @@ export function signIn(userName: string, password: string) {
         )
             .then(res => {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
-                    return res.data
+                    return res.data;
                 } else {
                     throw Promise.reject("No Content-type header");
                 }
@@ -154,25 +155,26 @@ export function signIn(userName: string, password: string) {
                 dispatch(fetchCurrentTasks());
                 dispatch(fetchHistoryTasks());
                 startInterval(() => {
-                    dispatch(refreshToken())
+                    dispatch(refreshToken());
                 }, token.expiresIn - 1000)
             })
             .catch(error => {
                 if (error.response.status === 404) {
-                    dispatch(setErrorMessage("Combination login/password is not correct"))
+                    dispatch(setErrorMessage("Combination login/password is not correct"));
                 } else {
-                    throw error
+                    throw error;
                 }
             })
-            .catch(lastCatchResponseError(dispatch))
+            .catch(lastCatchResponseError(dispatch));
     }
 }
 
-let intervalId: any
-function startInterval(callback: any, time : number) {
+let intervalId: any;
+
+function startInterval(callback: any, time: number) {
     intervalId = setInterval(() => {
         callback();
-        closeInterval()
+        closeInterval();
     }, time)
 }
 

@@ -11,7 +11,7 @@ export type DispatchProps = {
 }
 
 const HistoryTask = (props: StateProps & DispatchProps) => {
-    const {id, tag, description, timeFinished, repeatTask, deleteTask, } = props
+    const {id, tag, description, timeFinished, repeatTask, deleteTask,} = props
     return (
         <tr>
             <td>{tag}</td>
@@ -39,6 +39,6 @@ const HistoryTask = (props: StateProps & DispatchProps) => {
             </td>
         </tr>
     )
-}
+};
 
 export default HistoryTask;

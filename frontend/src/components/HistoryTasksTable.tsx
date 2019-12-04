@@ -12,7 +12,7 @@ export type DispatchProps = {
     repeatTask: (tag: string, description: string) => void,
 }
 
-const HistoryTasksTable = ({ deleteTask, repeatTask, tasks}: StateProps & DispatchProps) => {
+const HistoryTasksTable = ({deleteTask, repeatTask, tasks}: StateProps & DispatchProps) => {
     const sortedTasks = tasks.sort((a, b) => b.timeFinished - a.timeFinished);
     return (
         <div className={classNames("HistoryTasks")}>

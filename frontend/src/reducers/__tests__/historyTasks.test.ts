@@ -2,7 +2,7 @@ import {GET_HISTORY_TASKS, GetHistoryTasksAction, HistoryTasksState} from "../..
 import {historyTasks} from "../historyTasks";
 
 describe("Test history tasks reducers", () => {
-    let state : HistoryTasksState;
+    let state: HistoryTasksState;
     beforeEach(() => {
         state = [
             {
@@ -15,7 +15,7 @@ describe("Test history tasks reducers", () => {
     });
 
     it("get current tasks action", () => {
-        const action : GetHistoryTasksAction = {
+        const action: GetHistoryTasksAction = {
             type: GET_HISTORY_TASKS,
             tasks: [
                 {

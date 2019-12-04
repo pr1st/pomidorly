@@ -11,7 +11,7 @@ const initState: AuthState = {
     errorMessage: ""
 };
 
-export const auth = (state: AuthState = initState, action: AuthActions | CurrentPageActions) : AuthState => {
+export const auth = (state: AuthState = initState, action: AuthActions | CurrentPageActions): AuthState => {
     // @ts-ignore
     switch (action.type) {
         case "SIGN_IN": {
@@ -51,4 +51,4 @@ export const auth = (state: AuthState = initState, action: AuthActions | Current
             return state
         }
     }
-}
+};

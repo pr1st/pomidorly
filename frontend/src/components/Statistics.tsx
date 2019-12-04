@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import classNames from "classnames";
 import {HistoryTasksState} from "../types/historyTasks";
 // @ts-ignore
-import { Chart } from "react-charts";
+import {Chart} from "react-charts";
 
 export type StateProps = {
     tasks: HistoryTasksState
@@ -17,32 +17,32 @@ function Statistics(props: StateProps) {
     };
 
 
-    const daysDiff = getNumberOfDaysFromDay1(new Date(sortedTasks[sortedTasks.length-1].timeFinished));
+    const daysDiff = getNumberOfDaysFromDay1(new Date(sortedTasks[sortedTasks.length - 1].timeFinished));
 
-    const dataArray : any[] = [];
-    for (let i = 0; i < daysDiff+1; i++) {
+    const dataArray: any[] = [];
+    for (let i = 0; i < daysDiff + 1; i++) {
         dataArray[i] = 0;
     }
 
     sortedTasks.forEach((task, id) => {
-        dataArray[getNumberOfDaysFromDay1(new Date(task.timeFinished))]+=1;
+        dataArray[getNumberOfDaysFromDay1(new Date(task.timeFinished))] += 1;
     });
 
     const data = React.useMemo(
         () => [
             {
                 label: "Tasks done",
-                data: dataArray.map((value, index) => ({x: day1.getTime() + index * 1000 * 60 *60 * 24, y: value}))
+                data: dataArray.map((value, index) => ({x: day1.getTime() + index * 1000 * 60 * 60 * 24, y: value}))
             },
         ],
-        [dataArray]
+        [dataArray, day1]
     );
 
 
     const axes = React.useMemo(
         () => [
-            { primary: true, type: "time", position: "bottom" },
-            { type: "linear", position: "left", name: "Days" }
+            {primary: true, type: "time", position: "bottom"},
+            {type: "linear", position: "left", name: "Days"}
         ],
         []
     );

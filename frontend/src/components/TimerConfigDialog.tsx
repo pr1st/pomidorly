@@ -1,5 +1,4 @@
 import React from 'react';
-
 import "bootstrap/dist/css/bootstrap.css"
 import {TimerConfigState} from "../types/timer";
 import classNames from "classnames";
@@ -10,7 +9,7 @@ type State = TimerConfigState
 
 class TimerConfigDialog extends React.Component<Props, State> {
     constructor(props: Props) {
-        super(props)
+        super(props);
         this.state = {
             ...props
         }
@@ -29,20 +28,20 @@ class TimerConfigDialog extends React.Component<Props, State> {
                 }
             )
         }
-    }
+    };
 
     save = () => {
         const setConfig = this.props.setConfig
         setConfig({
             ...this.state
         })
-    }
+    };
 
     close = () => {
         this.setState({
             ...this.props
         })
-    }
+    };
 
     render() {
         const {alarmWhenZero, longBreakDuration, numberOfPomidorsBeforeLongBreak, pomidorDuration, shortBreakDuration} = this.state
@@ -54,7 +53,8 @@ class TimerConfigDialog extends React.Component<Props, State> {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Configuration properties</h5>
-                            <button type="button" className="close" data-dismiss="modal" onClick={this.close} aria-label="Close">
+                            <button type="button" className="close" data-dismiss="modal" onClick={this.close}
+                                    aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -84,8 +84,12 @@ class TimerConfigDialog extends React.Component<Props, State> {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.save}>Save changes</button>
-                            <button id="closeDialog" type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.close}>Close</button>
+                            <button type="button" className="btn btn-primary" data-dismiss="modal"
+                                    onClick={this.save}>Save changes
+                            </button>
+                            <button id="closeDialog" type="button" className="btn btn-secondary" data-dismiss="modal"
+                                    onClick={this.close}>Close
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -105,7 +109,7 @@ function NumberParam(props: { name: string, label: string, value: number, onChan
                 type="number"
                 onChange={
                     (e: { target: HTMLInputElement }) => {
-                        const v = Number.parseInt(e.target.value)
+                        const v = Number.parseInt(e.target.value);
                         if (v !== undefined) {
                             onChange(name, v)
                         }
@@ -117,7 +121,7 @@ function NumberParam(props: { name: string, label: string, value: number, onChan
 }
 
 function BoolParam(props: { name: string, label: string, value: boolean, onChange: (p: string, v: boolean) => void }) {
-    const {name, value, onChange, label} = props
+    const {name, value, onChange, label} = props;
     return (
         <label>
             {label}

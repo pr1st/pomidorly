@@ -15,7 +15,7 @@ describe("Test currentPage actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: START_FETCHING});
+        expect(actions[0]).toEqual({type: START_FETCHING});
     });
 
     it("End fetching", () => {
@@ -23,6 +23,6 @@ describe("Test currentPage actions", () => {
 
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
-        expect(actions[0]).toEqual({ type: END_FETCHING});
+        expect(actions[0]).toEqual({type: END_FETCHING});
     });
 });
