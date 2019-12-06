@@ -99,7 +99,7 @@ class TimerConfigDialog extends React.Component<Props, State> {
 }
 
 function NumberParam(props: { name: string, label: string, value: number, onChange: (p: string, v: number) => void }) {
-    const {name, value, onChange, label} = props
+    const {name, value, onChange, label} = props;
     return (
         <label>
             {label}:
