@@ -21,7 +21,7 @@ function localGetCurrentTasksAction(tasks: CurrentTasksState): GetCurrentTasksAc
 
 export function doOnePomidor() {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
-        const task = getState().currentTasks.sort((a, b) => a.inQueue - b.inQueue)[0]
+        const task = [...getState().currentTasks].sort((a, b) => a.inQueue - b.inQueue)[0]
         task.numberOfPomidors = task.numberOfPomidors - 1;
         dispatch(createHistoryTask(task.tag, task.description, Date.now()))
         if (task.numberOfPomidors === 0) {

@@ -16,7 +16,7 @@ export type DispatchProps = {
 }
 
 const CurrentTasksTable = ({updateTask, swapTask, deleteTask, addTask, tasks}: StateProps & DispatchProps) => {
-    const sortedTasks = tasks.sort((a, b) => a.inQueue - b.inQueue);
+    const sortedTasks = [...tasks].sort((a, b) => a.inQueue - b.inQueue);
     return (
         <div className={classNames("CurrentTasks")}>
             <h1>Current Tasks</h1>

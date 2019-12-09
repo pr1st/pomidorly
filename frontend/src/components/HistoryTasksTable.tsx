@@ -13,7 +13,7 @@ export type DispatchProps = {
 }
 
 const HistoryTasksTable = ({deleteTask, repeatTask, tasks}: StateProps & DispatchProps) => {
-    const sortedTasks = tasks.sort((a, b) => b.timeFinished - a.timeFinished);
+    const sortedTasks = [...tasks].sort((a, b) => b.timeFinished - a.timeFinished);
     return (
         <div className={classNames("HistoryTasks")}>
             <h1>History Tasks</h1>

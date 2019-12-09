@@ -10,7 +10,7 @@ export type StateProps = {
 };
 
 function Statistics(props: StateProps) {
-    const sortedTasks = props.tasks.sort((a, b) => a.timeFinished - b.timeFinished);
+    const sortedTasks = [...props.tasks].sort((a, b) => a.timeFinished - b.timeFinished);
     const day1 = new Date(sortedTasks[0].timeFinished);
     const getNumberOfDaysFromDay1 = (time: Date) => {
         return Math.floor((time.getTime() - day1.getTime()) / (1000 * 60 * 60 * 24));

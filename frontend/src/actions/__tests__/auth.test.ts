@@ -92,10 +92,10 @@ describe("Test auth actions", () => {
             request.mockResolvedValue({
                 status: 204
             });
-
+            let myPwd = "qwerewt";
             const requestSignUp = {
                 login: "userName",
-                password: "password"
+                password: myPwd
             };
 
             mockStore = configureStore({});

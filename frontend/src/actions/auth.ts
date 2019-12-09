@@ -12,7 +12,7 @@ import {AppState} from "../types";
 import {Dispatch} from "react";
 import {
     ACCEPT,
-    APPLICATION_JSON,
+    APPLICATION_JSON, checkError,
     CONTENT_TYPE,
     lastCatchResponseError,
     request,
@@ -114,13 +114,7 @@ export function signUp(userName: string, password: string) {
             }
         )
             .then(() => dispatch(changePageToSignIn()))
-            .catch(error => {
-                if (error.response.status === 409) {
-                    dispatch(setErrorMessage("User with this name already exists"));
-                } else {
-                    throw error;
-                }
-            })
+            .catch(checkError(dispatch, 409, "User with this name already exists"))
             .catch(lastCatchResponseError(dispatch));
     }
 }
@@ -158,13 +152,7 @@ export function signIn(userName: string, password: string) {
                     dispatch(refreshToken());
                 }, token.expiresIn - 1000)
             })
-            .catch(error => {
-                if (error.response.status === 404) {
-                    dispatch(setErrorMessage("Combination login/password is not correct"));
-                } else {
-                    throw error;
-                }
-            })
+            .catch(checkError(dispatch, 404, "Combination login/password is not correct"))
             .catch(lastCatchResponseError(dispatch));
     }
 }

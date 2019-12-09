@@ -54,3 +54,14 @@ export function lastCatchResponseError(dispatch: Dispatch<any>) {
         dispatch(setErrorMessage("Something bad happened"));
     }
 }
+
+export function checkError(dispatch: Dispatch<any>, errorCode: number, messageToLog: string) {
+    return (error: { response: {status: number} }) => {
+        if (error.response.status === errorCode) {
+            dispatch(setErrorMessage(messageToLog));
+            console.log(messageToLog);
+        } else {
+            throw error;
+        }
+    }
+}
