@@ -2,6 +2,12 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "coveragePathIgnorePatterns" : [
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/*/__tests__/*"
+    ]
+  },
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/classnames": "^2.2.9",
