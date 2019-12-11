@@ -1,5 +1,5 @@
 import axios from "axios";
-import {lastCatchResponseError, request, unAuthorisedAction} from "../request";
+import {checkError, lastCatchResponseError, request, unAuthorisedAction} from "../request";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {endFetching, startFetching} from "../fetch";
@@ -101,5 +101,17 @@ describe("Test requests to server", () => {
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
         expect(actions[0]).toEqual(setErrorMessage("Something bad happened"));
+    });
+
+    it("checkError", () => {
+        checkError(mockStore.dispatch, 431, "msg")({
+            response: {
+                status: 431
+            }
+        });
+
+        const actions = mockStore.getActions();
+        expect(actions.length).toBe(1);
+        expect(actions[0]).toEqual(setErrorMessage("msg"));
     });
 });

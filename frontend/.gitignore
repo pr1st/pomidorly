@@ -24,3 +24,5 @@ yarn-error.log*
 
 /.idea
 /.scannerwork
+
+sonar-project.properties
