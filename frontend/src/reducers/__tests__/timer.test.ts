@@ -138,7 +138,7 @@ describe("Test timer reducers", () => {
         expect(newState.currentState.startTime).toBeGreaterThanOrEqual(Date.now() - 5000);
     });
 
-    it("return default state", () => {
+    it("return not changed state", () => {
         const newState = timeReducer(initState, {
             type: CHANGE_PAGE,
             page: STATISTICS_PAGE
@@ -265,7 +265,7 @@ describe("Test timer reducers", () => {
         expect(newState.currentState.startTime).toBeGreaterThanOrEqual(Date.now() - 5000);
     });
 
-    it("returning default state", () => {
+    it("return init state", () => {
         const newState = timeReducer(undefined, {
             type: START_FETCHING
         });

@@ -9,6 +9,7 @@ import {
 } from "../../types/auth";
 import {auth} from "../auth";
 import {CHANGE_PAGE, MAIN_PAGE} from "../../types/currentPage";
+import { START_TIMER } from "../../types/timer";
 
 describe("Test fetch reducers", () => {
     let initState: AuthState;
@@ -92,6 +93,27 @@ describe("Test fetch reducers", () => {
         expect(newState).toEqual({
             ...initState,
             errorMessage: ""
+        });
+    });
+
+    it("return not changed state", () => {
+        const newState = auth(initState, {
+            type: START_TIMER
+        });
+        expect(newState).toBe(initState);
+    });
+
+    it("return init state", () => {
+        const newState = auth(undefined, {
+            type: START_TIMER
+        });
+        expect(newState).toEqual({
+            errorMessage: "",
+            token: {
+                expiresIn: 0,
+                token: ""
+            },
+            userName: ""
         });
     });
 });

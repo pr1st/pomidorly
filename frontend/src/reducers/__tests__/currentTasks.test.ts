@@ -1,5 +1,6 @@
 import {CurrentTasksState, GET_CURRENT_TASKS, GetCurrentTasksAction} from "../../types/currentTasks";
 import {currentTasks} from "../currentTasks";
+import { START_TIMER } from "../../types/timer";
 
 
 describe("Test current tasks reducers", () => {
@@ -38,5 +39,19 @@ describe("Test current tasks reducers", () => {
         // @ts-ignore
         const newState = currentTasks(state, action);
         expect(newState).toEqual(action.tasks);
+    });
+
+    it("return not changed state", () => {
+        const newState = currentTasks(state, {
+            type: START_TIMER
+        });
+        expect(newState).toBe(state);
+    });
+
+    it("return init state", () => {
+        const newState = currentTasks(undefined, {
+            type: START_TIMER
+        });
+        expect(newState).toEqual([]);
     });
 });
