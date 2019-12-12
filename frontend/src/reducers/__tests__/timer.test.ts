@@ -5,6 +5,9 @@ import {
     TimerState
 } from "../../types/timer";
 import {timeReducer} from "../timer";
+import { STATISTICS_PAGE, CHANGE_PAGE } from "../../types/currentPage";
+import { type } from "os";
+import { START_FETCHING } from "../../types/fetch";
 
 
 describe("Test timer reducers", () => {
@@ -133,5 +136,154 @@ describe("Test timer reducers", () => {
         // in range of 5 seconds
         expect(newState.currentState.startTime).toBeLessThanOrEqual(Date.now());
         expect(newState.currentState.startTime).toBeGreaterThanOrEqual(Date.now() - 5000);
+    });
+
+    it("return default state", () => {
+        const newState = timeReducer(initState, {
+            type: CHANGE_PAGE,
+            page: STATISTICS_PAGE
+        });
+
+        expect(newState).toBe(initState);
+    });
+
+    it("pause button is not doing anything while in pause", () => {
+        initState = {
+            ...initState,
+            currentState: {
+                ...initState.currentState,
+                isActive: false,
+                timeRemaining: 0,
+                startTime: 0,
+            }
+        };
+
+        const newState = timeReducer(initState, {
+            type: PAUSE_TIMER
+        });
+
+        expect(newState).toBe(initState);
+    });
+
+    it("stop timer while long break", () => {
+        initState = {
+            ...initState,
+            currentState: {
+                ...initState.currentState,
+                isBreak: true,
+                currentPomidor: 0
+            }
+        };
+
+        const newState = timeReducer(initState, {
+            type: STOP_TIMER
+        });
+
+        expect(newState).toEqual({
+            ...initState,
+            currentState: {
+                ...initState.currentState,
+                timeRemaining: 1000 * 60 * initState.config.longBreakDuration + 500,
+                isActive: false
+            }
+        });
+    });
+
+    it("stop timer while short break", () => {
+        initState = {
+            ...initState,
+            currentState: {
+                ...initState.currentState,
+                isBreak: true,
+                currentPomidor: 1
+            }
+        };
+
+        const newState = timeReducer(initState, {
+            type: STOP_TIMER
+        });
+
+        expect(newState).toEqual({
+            ...initState,
+            currentState: {
+                ...initState.currentState,
+                timeRemaining: 1000 * 60 * initState.config.shortBreakDuration + 500,
+                isActive: false
+            }
+        });
+    });
+
+    it("skip timer while break", () => {
+        initState = {
+            ...initState,
+            currentState: {
+                ...initState.currentState,
+                isBreak: true
+            }
+        };
+
+        const newState = timeReducer(initState, {
+            type: SKIP_TIMER
+        });
+
+        expect(newState).toEqual({
+            ...initState,
+            currentState: {
+                ...initState.currentState,
+                timeRemaining: initState.config.pomidorDuration * 60 * 1000 + 500,
+                isActive: false,
+                isBreak: false
+            }
+        });
+    });
+
+    it("skip timer to long break", () => {
+        initState = {
+            ...initState,
+            currentState: {
+                ...initState.currentState,
+                currentPomidor: initState.config.numberOfPomidorsBeforeLongBreak - 1
+            }
+        };
+        const newState = timeReducer(initState, {
+            type: SKIP_TIMER
+        });
+        expect(newState).toEqual({
+            ...initState,
+            currentState: {
+                ...initState.currentState,
+                isActive: true,
+                isBreak: true,
+                currentPomidor: 0,
+                timeRemaining: initState.config.longBreakDuration * 60 * 1000 + 500,
+                startTime: newState.currentState.startTime
+            }
+        });
+
+        // in range of 5 seconds
+        expect(newState.currentState.startTime).toBeLessThanOrEqual(Date.now());
+        expect(newState.currentState.startTime).toBeGreaterThanOrEqual(Date.now() - 5000);
+    });
+
+    it("returning default state", () => {
+        const newState = timeReducer(undefined, {
+            type: START_FETCHING
+        });
+        expect(newState).toEqual({
+            config: {
+                pomidorDuration: 20,
+                shortBreakDuration: 5,
+                longBreakDuration: 15,
+                numberOfPomidorsBeforeLongBreak: 4,
+                alarmWhenZero: false
+            },
+            currentState: {
+                startTime: 0,
+                timeRemaining: 25 * 60 * 60 + 500,
+                isActive: false,
+                currentPomidor: 0,
+                isBreak: false
+            }
+        })
     });
 });

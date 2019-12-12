@@ -7,6 +7,7 @@ import {
     TimerActions,
     TimerState
 } from "../types/timer";
+import { AppActions } from "../types";
 
 
 const initialState: TimerState = {
@@ -28,7 +29,7 @@ const initialState: TimerState = {
 
 export function timeReducer(
     state = initialState,
-    action: TimerActions
+    action: AppActions
 ): TimerState {
     switch (action.type) {
         case SET_TIMER_CONFIG:
