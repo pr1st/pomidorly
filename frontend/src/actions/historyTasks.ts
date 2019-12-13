@@ -33,7 +33,7 @@ export function fetchHistoryTasks() {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
                     return res.data
                 } else {
-                    throw Promise.reject("No Content-type header");
+                    return Promise.reject("No Content-type header");
                 }
             })
             .then(
@@ -67,7 +67,7 @@ export function createHistoryTask(tag: string, description: string, timeFinished
                 if (res.status === 201) {
                     dispatch(fetchHistoryTasks())
                 } else {
-                    throw Promise.reject("No 201 response");
+                    return Promise.reject("No 201 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))
@@ -89,7 +89,7 @@ export function deleteHistoryTask(taskId: number) {
                 if (res.status === 204) {
                     dispatch(fetchHistoryTasks())
                 } else {
-                    throw Promise.reject("No 201 response");
+                    return Promise.reject("No 201 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))

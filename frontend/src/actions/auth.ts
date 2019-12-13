@@ -84,7 +84,7 @@ export function refreshToken() {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
                     return res.data;
                 } else {
-                    throw Promise.reject("No Content-type header");
+                    return Promise.reject("No Content-type header");
                 }
             })
             .then(res => {
@@ -138,7 +138,7 @@ export function signIn(userName: string, password: string) {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
                     return res.data;
                 } else {
-                    throw Promise.reject("No Content-type header");
+                    return Promise.reject("No Content-type header");
                 }
             })
             .then(res => {
