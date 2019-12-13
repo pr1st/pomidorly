@@ -2,7 +2,7 @@ package model
 
 import org.jetbrains.exposed.sql.Table
 
-object Tasks : Table() {
+object ActiveTasks : Table() {
     val id = integer("id").primaryKey().autoIncrement()
     val description = varchar("description", 4095)
     val tag = varchar("tag", 255)
@@ -11,17 +11,19 @@ object Tasks : Table() {
     val userId = (integer("user_id") references Users.id)
 }
 
-data class Task(
+data class ActiveTask(
     val id: Int,
-    val description: String,
     val tag: String,
+    val description: String,
     val numberOfPomidors: Int,
     val inQueue: Int,
     val userId: Int
 )
 
-data class NewTask(
+data class NewActiveTask(
+    val id: Int?,
     val description: String,
     val tag: String,
-    val numberOfPomidors: Int
+    val numberOfPomidors: Int,
+    val inQueue: Int?
 )
