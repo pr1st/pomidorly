@@ -22,7 +22,7 @@ data class Timer(
     val userId: Int
 )
 
-data class NewTimer(
+data class TimerDTO(
     val pomidorDuration: Int,
     val shortBreakDuration: Int,
     val longBreakDuration: Int,

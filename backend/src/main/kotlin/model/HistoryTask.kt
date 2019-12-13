@@ -17,7 +17,7 @@ data class HistoryTask(
     val userId: Int
 )
 
-data class NewHistoryTask(
+data class HistoryTaskDTO(
     val id: Int?,
     val tag: String,
     val description: String,

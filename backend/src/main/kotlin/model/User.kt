@@ -14,12 +14,12 @@ data class User(
     val password: String
 )
 
-data class NewUser(
+data class UserDTO(
     val username: String,
     val password: String
 )
 
-data class Token(
+data class TokenDTO(
     val token: String,
     val expiresIn: Int
 )

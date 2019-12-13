@@ -4,8 +4,8 @@ import org.jetbrains.exposed.sql.Table
 
 object ActiveTasks : Table() {
     val id = integer("id").primaryKey().autoIncrement()
-    val description = varchar("description", 4095)
     val tag = varchar("tag", 255)
+    val description = varchar("description", 4095)
     val numberOfPomidors = integer("number_of_pomidors")
     val inQueue = integer("in_queue")
     val userId = (integer("user_id") references Users.id)
@@ -20,10 +20,12 @@ data class ActiveTask(
     val userId: Int
 )
 
-data class NewActiveTask(
+fun ActiveTask.toDTO() = ActiveTaskDTO(id, tag, description, numberOfPomidors, inQueue)
+
+data class ActiveTaskDTO(
     val id: Int?,
-    val description: String,
     val tag: String,
+    val description: String,
     val numberOfPomidors: Int,
     val inQueue: Int?
 )
