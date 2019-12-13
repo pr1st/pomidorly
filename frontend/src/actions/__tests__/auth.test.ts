@@ -1,7 +1,7 @@
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {ACCEPT, APPLICATION_JSON, CONTENT_TYPE, request, TOKEN} from "../request";
-import {logOut, refreshToken, setErrorMessage, signUp} from "../auth";
+import {logOut, refreshToken, setErrorMessage, signUp, signIn} from "../auth";
 import {LOG_OUT, REFRESH_TOKEN, SET_ERROR_MESSAGE} from "../../types/auth";
 import {CHANGE_PAGE, SIGN_IN} from "../../types/currentPage";
 
@@ -60,6 +60,7 @@ describe("Test auth actions", () => {
             const initToken = "aaa";
             mockStore = configureStore({
                 auth: {
+                    userName: "ABC",
                     token: {
                         token: initToken
                     }
@@ -85,6 +86,35 @@ describe("Test auth actions", () => {
                         token: responseToken
                     })
                 });
+        });
+
+        it("Refresh token with logged out user", async () => {
+            mockStore = configureStore({
+                auth: {
+                    userName: ""
+                }
+            });
+            return mockStore.dispatch(refreshToken())
+            .then(() => {
+                expect(mockStore.getActions().length).toBe(0);
+            })
+        });
+
+        it("Refresh token without content-type header", async () => {
+            mockStore = configureStore({
+                auth: {
+                    userName: "ABC",
+                    token: {
+                        token: "ASD"
+                    }
+                }
+            });
+            // @ts-ignore
+            request.mockResolvedValue({headers: {}});
+            return mockStore.dispatch(refreshToken())
+            .catch(() => {
+                expect(mockStore.getActions().length).toBe(0);
+            })
         });
 
         it("Sign up", async () => {
@@ -119,6 +149,16 @@ describe("Test auth actions", () => {
                         page: SIGN_IN
                     })
                 });
+        });
+
+        it("Sign in without content-type header", async () => {
+            mockStore = configureStore({});
+            // @ts-ignore
+            request.mockResolvedValue({headers: {}});
+            return mockStore.dispatch(signIn("log", "pass"))
+            .catch(() => {
+                expect(mockStore.getActions().length).toBe(0);
+            })
         });
     })
 });

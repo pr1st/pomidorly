@@ -1,11 +1,12 @@
 import axios from "axios";
-import {lastCatchResponseError, request, unAuthorisedAction} from "../request";
+import {checkError, lastCatchResponseError, request, unAuthorisedAction} from "../request";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {endFetching, startFetching} from "../fetch";
 import {serverApi, serverPort, serverProtocol, serverURL} from "../../config";
 import {changePageToSignIn} from "../currentPage";
 import {setErrorMessage} from "../auth";
+import { async } from "q";
 
 jest.mock("axios");
 
@@ -93,6 +94,15 @@ describe("Test requests to server", () => {
         expect(actions[1]).toEqual(setErrorMessage("Token was not refreshed"));
     });
 
+    it("called unauthorised action without this situation", () => {
+        unAuthorisedAction(mockStore.dispatch)({
+            response: {
+                status: 404
+            }
+        });
+        expect(mockStore.getActions().length).toBe(0);
+    });
+
     it("something bad happened", () => {
         lastCatchResponseError(mockStore.dispatch)({
             response: "bad"
@@ -101,5 +111,38 @@ describe("Test requests to server", () => {
         const actions = mockStore.getActions();
         expect(actions.length).toBe(1);
         expect(actions[0]).toEqual(setErrorMessage("Something bad happened"));
+    });
+
+    it("last catch without response", () => {
+        lastCatchResponseError(mockStore.dispatch)({});
+
+        const actions = mockStore.getActions();
+        expect(actions.length).toBe(1);
+        expect(actions[0]).toEqual(setErrorMessage("Something bad happened"));
+    });
+
+    it("checkError", () => {
+        checkError(mockStore.dispatch, 431, "msg")({
+            response: {
+                status: 431
+            }
+        });
+
+        const actions = mockStore.getActions();
+        expect(actions.length).toBe(1);
+        expect(actions[0]).toEqual(setErrorMessage("msg"));
+    });
+
+    it("checkError rethrow error if not suited", async () => {
+        const error = {
+            response: {
+                status: 434
+            }
+        }
+        const f = async () => checkError(mockStore.dispatch, 431, "msg")(error);
+        f().catch(e => {
+            expect(mockStore.getActions().length).toBe(0);
+            expect(e).toBe(error)
+        })
     });
 });

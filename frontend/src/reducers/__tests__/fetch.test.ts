@@ -1,5 +1,6 @@
 import {END_FETCHING, FetchState, START_FETCHING} from "../../types/fetch";
 import {fetching} from "../fetch";
+import { START_TIMER } from "../../types/timer";
 
 
 describe("Test fetch reducers", () => {
@@ -16,5 +17,19 @@ describe("Test fetch reducers", () => {
     it("end fetching action", () => {
         const newState = fetching(state, {type: END_FETCHING});
         expect(newState).toBe(false);
+    });
+
+    it("return not changed state", () => {
+        const newState = fetching(state, {
+            type: START_TIMER
+        });
+        expect(newState).toBe(state);
+    });
+
+    it("return init state", () => {
+        const newState = fetching(undefined, {
+            type: START_TIMER
+        });
+        expect(newState).toEqual(false);
     });
 });

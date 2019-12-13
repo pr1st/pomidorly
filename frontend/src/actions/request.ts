@@ -32,9 +32,6 @@ export const request = (
 
 export function unAuthorisedAction(dispatch: Dispatch<any>) {
     return (error: { response: { status: number } }) => {
-        if (!error.response) {
-            throw error
-        }
         if (error.response.status === 401) {
             dispatch(changePageToSignIn());
             dispatch(logOut());
@@ -44,7 +41,7 @@ export function unAuthorisedAction(dispatch: Dispatch<any>) {
 }
 
 export function lastCatchResponseError(dispatch: Dispatch<any>) {
-    return (error: { response: any }) => {
+    return (error: any) => {
         console.log("Bad request");
         if (error.response) {
             console.log(error.response);

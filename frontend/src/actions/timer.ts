@@ -61,7 +61,7 @@ export function fetchTimerConfig() {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
                     return res.data
                 } else {
-                    throw Promise.reject("No Content-type header");
+                    return Promise.reject("No Content-type header");
                 }
             })
             .then(res => {
@@ -89,7 +89,7 @@ export function putTimerConfig(config: TimerConfigState) {
                 if (res.status === 204) {
                     console.log("Saved data to server");
                 } else {
-                    throw Promise.reject("No 204 response");
+                    return Promise.reject("No 204 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))

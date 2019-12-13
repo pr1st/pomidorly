@@ -47,7 +47,7 @@ export function fetchCurrentTasks() {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
                     return res.data
                 } else {
-                    throw Promise.reject("No Content-type header");
+                    return Promise.reject("No Content-type header");
                 }
             }).then(res => {
                 const tasks = (res as CurrentTasksState);
@@ -77,7 +77,7 @@ export function createCurrentTask(tag: string, description: string, numberOfPomi
                 if (res.status === 201) {
                     dispatch(fetchCurrentTasks())
                 } else {
-                    throw Promise.reject("No 201 response");
+                    return Promise.reject("No 201 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))
@@ -104,7 +104,7 @@ export function updateCurrentTask(updatedTask: CurrentTaskState) {
                 if (res.status === 204) {
                     dispatch(fetchCurrentTasks())
                 } else {
-                    throw Promise.reject("No 204 response");
+                    return Promise.reject("No 204 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))
@@ -125,7 +125,7 @@ export function deleteCurrentTask(taskId: number) {
                 if (res.status === 204) {
                     dispatch(fetchCurrentTasks())
                 } else {
-                    throw Promise.reject("No 201 response");
+                    return Promise.reject("No 201 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))
@@ -146,7 +146,7 @@ export function swapCurrentTasks(taskId1: number, taskId2: number) {
                 if (res.status === 204) {
                     dispatch(fetchCurrentTasks())
                 } else {
-                    throw Promise.reject("No 204 response");
+                    return Promise.reject("No 204 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))

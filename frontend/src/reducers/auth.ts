@@ -1,5 +1,6 @@
-import {AuthActions, AuthState} from "../types/auth";
-import {CurrentPageActions} from "../types/currentPage";
+import {AuthActions, AuthState, REFRESH_TOKEN, LOG_OUT, SET_ERROR_MESSAGE} from "../types/auth";
+import {CurrentPageActions, SIGN_IN, CHANGE_PAGE} from "../types/currentPage";
+import { AppActions } from "../types";
 
 
 const initState: AuthState = {
@@ -11,9 +12,9 @@ const initState: AuthState = {
     errorMessage: ""
 };
 
-export const auth = (state: AuthState = initState, action: AuthActions | CurrentPageActions): AuthState => {
+export const auth = (state: AuthState = initState, action: AppActions): AuthState => {
     switch (action.type) {
-        case "SIGN_IN": {
+        case SIGN_IN: {
             return {
                 errorMessage: "",
                 userName: action.userName,
@@ -22,7 +23,7 @@ export const auth = (state: AuthState = initState, action: AuthActions | Current
                 }
             }
         }
-        case "REFRESH_TOKEN": {
+        case REFRESH_TOKEN: {
             return {
                 errorMessage: "",
                 userName: state.userName,
@@ -31,16 +32,16 @@ export const auth = (state: AuthState = initState, action: AuthActions | Current
                 }
             }
         }
-        case "LOG_OUT": {
+        case LOG_OUT: {
             return initState
         }
-        case "SET_ERROR_MESSAGE": {
+        case SET_ERROR_MESSAGE: {
             return {
                 ...state,
                 errorMessage: action.message
             }
         }
-        case "CHANGE_PAGE": {
+        case CHANGE_PAGE: {
             return {
                 ...state,
                 errorMessage: ""
