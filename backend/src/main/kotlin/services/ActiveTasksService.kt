@@ -1,9 +1,11 @@
 package services
 
-import model.*
-import org.jetbrains.exposed.sql.*
 import DatabaseFactory.dbQuery
-import java.lang.IllegalArgumentException
+import model.ActiveTask
+import model.ActiveTaskDTO
+import model.ActiveTasks
+import model.toDTO
+import org.jetbrains.exposed.sql.*
 
 class ActiveTasksService {
 
@@ -20,15 +22,15 @@ class ActiveTasksService {
             .singleOrNull()
     }
 
-    suspend fun updateTask(task: ActiveTaskDTO, uid: Int): Boolean {
-        val id = task.id ?: throw IllegalArgumentException()
-        return dbQuery {
+    suspend fun updateTask(id: Int, task: ActiveTaskDTO, uid: Int): ActiveTaskDTO? {
+        dbQuery {
             ActiveTasks.update({ (ActiveTasks.id eq id) and (ActiveTasks.userId eq uid) }) {
                 it[tag] = task.tag
                 it[description] = task.description
                 it[numberOfPomidors] = task.numberOfPomidors
-            } > 0
+            }
         }
+        return getTask(id, uid)
     }
 
     suspend fun addTask(task: ActiveTaskDTO, uid: Int) {

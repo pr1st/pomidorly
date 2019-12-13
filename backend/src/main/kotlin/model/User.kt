@@ -14,6 +14,8 @@ data class User(
     val password: String
 )
 
+fun User.toDTO() = UserDTO(username, password)
+
 data class UserDTO(
     val username: String,
     val password: String

@@ -28,6 +28,9 @@ fun Application.mainModule() {
         exception<JsonProcessingException> {
             call.respond(HttpStatusCode.BadRequest)
         }
+        exception<NumberFormatException> {
+            call.respond(HttpStatusCode.BadRequest)
+        }
     }
 
     routing {

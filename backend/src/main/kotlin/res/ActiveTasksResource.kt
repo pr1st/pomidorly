@@ -6,8 +6,8 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.*
 import model.ActiveTaskDTO
+import res.ResourcesUtil.withTaskId
 import res.ResourcesUtil.withUserId
-import res.ResourcesUtil.withUserIdAndTaskId
 import services.ActiveTasksService
 
 fun Route.activeTasks(activeTasksService: ActiveTasksService) {
@@ -23,25 +23,28 @@ fun Route.activeTasks(activeTasksService: ActiveTasksService) {
             withUserId(call) { uid ->
                 val task = call.receive<ActiveTaskDTO>()
                 activeTasksService.addTask(task, uid)
-                call.respond(HttpStatusCode.Created) // TODO check response
+                call.respond(HttpStatusCode.Created)
             }
         }
 
         put("/{id}") {
-            withUserIdAndTaskId(call) { uid, tid ->
-                val task = call.receive<ActiveTaskDTO>()
-                val updated = activeTasksService.updateTask(tid, task, uid)
-                if (updated == null) call.respond(HttpStatusCode.NotFound)
-                else call.respond(HttpStatusCode.NoContent)
+            withUserId(call) { userId ->
+                withTaskId(call) { taskId ->
+                    val task = call.receive<ActiveTaskDTO>()
+                    val updated = activeTasksService.updateTask(taskId, task, userId)
+                    if (updated == null) call.respond(HttpStatusCode.NotFound)
+                    else call.respond(HttpStatusCode.NoContent)
+                }
             }
         }
 
         delete("/{id}") {
-            withUserIdAndTaskId(call) { uid, tid ->
-                val removed = activeTasksService.deleteTask(tid, uid)
-                if (removed) call.respond(HttpStatusCode.OK)
-                else call.respond(HttpStatusCode.NotFound)
-
+            withUserId(call) { userId ->
+                withTaskId(call) { taskId ->
+                    val removed = activeTasksService.deleteTask(taskId, userId)
+                    if (removed) call.respond(HttpStatusCode.NoContent)
+                    else call.respond(HttpStatusCode.NotFound)
+                }
             }
         }
     }

@@ -21,11 +21,10 @@ object ResourcesUtil {
         else block(uid)
     }
 
-    suspend fun withUserIdAndTaskId(call: ApplicationCall, block: suspend (userId: Int, taskId: Int) -> Unit) {
-        withUserId(call) { uid ->
-            val taskId = call.parameters["id"]?.toInt()
-            if (taskId == null) call.respond(HttpStatusCode.BadRequest)
-            else block(uid, taskId)
-        }
+    suspend fun withTaskId(call: ApplicationCall, block: suspend (taskId: Int) -> Unit) {
+        val taskId = call.parameters["id"]?.toInt()
+        if (taskId == null) call.respond(HttpStatusCode.BadRequest)
+        else block(taskId)
     }
+
 }

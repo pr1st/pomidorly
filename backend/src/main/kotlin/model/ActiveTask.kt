@@ -7,7 +7,7 @@ object ActiveTasks : Table() {
     val tag = varchar("tag", 255)
     val description = varchar("description", 4095)
     val numberOfPomidors = integer("number_of_pomidors")
-    val inQueue = integer("in_queue")
+    val inQueue = integer("in_queue").autoIncrement()
     val userId = (integer("user_id") references Users.id)
 }
 
