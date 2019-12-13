@@ -60,6 +60,7 @@ describe("Test auth actions", () => {
             const initToken = "aaa";
             mockStore = configureStore({
                 auth: {
+                    userName: "ABC",
                     token: {
                         token: initToken
                     }
@@ -85,6 +86,18 @@ describe("Test auth actions", () => {
                         token: responseToken
                     })
                 });
+        });
+
+        it("Refresh token with logged out user", async () => {
+            mockStore = configureStore({
+                auth: {
+                    userName: ""
+                }
+            });
+            return mockStore.dispatch(refreshToken())
+            .then(() => {
+                expect(mockStore.getActions().length).toBe(0);
+            })
         });
 
         it("Sign up", async () => {
