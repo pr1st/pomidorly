@@ -1,7 +1,8 @@
 import {ACCEPT, APPLICATION_JSON, CONTENT_TYPE, request, TOKEN} from "../request";
 import {createHistoryTask, deleteHistoryTask, fetchHistoryTasks} from "../historyTasks";
 import {GET_HISTORY_TASKS} from "../../types/historyTasks";
-
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
 
 jest.mock("../request");
 
@@ -9,8 +10,11 @@ describe("Test history task actions", () => {
     let initState: any;
     let dispatch: any;
     let getState: any;
+    let configureStore: any;
+    let mockStore: any;
 
     beforeEach(() => {
+        configureStore = configureMockStore([thunk]);
         initState = {
             currentTasks: [
                 {
@@ -128,5 +132,35 @@ describe("Test history task actions", () => {
         // @ts-ignore
         const mocked = dispatch.mock.calls[0];
         expect(mocked.length).toEqual(1);
+    });
+
+    it("fetch history tasks no content type header", async () => {
+        mockStore = configureStore(initState);
+        // @ts-ignore
+        request.mockResolvedValue({headers: {}});
+        return mockStore.dispatch(fetchHistoryTasks())
+        .catch(() => {
+            expect(mockStore.getActions().length).toBe(0);
+        })
+    });
+
+    it("create history task wrong response", async () => {
+        mockStore = configureStore(initState);
+        // @ts-ignore
+        request.mockResolvedValue({status: 202});
+        return mockStore.dispatch(createHistoryTask("t", "d", 123))
+        .catch(() => {
+            expect(mockStore.getActions().length).toBe(0);
+        })
+    });
+
+    it("delete history task wrong response", async () => {
+        mockStore = configureStore(initState);
+        // @ts-ignore
+        request.mockResolvedValue({status: 202});
+        return mockStore.dispatch(deleteHistoryTask(1))
+        .catch(() => {
+            expect(mockStore.getActions().length).toBe(0);
+        })
     });
 });

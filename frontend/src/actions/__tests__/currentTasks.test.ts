@@ -8,6 +8,8 @@ import {
 } from "../currentTasks";
 import {createHistoryTask} from "../historyTasks";
 import {GET_CURRENT_TASKS} from "../../types/currentTasks";
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
 
 jest.mock("../request");
 jest.mock("../historyTasks");
@@ -16,8 +18,11 @@ describe("Test current task actions", () => {
     let initState: any;
     let dispatch: any;
     let getState: any;
+    let configureStore: any;
+    let mockStore: any;
 
     beforeEach(() => {
+        configureStore = configureMockStore([thunk]);
         initState = {
             currentTasks: [
                 {
@@ -226,5 +231,62 @@ describe("Test current task actions", () => {
         // @ts-ignore
         const mocked = dispatch.mock.calls[0];
         expect(mocked.length).toEqual(1);
+    });
+
+    it("fetch current task without content-type header", async () => {
+        mockStore = configureStore(initState);
+        // @ts-ignore
+        request.mockResolvedValue({headers: {}});
+        return mockStore.dispatch(fetchCurrentTasks())
+        .catch(() => {
+            expect(mockStore.getActions().length).toBe(0);
+        })
+    });
+
+    it("create current task wrong response", async () => {
+        mockStore = configureStore(initState);
+        // @ts-ignore
+        request.mockResolvedValue({status: 202});
+        return mockStore.dispatch(createCurrentTask("t","d", 3))
+        .catch(() => {
+            expect(mockStore.getActions().length).toBe(0);
+        })
+    });
+
+    it("update current task wrong response", async () => {
+        mockStore = configureStore(initState);
+        // @ts-ignore
+        request.mockResolvedValue({status: 202});
+        return mockStore.dispatch(
+            updateCurrentTask({
+                id:1, 
+                tag: "t", 
+                description: "d", 
+                numberOfPomidors: 2,
+                inQueue:2
+            }))
+            .catch(() => {
+                expect(mockStore.getActions().length).toBe(0);
+            })
+    });
+
+    it("delete current task wrong response", async () => {
+        mockStore = configureStore(initState);
+        // @ts-ignore
+        request.mockResolvedValue({status: 202});
+        return mockStore.dispatch(deleteCurrentTask(3))
+        .catch(() => {
+            expect(mockStore.getActions().length).toBe(0);
+        })
+    });
+
+    it("swap current tasks wrong response", async () => {
+        mockStore = configureStore(initState);
+        // @ts-ignore
+        request.mockResolvedValue({status: 202});
+        return mockStore.dispatch(swapCurrentTasks(1, 3))
+        .catch(() => {
+            expect(mockStore.getActions().length).toBe(0);
+        })
     });
 });

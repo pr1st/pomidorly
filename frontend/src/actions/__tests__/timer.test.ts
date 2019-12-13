@@ -143,4 +143,28 @@ describe("Test timer actions", () => {
                 });
         });
     });
+
+    it("fetch timer config no content type header", async () => {
+        // @ts-ignore
+        request.mockResolvedValue({headers: {}});
+        return mockStore.dispatch(fetchTimerConfig())
+        .catch(() => {
+            expect(mockStore.getActions().length).toBe(0);
+        })
+    });
+
+    it("put timer config wrong response", async () => {
+        // @ts-ignore
+        request.mockResolvedValue({status: 202});
+        return mockStore.dispatch(putTimerConfig({
+            alarmWhenZero:false,
+            longBreakDuration:2,
+            numberOfPomidorsBeforeLongBreak:3,
+            pomidorDuration:5,
+            shortBreakDuration:6
+        }))
+        .catch(() => {
+            expect(mockStore.getActions().length).toBe(0);
+        })
+    });
 });
