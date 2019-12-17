@@ -33,6 +33,15 @@ class ActiveTasksService {
         return getTask(id, uid)
     }
 
+    suspend fun updateQueueNumber(id: Int, queueNumber: Int, uid: Int): ActiveTaskDTO? {
+        dbQuery {
+            ActiveTasks.update({ (ActiveTasks.id eq id) and (ActiveTasks.userId eq uid) }) {
+                it[inQueue] = queueNumber
+            }
+        }
+        return getTask(id, uid)
+    }
+
     suspend fun addTask(task: ActiveTaskDTO, uid: Int) {
         dbQuery {
             ActiveTasks.insert {
