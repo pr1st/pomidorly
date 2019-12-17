@@ -1,4 +1,4 @@
-package res
+package routes
 
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
@@ -12,13 +12,13 @@ fun Route.historyTasks(historyTasksService: HistoryTasksService) {
     route("api/v1/history/tasks") {
 
         get("/") {
-            ResourcesUtil.withUserId(call) { uid ->
+            RoutesUtils.withUserId(call) { uid ->
                 call.respond(historyTasksService.getAllTasks(uid))
             }
         }
 
         post("/") {
-            ResourcesUtil.withUserId(call) { uid ->
+            RoutesUtils.withUserId(call) { uid ->
                 val task = call.receive<HistoryTaskDTO>()
                 historyTasksService.addTask(task, uid)
                 call.respond(HttpStatusCode.Created)
@@ -26,7 +26,7 @@ fun Route.historyTasks(historyTasksService: HistoryTasksService) {
         }
 
         delete("/{id}") {
-            ResourcesUtil.withUserId(call) { userId ->
+            RoutesUtils.withUserId(call) { userId ->
                 val taskId = call.parameters["id"]?.toInt()
                 if (taskId == null) {
                     call.respond(HttpStatusCode.BadRequest)

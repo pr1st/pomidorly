@@ -13,7 +13,7 @@ import io.ktor.response.respond
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import res.pomidorly
+import routes.pomidorly
 import services.ActiveTasksService
 import services.HistoryTasksService
 

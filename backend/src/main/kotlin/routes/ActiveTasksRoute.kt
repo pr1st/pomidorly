@@ -1,4 +1,4 @@
-package res
+package routes
 
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
@@ -6,7 +6,7 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.*
 import model.ActiveTaskDTO
-import res.ResourcesUtil.withUserId
+import routes.RoutesUtils.withUserId
 import services.ActiveTasksService
 
 fun Route.activeTasks(activeTasksService: ActiveTasksService) {

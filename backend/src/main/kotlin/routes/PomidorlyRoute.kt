@@ -1,4 +1,4 @@
-package res
+package routes
 
 import io.ktor.routing.Route
 import services.ActiveTasksService
