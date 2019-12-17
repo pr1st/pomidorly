@@ -14,12 +14,15 @@ data class HistoryTask(
     val id: Int,
     val tag: String,
     val description: String,
+    val timeFinished: Long,
     val userId: Int
 )
+
+fun HistoryTask.toDTO() = HistoryTaskDTO(id, tag, description, timeFinished)
 
 data class HistoryTaskDTO(
     val id: Int?,
     val tag: String,
     val description: String,
-    val timeFinished: Int
+    val timeFinished: Long
 )
