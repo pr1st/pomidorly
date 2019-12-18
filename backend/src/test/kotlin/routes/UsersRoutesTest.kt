@@ -9,6 +9,8 @@ import model.TokenDTO
 import model.UserDTO
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import routes.RoutesTestUtils.signUp
+import routes.RoutesTestUtils.withToken
 
 class UsersRoutesTest : ServerTest() {
 
@@ -27,7 +29,7 @@ class UsersRoutesTest : ServerTest() {
     @Test
     fun signUpWithUsernameConflictTest() {
         val user = UserDTO("Bob", "qwerty")
-        RoutesTestUtils.signUp(user)
+        signUp(user)
         val anotherUser = UserDTO("Bob", "12345")
         given()
             .contentType(ContentType.JSON)
@@ -53,7 +55,7 @@ class UsersRoutesTest : ServerTest() {
     @Test
     fun signInTest() {
         val user = UserDTO("Bob", "qwerty")
-        RoutesTestUtils.signUp(user)
+        signUp(user)
         val token = given()
             .accept(ContentType.JSON)
             .contentType(ContentType.JSON)
@@ -65,13 +67,13 @@ class UsersRoutesTest : ServerTest() {
             .contentType(ContentType.JSON)
             .extract().to<TokenDTO>()
 
-        assertThat(token.expiresIn > 0)
+        assertThat(token.expiresIn).isGreaterThan(0)
     }
 
     @Test
     fun signInWithIncorrectPasswordTest() {
         val user = UserDTO("Bob", "qwerty")
-        RoutesTestUtils.signUp(user)
+        signUp(user)
         val invalidUser = UserDTO("Bob", "invalidPassword")
         given()
             .accept(ContentType.JSON)
@@ -86,7 +88,7 @@ class UsersRoutesTest : ServerTest() {
     @Test
     fun signInWithIncorrectDataFieldsTest() {
         val user = UserDTO("Bob", "qwerty")
-        RoutesTestUtils.signUp(user)
+        signUp(user)
         val invalidUser = TimerDTO(25, 5, 15, 4, true)
         given()
             .accept(ContentType.JSON)
@@ -100,33 +102,31 @@ class UsersRoutesTest : ServerTest() {
 
     @Test
     fun refreshTokenTest() {
-        val user = UserDTO("Bob", "qwerty")
-        RoutesTestUtils.signUp(user)
-        val currentToken = RoutesTestUtils.signIn(user).token
-        val newToken = given()
-            .accept(ContentType.JSON)
-            .header("Token", currentToken)
-            .When()
-            .post("auth/refresh")
-            .then()
-            .statusCode(HttpStatusCode.OK.value)
-            .contentType(ContentType.JSON)
-            .extract().to<TokenDTO>()
+        withToken("Bob", "qwerty") { token ->
+            val newToken = given()
+                .accept(ContentType.JSON)
+                .header("Token", token)
+                .When()
+                .post("auth/refresh")
+                .then()
+                .statusCode(HttpStatusCode.OK.value)
+                .contentType(ContentType.JSON)
+                .extract().to<TokenDTO>()
 
-        assertThat(newToken.expiresIn > 0)
+            assertThat(newToken.expiresIn).isGreaterThan(0)
+        }
     }
 
     @Test
     fun refreshTokenWithInvalidTokenTest() {
-        val user = UserDTO("Bob", "qwerty")
-        RoutesTestUtils.signUp(user)
-        val invalidToken = RoutesTestUtils.signIn(user).token + "abracadabra"
-        given()
-            .accept(ContentType.JSON)
-            .header("Token", invalidToken)
-            .When()
-            .post("auth/refresh")
-            .then()
-            .statusCode(HttpStatusCode.Unauthorized.value)
+        withToken("Bob", "qwerty") {token ->
+            given()
+                .accept(ContentType.JSON)
+                .header("Token", token + "abracadabra")
+                .When()
+                .post("auth/refresh")
+                .then()
+                .statusCode(HttpStatusCode.Unauthorized.value)
+        }
     }
 }
