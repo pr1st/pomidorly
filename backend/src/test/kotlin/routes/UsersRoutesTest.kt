@@ -25,7 +25,7 @@ class UsersRoutesTest : ServerTest() {
     }
 
     @Test
-    fun signUpUsernameConflictTest() {
+    fun signUpWithUsernameConflictTest() {
         val user = UserDTO("Bob", "qwerty")
         RoutesTestUtils.signUp(user)
         val anotherUser = UserDTO("Bob", "12345")
@@ -39,7 +39,7 @@ class UsersRoutesTest : ServerTest() {
     }
 
     @Test
-    fun signUpIncorrectDataFieldsTest() {
+    fun signUpWithIncorrectDataFieldsTest() {
         val invalidUser = TimerDTO(25, 5, 15, 4, true)
         given()
             .contentType(ContentType.JSON)
@@ -69,7 +69,7 @@ class UsersRoutesTest : ServerTest() {
     }
 
     @Test
-    fun signInIncorrectPasswordTest() {
+    fun signInWithIncorrectPasswordTest() {
         val user = UserDTO("Bob", "qwerty")
         RoutesTestUtils.signUp(user)
         val invalidUser = UserDTO("Bob", "invalidPassword")
@@ -84,7 +84,7 @@ class UsersRoutesTest : ServerTest() {
     }
 
     @Test
-    fun signInIncorrectDataFieldsTest() {
+    fun signInWithIncorrectDataFieldsTest() {
         val user = UserDTO("Bob", "qwerty")
         RoutesTestUtils.signUp(user)
         val invalidUser = TimerDTO(25, 5, 15, 4, true)
@@ -96,5 +96,37 @@ class UsersRoutesTest : ServerTest() {
             .post("auth/signin")
             .then()
             .statusCode(HttpStatusCode.BadRequest.value)
+    }
+
+    @Test
+    fun refreshTokenTest() {
+        val user = UserDTO("Bob", "qwerty")
+        RoutesTestUtils.signUp(user)
+        val currentToken = RoutesTestUtils.signIn(user).token
+        val newToken = given()
+            .accept(ContentType.JSON)
+            .header("Token", currentToken)
+            .When()
+            .post("auth/refresh")
+            .then()
+            .statusCode(HttpStatusCode.OK.value)
+            .contentType(ContentType.JSON)
+            .extract().to<TokenDTO>()
+
+        assertThat(newToken.expiresIn > 0)
+    }
+
+    @Test
+    fun refreshTokenWithInvalidTokenTest() {
+        val user = UserDTO("Bob", "qwerty")
+        RoutesTestUtils.signUp(user)
+        val invalidToken = RoutesTestUtils.signIn(user).token + "abracadabra"
+        given()
+            .accept(ContentType.JSON)
+            .header("Token", invalidToken)
+            .When()
+            .post("auth/refresh")
+            .then()
+            .statusCode(HttpStatusCode.Unauthorized.value)
     }
 }
