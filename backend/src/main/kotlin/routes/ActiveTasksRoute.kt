@@ -33,9 +33,9 @@ fun Route.activeTasks(activeTasksService: ActiveTasksService) {
         }
 
         post("/") {
-            withUserId(call) { uid ->
+            withUserId(call) { userId ->
                 val task = call.receive<ActiveTaskDTO>()
-                val addedTask = activeTasksService.addTask(task, uid)
+                val addedTask = activeTasksService.addTask(task, userId)
                 call.respond(HttpStatusCode.Created, addedTask.toDTO())
             }
         }
@@ -77,5 +77,4 @@ fun Route.activeTasks(activeTasksService: ActiveTasksService) {
             }
         }
     }
-
 }

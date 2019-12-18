@@ -1,7 +1,6 @@
 package services
 
 import DatabaseFactory.dbQuery
-import model.ActiveTasks
 import model.HistoryTask
 import model.HistoryTaskDTO
 import model.HistoryTasks
@@ -11,7 +10,7 @@ class HistoryTasksService {
 
     suspend fun getAllTasks(userId: Int): List<HistoryTask> = dbQuery {
         HistoryTasks.select {
-            (ActiveTasks.userId eq userId)
+            (HistoryTasks.userId eq userId)
         }.map { toHistoryTask(it) }
     }
 

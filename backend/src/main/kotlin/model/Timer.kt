@@ -3,7 +3,7 @@ package model
 import org.jetbrains.exposed.sql.Table
 
 object Timers : Table() {
-    val id = ActiveTasks.integer("id").primaryKey().autoIncrement()
+    val id = integer("id").primaryKey().autoIncrement()
     val pomidorDuration = integer("pomidor_duration")
     val shortBreakDuration = integer("short_break_duration")
     val longBreakDuration = integer("long_break_duration")

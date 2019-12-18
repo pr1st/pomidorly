@@ -10,19 +10,20 @@ import io.ktor.routing.put
 import io.ktor.routing.route
 import model.TimerDTO
 import model.toDTO
+import routes.RoutesUtils.withUserId
 import services.TimersService
 
 fun Route.timers(timersService: TimersService) {
     route("api/v1/timer/") {
 
         get {
-            RoutesUtils.withUserId(call) { userId ->
+            withUserId(call) { userId ->
                 call.respond(HttpStatusCode.OK, timersService.getTimer(userId)!!.toDTO())
             }
         }
 
         put {
-            RoutesUtils.withUserId(call) { userId ->
+            withUserId(call) { userId ->
                 val timer = call.receive<TimerDTO>()
                 timersService.updateTimer(timer, userId)
                 call.respond(HttpStatusCode.NoContent)

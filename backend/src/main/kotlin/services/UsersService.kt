@@ -10,34 +10,26 @@ import org.jetbrains.exposed.sql.select
 
 class UsersService {
 
-    suspend fun isUserExists(user: UserDTO): Boolean = dbQuery {
-        Users.select {
-            (Users.username eq user.username)
-        }.mapNotNull { toUser(it) }
-            .isNotEmpty()
-    }
-
     suspend fun addUser(user: UserDTO): User {
-        var userId = 0
         dbQuery {
-            userId = (Users.insert {
-                it[username] = user.username
+            Users.insert {
+                it[login] = user.login
                 it[password] = user.password
-            } get Users.id)
+            }
         }
-        return getUser(userId)!!
+        return getUser(user.login)!!
     }
 
-    suspend fun getUser(token: String): User? = dbQuery {
+    suspend fun getUserByToken(token: String): User? = dbQuery {
         Users.select {
             (Users.password eq token)
         }.mapNotNull { toUser(it) }
             .singleOrNull()
     }
 
-    suspend fun getUser(userId: Int): User? = dbQuery {
+    suspend fun getUser(login: String): User? = dbQuery {
         Users.select {
-            (Users.id eq userId)
+            (Users.login eq login)
         }.mapNotNull { toUser(it) }
             .singleOrNull()
     }
@@ -45,7 +37,7 @@ class UsersService {
     private fun toUser(row: ResultRow): User =
         User(
             id = row[Users.id],
-            username = row[Users.username],
+            login = row[Users.login],
             password = row[Users.password]
         )
 

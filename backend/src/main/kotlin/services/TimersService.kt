@@ -1,7 +1,6 @@
 package services
 
 import DatabaseFactory.dbQuery
-import model.ActiveTasks
 import model.Timer
 import model.TimerDTO
 import model.Timers
@@ -46,7 +45,7 @@ class TimersService {
 
     private fun toTimer(row: ResultRow): Timer =
         Timer(
-            id = row[ActiveTasks.id],
+            id = row[Timers.id],
             pomidorDuration = row[Timers.pomidorDuration],
             shortBreakDuration = row[Timers.shortBreakDuration],
             longBreakDuration = row[Timers.longBreakDuration],

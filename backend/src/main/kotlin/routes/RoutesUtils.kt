@@ -17,7 +17,7 @@ object RoutesUtils {
             call.respond(HttpStatusCode.BadRequest)
             return
         }
-        val user = usersService.getUser(token)
+        val user = usersService.getUserByToken(token)
         if (user == null) call.respond(HttpStatusCode.Unauthorized)
         else block(user)
     }
