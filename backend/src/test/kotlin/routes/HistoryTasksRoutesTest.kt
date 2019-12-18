@@ -83,4 +83,42 @@ class HistoryTasksRoutesTest : ServerTest() {
         }
     }
 
+    @Test
+    fun deleteHistoryTaskTest() {
+        withToken("Bob", "qwerty") { token ->
+            val task = HistoryTaskDTO(null, "tag1", "desc1", 1234567890)
+            val taskId = addHistoryTask(task, token).id!!
+
+            given()
+                .header("Token", token)
+                .When()
+                .delete("/history/tasks/{id}", taskId)
+                .then()
+                .statusCode(HttpStatusCode.NoContent.value)
+
+            given()
+                .header("Token", token)
+                .accept(ContentType.JSON)
+                .When()
+                .get("/history/tasks/{id}", taskId)
+                .then()
+                .statusCode(HttpStatusCode.NotFound.value)
+        }
+    }
+
+    @Test
+    fun deleteHistoryTaskWithInvalidIdTest() {
+        withToken("Bob", "qwerty") { token ->
+            val task = HistoryTaskDTO(null, "tag1", "desc1", 1234567890)
+            addHistoryTask(task, token)
+            val invalidTaskId = 12345
+
+            given()
+                .header("Token", token)
+                .When()
+                .delete("/history/tasks/{id}", invalidTaskId)
+                .then()
+                .statusCode(HttpStatusCode.NotFound.value)
+        }
+    }
 }
