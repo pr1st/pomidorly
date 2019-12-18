@@ -1,7 +1,5 @@
 import {
-    GET_TIMER_CONFIG,
-    GetTimerConfigAction,
-     PAUSE_TIMER, PauseTimerAction, SKIP_TIMER, SkipTimerAction, START_TIMER,
+    PAUSE_TIMER, PauseTimerAction, SET_TIMER_CONFIG, SetTimerConfigAction, SKIP_TIMER, SkipTimerAction, START_TIMER,
     StartTimerAction, STOP_TIMER, StopTimerAction,
     TimerConfigState
 } from "../types/timer";
@@ -17,32 +15,32 @@ import {
 } from "./request";
 
 
-function getTimerConfig(config: TimerConfigState) : GetTimerConfigAction {
+export function setTimerConfig(config: TimerConfigState): SetTimerConfigAction {
     return {
-        type: GET_TIMER_CONFIG,
+        type: SET_TIMER_CONFIG,
         config
     }
 }
 
-export function startTimer() : StartTimerAction {
+export function startTimer(): StartTimerAction {
     return {
         type: START_TIMER
     }
 }
 
-export function pauseTimer() : PauseTimerAction {
+export function pauseTimer(): PauseTimerAction {
     return {
         type: PAUSE_TIMER
     }
 }
 
-export function stopTimer() : StopTimerAction {
+export function stopTimer(): StopTimerAction {
     return {
         type: STOP_TIMER
     }
 }
 
-export function skipTimer() : SkipTimerAction {
+export function skipTimer(): SkipTimerAction {
     return {
         type: SKIP_TIMER
     }
@@ -63,19 +61,19 @@ export function fetchTimerConfig() {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
                     return res.data
                 } else {
-                    throw Promise.reject("No Content-type header");
+                    return Promise.reject("No Content-type header");
                 }
             })
             .then(res => {
                 const config = (res as TimerConfigState);
-                dispatch(getTimerConfig(config));
+                dispatch(setTimerConfig(config));
             })
             .catch(unAuthorisedAction(dispatch))
             .catch(lastCatchResponseError(dispatch))
     }
 }
 
-export function setTimerConfig(config: TimerConfigState) {
+export function putTimerConfig(config: TimerConfigState) {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
         return request(
             dispatch,
@@ -89,9 +87,9 @@ export function setTimerConfig(config: TimerConfigState) {
         )
             .then(res => {
                 if (res.status === 204) {
-                    dispatch(fetchTimerConfig())
+                    console.log("Saved data to server");
                 } else {
-                    throw Promise.reject("No 204 response");
+                    return Promise.reject("No 204 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))

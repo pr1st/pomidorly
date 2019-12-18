@@ -4,7 +4,7 @@ Registrates a user
 
 * **URL**
 
-  `/api/v1/signup`
+  `/api/v1/auth/signup`
 
 * **Method**
 

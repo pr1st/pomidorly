@@ -12,7 +12,7 @@ import {
 } from "./request";
 import {createHistoryTask} from "./historyTasks";
 
-function localGetCurrentTasksAction(tasks: CurrentTasksState) : GetCurrentTasksAction {
+function localGetCurrentTasksAction(tasks: CurrentTasksState): GetCurrentTasksAction {
     return {
         type: GET_CURRENT_TASKS,
         tasks
@@ -21,13 +21,13 @@ function localGetCurrentTasksAction(tasks: CurrentTasksState) : GetCurrentTasksA
 
 export function doOnePomidor() {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
-        const task = getState().currentTasks.sort((a, b) => a.inQueue - b.inQueue)[0]
+        const task = [...getState().currentTasks].sort((a, b) => a.inQueue - b.inQueue)[0]
         task.numberOfPomidors = task.numberOfPomidors - 1;
         dispatch(createHistoryTask(task.tag, task.description, Date.now()))
         if (task.numberOfPomidors === 0) {
-            dispatch(deleteCurrentTask(task.id))
+            dispatch(deleteCurrentTask(task.id));
         } else {
-            dispatch(updateCurrentTask(task))
+            dispatch(updateCurrentTask(task));
         }
     }
 }
@@ -47,14 +47,12 @@ export function fetchCurrentTasks() {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
                     return res.data
                 } else {
-                    throw Promise.reject("No Content-type header");
+                    return Promise.reject("No Content-type header");
                 }
-            }).then(
-                res => {
-                    const tasks = (res as CurrentTasksState);
-                    dispatch(localGetCurrentTasksAction(tasks))
-                }
-            )
+            }).then(res => {
+                const tasks = (res as CurrentTasksState);
+                dispatch(localGetCurrentTasksAction(tasks))
+            })
             .catch(unAuthorisedAction(dispatch))
             .catch(lastCatchResponseError(dispatch))
     }
@@ -79,7 +77,7 @@ export function createCurrentTask(tag: string, description: string, numberOfPomi
                 if (res.status === 201) {
                     dispatch(fetchCurrentTasks())
                 } else {
-                    throw Promise.reject("No 201 response");
+                    return Promise.reject("No 201 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))
@@ -106,7 +104,7 @@ export function updateCurrentTask(updatedTask: CurrentTaskState) {
                 if (res.status === 204) {
                     dispatch(fetchCurrentTasks())
                 } else {
-                    throw Promise.reject("No 204 response");
+                    return Promise.reject("No 204 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))
@@ -127,7 +125,7 @@ export function deleteCurrentTask(taskId: number) {
                 if (res.status === 204) {
                     dispatch(fetchCurrentTasks())
                 } else {
-                    throw Promise.reject("No 201 response");
+                    return Promise.reject("No 201 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))
@@ -148,7 +146,7 @@ export function swapCurrentTasks(taskId1: number, taskId2: number) {
                 if (res.status === 204) {
                     dispatch(fetchCurrentTasks())
                 } else {
-                    throw Promise.reject("No 204 response");
+                    return Promise.reject("No 204 response");
                 }
             })
             .catch(unAuthorisedAction(dispatch))

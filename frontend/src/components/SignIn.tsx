@@ -1,5 +1,4 @@
 import React from 'react';
-
 import "bootstrap/dist/css/bootstrap.css"
 import classNames from "classnames";
 
@@ -17,7 +16,7 @@ type State = {
     password: string,
 }
 
-class SignIn extends React.Component<DispatchProps & StateProps,State> {
+class SignIn extends React.Component<DispatchProps & StateProps, State> {
     constructor(props: DispatchProps & StateProps) {
         super(props)
         this.state = {

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from "classnames";
+import CurrentTaskParam from "./CurrentTaskParam";
 
 type Props = { addTask: (tag: string, description: string, numberOfPomidors: number) => void }
 type State = {
@@ -48,17 +49,17 @@ class AddCurrentTask extends React.Component<Props, State> {
 
         return (
             <div className={classNames("row", "AddCurrentTask")}>
-                <Param name={"tag"}
+                <CurrentTaskParam name={"tag"}
                        label={"Tag"}
                        value={tag}
                        onChange={this.setParam}
                 />
-                <Param name={"description"}
+                <CurrentTaskParam name={"description"}
                        label={"Description"}
                        value={description}
                        onChange={this.setParam}
                 />
-                <Param name={"numberOfPomidors"}
+                <CurrentTaskParam name={"numberOfPomidors"}
                        label={"Number of pomidors"}
                        value={numberOfPomidors}
                        onChange={this.setParam}
@@ -69,31 +70,6 @@ class AddCurrentTask extends React.Component<Props, State> {
             </div>
         )
     }
-}
-
-function Param(props: { name: string, label: string, value: number | string, onChange: (p: string, v: number | string) => void }) {
-    const {name, value, onChange, label} = props
-    return (
-        <label className={classNames("Param")}>
-            {label}:
-            <input className={classNames("form-control")}
-                   value={value}
-                   type={name === "numberOfPomidors" ? "number" : "text"}
-                   onChange={
-                       (e: { target: HTMLInputElement }) => {
-                           if (name === "numberOfPomidors") {
-                               const v = Number.parseInt(e.target.value)
-                               if (v !== undefined && v > 0) {
-                                   onChange(name, v)
-                               }
-                           } else {
-                               onChange(name, e.target.value)
-                           }
-                       }
-                   }
-            />
-        </label>
-    )
 }
 
 export default AddCurrentTask;

@@ -11,12 +11,12 @@ export type DispatchProps = {
 }
 
 const HistoryTask = (props: StateProps & DispatchProps) => {
-    const {id, tag, description, timeFinished, repeatTask, deleteTask, } = props
+    const {id, tag, description, timeFinished, repeatTask, deleteTask,} = props
     return (
         <tr>
             <td>{tag}</td>
             <td>{description}</td>
-            <td>{new Date(timeFinished).toLocaleTimeString()}</td>
+            <td>{new Date(timeFinished).toLocaleString()}</td>
             <td>
                 <button
                     className={classNames("btn", "btn-outline-primary")}
@@ -39,6 +39,6 @@ const HistoryTask = (props: StateProps & DispatchProps) => {
             </td>
         </tr>
     )
-}
+};
 
 export default HistoryTask;

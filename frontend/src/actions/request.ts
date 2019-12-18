@@ -3,7 +3,7 @@ import {endFetching, startFetching} from "./fetch";
 import {serverApi, serverPort, serverProtocol, serverURL} from "../config";
 import {changePageToSignIn} from "./currentPage";
 import {logOut, setErrorMessage} from "./auth";
-import axios from "axios"
+import axios from "axios";
 
 export const CONTENT_TYPE = "content-type";
 export const ACCEPT = "Accept";
@@ -25,16 +25,13 @@ export const request = (
         headers,
         data: body
     }).then(res => {
-            dispatch(endFetching())
-            return res
-        })
+        dispatch(endFetching());
+        return res
+    })
 };
 
 export function unAuthorisedAction(dispatch: Dispatch<any>) {
     return (error: { response: { status: number } }) => {
-        if (!error.response) {
-            throw error
-        }
         if (error.response.status === 401) {
             dispatch(changePageToSignIn());
             dispatch(logOut());
@@ -44,7 +41,7 @@ export function unAuthorisedAction(dispatch: Dispatch<any>) {
 }
 
 export function lastCatchResponseError(dispatch: Dispatch<any>) {
-    return (error: { response: any }) => {
+    return (error: any) => {
         console.log("Bad request");
         if (error.response) {
             console.log(error.response);
@@ -52,5 +49,16 @@ export function lastCatchResponseError(dispatch: Dispatch<any>) {
             console.log(error);
         }
         dispatch(setErrorMessage("Something bad happened"));
+    }
+}
+
+export function checkError(dispatch: Dispatch<any>, errorCode: number, messageToLog: string) {
+    return (error: { response: {status: number} }) => {
+        if (error.response.status === errorCode) {
+            dispatch(setErrorMessage(messageToLog));
+            console.log(messageToLog);
+        } else {
+            throw error;
+        }
     }
 }

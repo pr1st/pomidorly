@@ -1,5 +1,4 @@
 import React from 'react';
-
 import "bootstrap/dist/css/bootstrap.css"
 import classNames from "classnames";
 
@@ -20,7 +19,7 @@ type State = {
 
 class SignUp extends React.Component<DispatchProps & StateProps, State> {
     constructor(props: DispatchProps & StateProps) {
-        super(props)
+        super(props);
         this.state = {
             name: "",
             password: "",
@@ -72,7 +71,7 @@ class SignUp extends React.Component<DispatchProps & StateProps, State> {
                     this.signUp()
                 }
             }} className={classNames("SignUp")}>
-                <label >
+                <label>
                     Name
                     <input
                         className={classNames("form-control")}

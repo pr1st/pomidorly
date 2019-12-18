@@ -12,7 +12,7 @@ import {AppState} from "../types";
 import {Dispatch} from "react";
 import {
     ACCEPT,
-    APPLICATION_JSON,
+    APPLICATION_JSON, checkError,
     CONTENT_TYPE,
     lastCatchResponseError,
     request,
@@ -24,11 +24,11 @@ import {fetchCurrentTasks} from "./currentTasks";
 import {fetchHistoryTasks} from "./historyTasks";
 
 type Token = {
-    token:string,
+    token: string,
     expiresIn: number
 }
 
-function localSignIn(userName: string, token: Token) : SignInAction {
+function localSignIn(userName: string, token: Token): SignInAction {
     return {
         type: SIGN_IN,
         userName,
@@ -36,44 +36,45 @@ function localSignIn(userName: string, token: Token) : SignInAction {
     }
 }
 
-function localRefreshToken(token: Token) : RefreshTokenAction {
+function localRefreshToken(token: Token): RefreshTokenAction {
     return {
         type: REFRESH_TOKEN,
         token
     }
 }
 
-export function logOut() {
-    return (dispatch: Dispatch<any>, getState: () => AppState) => {
-        closeInterval();
-        dispatch(localLogOut())
-    }
-}
-
-function localLogOut() : LogOutAction {
+function localLogOut(): LogOutAction {
     return {
         type: LOG_OUT
     }
 }
 
-export function setErrorMessage(message: string) : SetErrorMessageAction {
+export function setErrorMessage(message: string): SetErrorMessageAction {
     return {
         type: SET_ERROR_MESSAGE,
         message
     }
 }
 
+export function logOut() {
+    return (dispatch: Dispatch<any>) => {
+        return Promise.resolve()
+            .then(() => {
+                closeInterval();
+                dispatch(localLogOut());
+            })
+    }
+}
 
-
-function refreshToken() {
+export function refreshToken() {
     return (dispatch: Dispatch<any>, getState: () => AppState) => {
         if (getState().auth.userName === "") {
-            return () => {}
+            return Promise.resolve()
         }
         return request(
             dispatch,
             "POST",
-            "refresh",
+            "auth/refresh",
             {
                 [ACCEPT]: APPLICATION_JSON,
                 [TOKEN]: getState().auth.token.token
@@ -81,20 +82,20 @@ function refreshToken() {
         )
             .then(res => {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
-                    return res.data
+                    return res.data;
                 } else {
-                    throw Promise.reject("No Content-type header");
+                    return Promise.reject("No Content-type header");
                 }
             })
             .then(res => {
                 const token = (res as Token);
                 dispatch(localRefreshToken(token));
                 startInterval(() => {
-                    dispatch(refreshToken())
+                    dispatch(refreshToken());
                 }, token.expiresIn - 1000)
             })
             .catch(unAuthorisedAction(dispatch))
-            .catch(lastCatchResponseError(dispatch))
+            .catch(lastCatchResponseError(dispatch));
     }
 }
 
@@ -103,7 +104,7 @@ export function signUp(userName: string, password: string) {
         return request(
             dispatch,
             "POST",
-            "signup",
+            "auth/signup",
             {
                 [CONTENT_TYPE]: APPLICATION_JSON
             },
@@ -113,13 +114,8 @@ export function signUp(userName: string, password: string) {
             }
         )
             .then(() => dispatch(changePageToSignIn()))
-            .catch(error => {
-            if (error.response.status === 409) {
-                dispatch(setErrorMessage("User with this name already exists"));
-            } else {
-                throw error
-            }})
-            .catch(lastCatchResponseError(dispatch))
+            .catch(checkError(dispatch, 409, "User with this name already exists"))
+            .catch(lastCatchResponseError(dispatch));
     }
 }
 
@@ -128,7 +124,7 @@ export function signIn(userName: string, password: string) {
         return request(
             dispatch,
             "POST",
-            "signin",
+            "auth/signin",
             {
                 [CONTENT_TYPE]: APPLICATION_JSON,
                 [ACCEPT]: APPLICATION_JSON
@@ -140,9 +136,9 @@ export function signIn(userName: string, password: string) {
         )
             .then(res => {
                 if (res.headers[CONTENT_TYPE] === APPLICATION_JSON) {
-                    return res.data
+                    return res.data;
                 } else {
-                    throw Promise.reject("No Content-type header");
+                    return Promise.reject("No Content-type header");
                 }
             })
             .then(res => {
@@ -153,25 +149,20 @@ export function signIn(userName: string, password: string) {
                 dispatch(fetchCurrentTasks());
                 dispatch(fetchHistoryTasks());
                 startInterval(() => {
-                    dispatch(refreshToken())
+                    dispatch(refreshToken());
                 }, token.expiresIn - 1000)
             })
-            .catch(error => {
-                if (error.response.status === 404) {
-                    dispatch(setErrorMessage("Combination login/password is not correct"))
-                } else {
-                    throw error
-                }
-            })
-            .catch(lastCatchResponseError(dispatch))
+            .catch(checkError(dispatch, 404, "Combination login/password is not correct"))
+            .catch(lastCatchResponseError(dispatch));
     }
 }
 
-let intervalId: any
-function startInterval(callback: any, time : number) {
+let intervalId: any;
+
+function startInterval(callback: any, time: number) {
     intervalId = setInterval(() => {
         callback();
-        closeInterval()
+        closeInterval();
     }, time)
 }
 

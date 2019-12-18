@@ -1,11 +1,13 @@
 import {
-    GET_TIMER_CONFIG,
-    PAUSE_TIMER, SKIP_TIMER,
+    PAUSE_TIMER,
+    SET_TIMER_CONFIG,
+    SKIP_TIMER,
     START_TIMER,
     STOP_TIMER,
     TimerActions,
     TimerState
 } from "../types/timer";
+import { AppActions } from "../types";
 
 
 const initialState: TimerState = {
@@ -27,10 +29,10 @@ const initialState: TimerState = {
 
 export function timeReducer(
     state = initialState,
-    action: TimerActions
+    action: AppActions
 ): TimerState {
     switch (action.type) {
-        case GET_TIMER_CONFIG:
+        case SET_TIMER_CONFIG:
             return {
                 config: action.config,
                 currentState: {
@@ -73,7 +75,7 @@ function pauseTimer(state: TimerState): TimerState {
         newTimeRemain = 0
     }
     if (!state.currentState.isActive)
-        return state
+        return state;
     return {
         config: {
             ...state.config
@@ -87,7 +89,7 @@ function pauseTimer(state: TimerState): TimerState {
 }
 
 function stopTimer(state: TimerState): TimerState {
-    let newTime
+    let newTime;
     const {isBreak, currentPomidor} = state.currentState;
     if (isBreak) {
         const {longBreakDuration, shortBreakDuration} = state.config;

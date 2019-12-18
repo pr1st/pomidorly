@@ -4,10 +4,6 @@ To install dependencies
 
 ### `npm init`
 
-Until server is done use
-
-### `node src/server.js`
-
 ## Available Scripts
 
 ### `npm start`

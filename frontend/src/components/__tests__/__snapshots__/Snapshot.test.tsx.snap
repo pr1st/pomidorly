@@ -1,0 +1,1266 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component snapshot test AddCurrentTask 1`] = `
+<div
+  className="row AddCurrentTask"
+>
+  <label
+    className="Param"
+  >
+    Tag
+    :
+    <input
+      className="form-control"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </label>
+  <label
+    className="Param"
+  >
+    Description
+    :
+    <input
+      className="form-control"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </label>
+  <label
+    className="Param"
+  >
+    Number of pomidors
+    :
+    <input
+      className="form-control"
+      onChange={[Function]}
+      type="number"
+      value={1}
+    />
+  </label>
+  <button
+    className="btn btn-success"
+    onClick={[Function]}
+    type="button"
+  >
+    Add
+  </button>
+</div>
+`;
+
+exports[`Component snapshot test CurrentTask 1`] = `
+<tr>
+  <td>
+    TAG
+  </td>
+  <td>
+    DESC
+  </td>
+  <td>
+    123
+  </td>
+  <td>
+    <button
+      className="btn btn-outline-dark"
+      onClick={[Function]}
+    >
+      ⮝
+    </button>
+    <button
+      className="btn btn-outline-dark"
+      onClick={[Function]}
+    >
+      ⮟
+    </button>
+  </td>
+  <td>
+    <button
+      className="btn btn-outline-warning"
+      data-backdrop="static"
+      data-target="#updateCurrentTaskModal-2"
+      data-toggle="modal"
+    >
+      Update
+    </button>
+    <div
+      className="modal fade"
+      id="updateCurrentTaskModal-2"
+      tabIndex={-1}
+    >
+      <div
+        className="modal-dialog"
+      >
+        <div
+          className="modal-content"
+        >
+          <div
+            className="modal-header"
+          >
+            <h5
+              className="modal-title"
+            >
+              Update task
+            </h5>
+            <button
+              aria-label="Close"
+              className="close"
+              data-dismiss="modal"
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+              >
+                ×
+              </span>
+            </button>
+          </div>
+          <div
+            className="modal-body"
+          >
+            <div>
+              <label>
+                Id: 
+                2
+              </label>
+              <label
+                className="Param"
+              >
+                Tag
+                :
+                <input
+                  className="form-control"
+                  onChange={[Function]}
+                  type="text"
+                  value="TAG"
+                />
+              </label>
+              <label
+                className="Param"
+              >
+                Description
+                :
+                <input
+                  className="form-control"
+                  onChange={[Function]}
+                  type="text"
+                  value="DESC"
+                />
+              </label>
+              <label
+                className="Param"
+              >
+                Number of pomidors
+                :
+                <input
+                  className="form-control"
+                  onChange={[Function]}
+                  type="number"
+                  value={123}
+                />
+              </label>
+            </div>
+          </div>
+          <div
+            className="modal-footer"
+          >
+            <button
+              className="btn btn-primary"
+              data-dismiss="modal"
+              onClick={[Function]}
+              type="button"
+            >
+              Save changes
+            </button>
+            <button
+              className="btn btn-secondary"
+              data-dismiss="modal"
+              onClick={[Function]}
+              type="button"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </td>
+  <td>
+    <button
+      className="btn btn-outline-danger"
+      onClick={[Function]}
+    >
+      Remove
+    </button>
+  </td>
+</tr>
+`;
+
+exports[`Component snapshot test CurrentTasksTable 1`] = `
+<div
+  className="CurrentTasks"
+>
+  <h1>
+    Current Tasks
+  </h1>
+  <div
+    className="row AddCurrentTask"
+  >
+    <label
+      className="Param"
+    >
+      Tag
+      :
+      <input
+        className="form-control"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <label
+      className="Param"
+    >
+      Description
+      :
+      <input
+        className="form-control"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <label
+      className="Param"
+    >
+      Number of pomidors
+      :
+      <input
+        className="form-control"
+        onChange={[Function]}
+        type="number"
+        value={1}
+      />
+    </label>
+    <button
+      className="btn btn-success"
+      onClick={[Function]}
+      type="button"
+    >
+      Add
+    </button>
+  </div>
+  <table
+    className="table table-bordered table-responsive-md table-striped"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Tag
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Pomidors
+        </th>
+        <th>
+          Sort
+        </th>
+        <th>
+          Update
+        </th>
+        <th>
+          Remove
+        </th>
+      </tr>
+      <tr>
+        <td>
+          d
+        </td>
+        <td>
+          ds
+        </td>
+        <td>
+          123312
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-dark"
+            onClick={[Function]}
+          >
+            ⮝
+          </button>
+          <button
+            className="btn btn-outline-dark"
+            onClick={[Function]}
+          >
+            ⮟
+          </button>
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-warning"
+            data-backdrop="static"
+            data-target="#updateCurrentTaskModal-5"
+            data-toggle="modal"
+          >
+            Update
+          </button>
+          <div
+            className="modal fade"
+            id="updateCurrentTaskModal-5"
+            tabIndex={-1}
+          >
+            <div
+              className="modal-dialog"
+            >
+              <div
+                className="modal-content"
+              >
+                <div
+                  className="modal-header"
+                >
+                  <h5
+                    className="modal-title"
+                  >
+                    Update task
+                  </h5>
+                  <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <span
+                      aria-hidden="true"
+                    >
+                      ×
+                    </span>
+                  </button>
+                </div>
+                <div
+                  className="modal-body"
+                >
+                  <div>
+                    <label>
+                      Id: 
+                      5
+                    </label>
+                    <label
+                      className="Param"
+                    >
+                      Tag
+                      :
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        type="text"
+                        value="d"
+                      />
+                    </label>
+                    <label
+                      className="Param"
+                    >
+                      Description
+                      :
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        type="text"
+                        value="ds"
+                      />
+                    </label>
+                    <label
+                      className="Param"
+                    >
+                      Number of pomidors
+                      :
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        type="number"
+                        value={123312}
+                      />
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="modal-footer"
+                >
+                  <button
+                    className="btn btn-primary"
+                    data-dismiss="modal"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Save changes
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    data-dismiss="modal"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-danger"
+            onClick={[Function]}
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ASD
+        </td>
+        <td>
+          ASDASD
+        </td>
+        <td>
+          123
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-dark"
+            onClick={[Function]}
+          >
+            ⮝
+          </button>
+          <button
+            className="btn btn-outline-dark"
+            onClick={[Function]}
+          >
+            ⮟
+          </button>
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-warning"
+            data-backdrop="static"
+            data-target="#updateCurrentTaskModal-1"
+            data-toggle="modal"
+          >
+            Update
+          </button>
+          <div
+            className="modal fade"
+            id="updateCurrentTaskModal-1"
+            tabIndex={-1}
+          >
+            <div
+              className="modal-dialog"
+            >
+              <div
+                className="modal-content"
+              >
+                <div
+                  className="modal-header"
+                >
+                  <h5
+                    className="modal-title"
+                  >
+                    Update task
+                  </h5>
+                  <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <span
+                      aria-hidden="true"
+                    >
+                      ×
+                    </span>
+                  </button>
+                </div>
+                <div
+                  className="modal-body"
+                >
+                  <div>
+                    <label>
+                      Id: 
+                      1
+                    </label>
+                    <label
+                      className="Param"
+                    >
+                      Tag
+                      :
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        type="text"
+                        value="ASD"
+                      />
+                    </label>
+                    <label
+                      className="Param"
+                    >
+                      Description
+                      :
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        type="text"
+                        value="ASDASD"
+                      />
+                    </label>
+                    <label
+                      className="Param"
+                    >
+                      Number of pomidors
+                      :
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        type="number"
+                        value={123}
+                      />
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="modal-footer"
+                >
+                  <button
+                    className="btn btn-primary"
+                    data-dismiss="modal"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Save changes
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    data-dismiss="modal"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-danger"
+            onClick={[Function]}
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ASDF
+        </td>
+        <td>
+          ASDASDAS
+        </td>
+        <td>
+          1233
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-dark"
+            onClick={[Function]}
+          >
+            ⮝
+          </button>
+          <button
+            className="btn btn-outline-dark"
+            onClick={[Function]}
+          >
+            ⮟
+          </button>
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-warning"
+            data-backdrop="static"
+            data-target="#updateCurrentTaskModal-2"
+            data-toggle="modal"
+          >
+            Update
+          </button>
+          <div
+            className="modal fade"
+            id="updateCurrentTaskModal-2"
+            tabIndex={-1}
+          >
+            <div
+              className="modal-dialog"
+            >
+              <div
+                className="modal-content"
+              >
+                <div
+                  className="modal-header"
+                >
+                  <h5
+                    className="modal-title"
+                  >
+                    Update task
+                  </h5>
+                  <button
+                    aria-label="Close"
+                    className="close"
+                    data-dismiss="modal"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <span
+                      aria-hidden="true"
+                    >
+                      ×
+                    </span>
+                  </button>
+                </div>
+                <div
+                  className="modal-body"
+                >
+                  <div>
+                    <label>
+                      Id: 
+                      2
+                    </label>
+                    <label
+                      className="Param"
+                    >
+                      Tag
+                      :
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        type="text"
+                        value="ASDF"
+                      />
+                    </label>
+                    <label
+                      className="Param"
+                    >
+                      Description
+                      :
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        type="text"
+                        value="ASDASDAS"
+                      />
+                    </label>
+                    <label
+                      className="Param"
+                    >
+                      Number of pomidors
+                      :
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        type="number"
+                        value={1233}
+                      />
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="modal-footer"
+                >
+                  <button
+                    className="btn btn-primary"
+                    data-dismiss="modal"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Save changes
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    data-dismiss="modal"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-danger"
+            onClick={[Function]}
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Component snapshot test Header 1`] = `
+<div
+  className="Header"
+>
+  <div
+    className="Page"
+  >
+    <button
+      className="btn btn-success btn-lg"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Main
+    </button>
+    <button
+      className="btn btn-success btn-lg"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Statistics
+    </button>
+  </div>
+  <div
+    className="Login"
+  >
+    <p>
+      CustomUser
+    </p>
+    <button
+      className="btn btn-success btn-lg"
+      onClick={[Function]}
+    >
+      Log out
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Component snapshot test HistoryTask 1`] = `
+<tr>
+  <td>
+    ASD
+  </td>
+  <td>
+    AAA
+  </td>
+  <td>
+    1/1/1970, 7:00:00 AM
+  </td>
+  <td>
+    <button
+      className="btn btn-outline-primary"
+      onClick={[Function]}
+    >
+      Repeat
+    </button>
+  </td>
+  <td>
+    <button
+      className="btn btn-outline-danger"
+      onClick={[Function]}
+    >
+      Remove
+    </button>
+  </td>
+</tr>
+`;
+
+exports[`Component snapshot test HistoryTasksTable 1`] = `
+<div
+  className="HistoryTasks"
+>
+  <h1>
+    History Tasks
+  </h1>
+  <table
+    className="table table-bordered table-responsive-md table-striped"
+  >
+    <tbody>
+      <tr>
+        <th>
+          Tag
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Time Finished
+        </th>
+        <th>
+          Repeat
+        </th>
+        <th>
+          Remove
+        </th>
+      </tr>
+      <tr>
+        <td>
+          ASDd
+        </td>
+        <td>
+          ASDASDdd
+        </td>
+        <td>
+          1/1/1970, 7:00:00 AM
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-primary"
+            onClick={[Function]}
+          >
+            Repeat
+          </button>
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-danger"
+            onClick={[Function]}
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ASDd
+        </td>
+        <td>
+          ASDASDdd
+        </td>
+        <td>
+          1/1/1970, 7:00:00 AM
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-primary"
+            onClick={[Function]}
+          >
+            Repeat
+          </button>
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-danger"
+            onClick={[Function]}
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ASDd
+        </td>
+        <td>
+          ASDASDdd
+        </td>
+        <td>
+          1/1/1970, 7:00:00 AM
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-primary"
+            onClick={[Function]}
+          >
+            Repeat
+          </button>
+        </td>
+        <td>
+          <button
+            className="btn btn-outline-danger"
+            onClick={[Function]}
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Component snapshot test SignIn 1`] = `
+<div
+  className="SignIn"
+  onKeyDown={[Function]}
+>
+  <label>
+    Name
+    <input
+      className="form-control"
+      onChange={[Function]}
+      value=""
+    />
+  </label>
+  <label>
+    Password
+    <input
+      className="form-control"
+      onChange={[Function]}
+      value=""
+    />
+  </label>
+  <button
+    className="btn btn-primary btn-lg"
+    onClick={[Function]}
+  >
+    Sign in
+  </button>
+  <h5
+    className="Error"
+  >
+    Error
+  </h5>
+</div>
+`;
+
+exports[`Component snapshot test SignUp 1`] = `
+<div
+  className="SignUp"
+  onKeyDown={[Function]}
+>
+  <label>
+    Name
+    <input
+      className="form-control"
+      onChange={[Function]}
+      value=""
+    />
+  </label>
+  <label>
+    Password
+    <input
+      className="form-control"
+      onChange={[Function]}
+      value=""
+    />
+  </label>
+  <label>
+    Password again
+    <input
+      className="form-control"
+      onChange={[Function]}
+      value=""
+    />
+  </label>
+  <button
+    className="btn btn-primary btn-lg"
+    onClick={[Function]}
+  >
+    Sign up
+  </button>
+  <h5
+    className="Error"
+  >
+    Err
+  </h5>
+</div>
+`;
+
+exports[`Component snapshot test Statistics 1`] = `
+<div
+  className="Statistics"
+>
+  <h3>
+    Tasks done from the first day
+  </h3>
+  <div
+    className="ReactChart "
+    onClick={[Function]}
+    style={
+      Object {
+        "height": 0,
+        "position": "relative",
+        "width": 0,
+      }
+    }
+  >
+    <svg
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseMove={[Function]}
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+          "width": 0,
+        }
+      }
+    >
+      <g
+        style={
+          Object {
+            "transform": "translate3d(0px, 0px, 0)",
+          }
+        }
+      >
+        <rect
+          height={0}
+          style={
+            Object {
+              "fill": "#333",
+              "opacity": 0,
+              "rx": 0,
+              "ry": 0,
+              "strokeWidth": 0,
+            }
+          }
+          width={0}
+          x={-0}
+          y={-0}
+        />
+        <g
+          className="axes"
+        >
+          <g
+            className="Axis"
+            style={
+              Object {
+                "pointerEvents": "none",
+                "transform": "translate3d(0, 0px, 0)",
+              }
+            }
+          >
+            <path
+              className="domain"
+              d="
+        M 0, 6
+        V 0
+        H 0
+        V 6
+      "
+              style={
+                Object {
+                  "fill": "transparent",
+                  "opacity": 1,
+                  "stroke": "rgba(0,0,0, .1)",
+                  "strokeWidth": "1",
+                }
+              }
+            />
+            <g
+              className="ticks"
+              style={Object {}}
+            >
+              <g
+                className="tick"
+                style={
+                  Object {
+                    "transform": "translate3d(0px, 0, 0)",
+                  }
+                }
+              >
+                <line
+                  className="gridLine"
+                  style={
+                    Object {
+                      "fill": "transparent",
+                      "opacity": 1,
+                      "stroke": "rgba(0,0,0, .1)",
+                      "strokeWidth": "1",
+                    }
+                  }
+                  y1={0}
+                  y2={-0}
+                />
+                <g
+                  className="labelGroup"
+                >
+                  <line
+                    className="tickline"
+                    style={
+                      Object {
+                        "fill": "transparent",
+                        "opacity": 1,
+                        "stroke": "rgba(0,0,0, .1)",
+                        "strokeWidth": "1",
+                      }
+                    }
+                    x1={0}
+                    x2={0}
+                    y1={0}
+                    y2={6}
+                  />
+                  <text
+                    className="tickLabel"
+                    dominantBaseline="hanging"
+                    style={
+                      Object {
+                        "fill": "black",
+                        "fontFamily": "sans-serif",
+                        "fontSize": 10,
+                        "opacity": 1,
+                        "transform": "translate3d(0px, 20px, 0) rotate(0deg)",
+                      }
+                    }
+                    textAnchor="middle"
+                  >
+                    .123
+                  </text>
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+            className="Axis"
+            style={
+              Object {
+                "pointerEvents": "none",
+                "transform": undefined,
+              }
+            }
+          >
+            <path
+              className="domain"
+              d="
+        M -6, 0
+        H 0
+        V 0
+        H -6
+      "
+              style={
+                Object {
+                  "fill": "transparent",
+                  "opacity": 1,
+                  "stroke": "rgba(0,0,0, .1)",
+                  "strokeWidth": "1",
+                }
+              }
+            />
+            <g
+              className="ticks"
+              style={Object {}}
+            >
+              <g
+                className="tick"
+                style={
+                  Object {
+                    "transform": "translate3d(0, 0px, 0)",
+                  }
+                }
+              >
+                <line
+                  className="gridLine"
+                  style={
+                    Object {
+                      "fill": "transparent",
+                      "opacity": 1,
+                      "stroke": "rgba(0,0,0, .1)",
+                      "strokeWidth": "1",
+                    }
+                  }
+                  x1={0}
+                  x2={0}
+                />
+                <g
+                  className="labelGroup"
+                >
+                  <line
+                    className="tickline"
+                    style={
+                      Object {
+                        "fill": "transparent",
+                        "opacity": 1,
+                        "stroke": "rgba(0,0,0, .1)",
+                        "strokeWidth": "1",
+                      }
+                    }
+                    x1={0}
+                    x2={-6}
+                    y1={0}
+                    y2={0}
+                  />
+                  <text
+                    className="tickLabel"
+                    dominantBaseline="central"
+                    style={
+                      Object {
+                        "fill": "black",
+                        "fontFamily": "sans-serif",
+                        "fontSize": 10,
+                        "opacity": 1,
+                        "transform": "translate3d(-20px, 0px, 0) rotate(0deg)",
+                      }
+                    }
+                    textAnchor="end"
+                  >
+                    3
+                  </text>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g
+          className="Series"
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        >
+          <g>
+            <path
+              d="M0,0Z"
+              style={
+                Object {
+                  "area": Object {},
+                  "circle": Object {},
+                  "color": undefined,
+                  "fill": "none",
+                  "line": Object {},
+                  "opacity": 1,
+                  "rectangle": Object {},
+                  "stroke": "#4ab5eb",
+                  "strokeWidth": 2,
+                }
+              }
+            />
+            <circle
+              cx={0}
+              cy={0}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              r={1}
+              style={
+                Object {
+                  "area": Object {},
+                  "circle": Object {},
+                  "color": undefined,
+                  "fill": "#4ab5eb",
+                  "line": Object {},
+                  "opacity": 1,
+                  "r": 2,
+                  "rectangle": Object {},
+                  "stroke": "#4ab5eb",
+                  "strokeWidth": "1",
+                }
+              }
+            />
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+`;

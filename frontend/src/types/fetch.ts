@@ -1,4 +1,3 @@
-
 export const START_FETCHING = "START_FETCHING";
 export const END_FETCHING = "END_FETCHING";
 
@@ -11,6 +10,7 @@ export interface StartFetchingAction {
 export interface EndFetchingAction {
     type: typeof END_FETCHING
 }
+
 export type FetchActions =
     StartFetchingAction |
     EndFetchingAction

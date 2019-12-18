@@ -27,7 +27,9 @@ class Timer extends React.Component<StateProps & DispatchProps, State> {
             currentTime: Date.now()
         }
     }
-    interval : any
+
+    interval: any;
+
     componentDidMount(): void {
         this.interval = setInterval(() => {
             this.setState({
