@@ -3,10 +3,7 @@ package routes
 import io.ktor.http.HttpStatusCode
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
-import model.ActiveTaskDTO
-import model.HistoryTaskDTO
-import model.TokenDTO
-import model.UserDTO
+import model.*
 
 object RoutesTestUtils {
 
@@ -74,6 +71,28 @@ object RoutesTestUtils {
         .contentType(ContentType.JSON)
         .statusCode(HttpStatusCode.OK.value)
         .extract().`as`(HistoryTaskDTO::class.java)
+
+    fun getTimer(token: String): TimerDTO = given()
+        .header("Token", token)
+        .accept(ContentType.JSON)
+        .`when`()
+        .get("/timer")
+        .then()
+        .contentType(ContentType.JSON)
+        .statusCode(HttpStatusCode.OK.value)
+        .extract().`as`(TimerDTO::class.java)
+
+
+    fun updateTimer(timer: TimerDTO, token: String) {
+        given()
+            .header("Token", token)
+            .contentType(ContentType.JSON)
+            .body(timer)
+            .`when`()
+            .put("/timer")
+            .then()
+            .statusCode(HttpStatusCode.NoContent.value)
+    }
 
     fun withToken(login: String, password: String, block: (token: String) -> Unit) {
         val user = UserDTO(login, password)
