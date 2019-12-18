@@ -9,7 +9,7 @@ export const CONTENT_TYPE = "content-type";
 export const ACCEPT = "Accept";
 export const TOKEN = "Token";
 
-export const APPLICATION_JSON = "application/json";
+export const APPLICATION_JSON = "application/json; charset=UTF-8";
 
 export const request = (
     dispatch: Dispatch<any>,
