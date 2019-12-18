@@ -1,24 +1,25 @@
-package service
-
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import model.Tasks
+import model.ActiveTasks
+import model.HistoryTasks
+import model.Timers
+import model.Users
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils.create
-import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseFactory {
 
     fun init() {
         Database.connect(hikari())
+        // TODO when migrate to PostgreSQL think about it
         transaction {
-            create(Tasks)
-            Tasks.insert {
-                it[description] = "task one"
-            }
+            create(Users)
+            create(ActiveTasks)
+            create(HistoryTasks)
+            create(Timers)
         }
     }
 
