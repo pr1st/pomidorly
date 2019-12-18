@@ -4,6 +4,7 @@ import io.ktor.http.HttpStatusCode
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import model.ActiveTaskDTO
+import model.HistoryTaskDTO
 import model.TokenDTO
 import model.UserDTO
 
@@ -51,6 +52,28 @@ object RoutesTestUtils {
         .contentType(ContentType.JSON)
         .statusCode(HttpStatusCode.OK.value)
         .extract().`as`(ActiveTaskDTO::class.java)
+
+    fun addHistoryTask(task: HistoryTaskDTO, token: String): HistoryTaskDTO = given()
+        .header("Token", token)
+        .contentType(ContentType.JSON)
+        .accept(ContentType.JSON)
+        .body(task)
+        .`when`()
+        .post("/history/tasks")
+        .then()
+        .contentType(ContentType.JSON)
+        .statusCode(HttpStatusCode.Created.value)
+        .extract().`as`(HistoryTaskDTO::class.java)
+
+    fun getHistoryTask(taskId: Int, token: String): HistoryTaskDTO = given()
+        .header("Token", token)
+        .accept(ContentType.JSON)
+        .`when`()
+        .get("/history/tasks/{id}", taskId)
+        .then()
+        .contentType(ContentType.JSON)
+        .statusCode(HttpStatusCode.OK.value)
+        .extract().`as`(HistoryTaskDTO::class.java)
 
     fun withToken(login: String, password: String, block: (token: String) -> Unit) {
         val user = UserDTO(login, password)
