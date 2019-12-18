@@ -22,6 +22,9 @@ data class Timer(
     val userId: Int
 )
 
+fun Timer.toDTO() =
+    TimerDTO(pomidorDuration, shortBreakDuration, longBreakDuration, numberOfPomidorsBeforeLongBreak, alarmWhenZero)
+
 data class TimerDTO(
     val pomidorDuration: Int,
     val shortBreakDuration: Int,
