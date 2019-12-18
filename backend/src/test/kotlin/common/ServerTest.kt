@@ -6,6 +6,7 @@ import io.ktor.server.engine.ApplicationEngine
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.restassured.RestAssured
+import io.restassured.parsing.Parser
 import io.restassured.response.ResponseBodyExtractionOptions
 import io.restassured.specification.RequestSpecification
 import kotlinx.coroutines.runBlocking
@@ -34,6 +35,8 @@ open class ServerTest {
         @JvmStatic
         fun startServer() {
             if (!serverStarted) {
+                RestAssured.defaultParser = Parser.JSON
+
                 DatabaseFactory.init()
 
                 server = embeddedServer(Netty, 8080, module = Application::mainModule)
@@ -50,8 +53,8 @@ open class ServerTest {
     @BeforeEach
     fun before() = runBlocking {
         newSuspendedTransaction {
-            // TODO очищать таблички перед каждым тестом
-//            Widgets.deleteAll()
+            deleteAllData()
+            initTestData()
             Unit
         }
     }
