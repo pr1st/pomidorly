@@ -16,6 +16,8 @@ import io.ktor.server.netty.Netty
 import routes.pomidorly
 import services.ActiveTasksService
 import services.HistoryTasksService
+import services.TimersService
+import services.UsersService
 
 fun Application.mainModule() {
     install(DefaultHeaders)
@@ -37,7 +39,9 @@ fun Application.mainModule() {
     routing {
         pomidorly(
             ActiveTasksService(),
-            HistoryTasksService()
+            HistoryTasksService(),
+            UsersService(),
+            TimersService()
         )
     }
 }
