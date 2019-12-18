@@ -12,20 +12,29 @@ class HistoryTasksService {
         }.map { toHistoryTask(it).toDTO() }
     }
 
-    suspend fun addTask(task: HistoryTaskDTO, uid: Int) {
+    suspend fun getTask(taskId: Int, userId: Int): HistoryTaskDTO? = dbQuery {
+        HistoryTasks.select {
+            ((HistoryTasks.id eq taskId) and (HistoryTasks.userId eq userId))
+        }.mapNotNull { toHistoryTask(it).toDTO() }
+            .singleOrNull()
+    }
+
+    suspend fun addTask(task: HistoryTaskDTO, userId: Int): HistoryTaskDTO {
+        var taskId = 0
         dbQuery {
-            HistoryTasks.insert {
+            taskId = (HistoryTasks.insert {
                 it[tag] = task.tag
                 it[description] = task.description
                 it[timeFinished] = task.timeFinished
-                it[userId] = uid
-            }
+                it[this.userId] = userId
+            } get HistoryTasks.id)
         }
+        return getTask(taskId, userId)!!
     }
 
-    suspend fun deleteTask(id: Int, uid: Int): Boolean {
+    suspend fun deleteTask(taskId: Int, userId: Int): Boolean {
         return dbQuery {
-            HistoryTasks.deleteWhere { (HistoryTasks.id eq id) and (HistoryTasks.userId eq uid) } > 0
+            HistoryTasks.deleteWhere { (HistoryTasks.id eq taskId) and (HistoryTasks.userId eq userId) } > 0
         }
     }
 

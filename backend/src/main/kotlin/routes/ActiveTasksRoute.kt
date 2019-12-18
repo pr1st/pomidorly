@@ -6,6 +6,7 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.*
 import model.ActiveTaskDTO
+import model.ActiveTasks
 import routes.RoutesUtils.withUserId
 import services.ActiveTasksService
 
@@ -18,11 +19,25 @@ fun Route.activeTasks(activeTasksService: ActiveTasksService) {
             }
         }
 
+        get("/{id}") {
+            withUserId(call) { uid ->
+                val taskId = call.parameters["id"]?.toInt()
+                if (taskId == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@withUserId
+                }
+
+                val task = activeTasksService.getTask(taskId, uid)
+                if (task == null) call.respond(HttpStatusCode.NotFound)
+                else call.respond(task)
+            }
+        }
+
         post("/") {
             withUserId(call) { uid ->
                 val task = call.receive<ActiveTaskDTO>()
-                activeTasksService.addTask(task, uid)
-                call.respond(HttpStatusCode.Created)
+                val addedTask = activeTasksService.addTask(task, uid)
+                call.respond(HttpStatusCode.Created, addedTask)
             }
         }
 
@@ -69,8 +84,8 @@ fun Route.activeTasks(activeTasksService: ActiveTasksService) {
                     return@withUserId
                 }
 
-                activeTasksService.updateQueueNumber(taskId1, task2.inQueue!!, userId)
-                activeTasksService.updateQueueNumber(taskId2, task1.inQueue!!, userId)
+                activeTasksService.updateField(taskId1, ActiveTasks.inQueue, task2.inQueue!!, userId)
+                activeTasksService.updateField(taskId2, ActiveTasks.inQueue, task1.inQueue!!, userId)
                 call.respond(HttpStatusCode.NoContent)
             }
         }

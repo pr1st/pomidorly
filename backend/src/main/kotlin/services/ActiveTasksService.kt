@@ -22,40 +22,42 @@ class ActiveTasksService {
             .singleOrNull()
     }
 
-    suspend fun updateTask(id: Int, task: ActiveTaskDTO, uid: Int): ActiveTaskDTO? {
+    suspend fun addTask(task: ActiveTaskDTO, userId: Int): ActiveTaskDTO {
+        var taskId = 0
         dbQuery {
-            ActiveTasks.update({ (ActiveTasks.id eq id) and (ActiveTasks.userId eq uid) }) {
+            taskId = (ActiveTasks.insert {
+                it[tag] = task.tag
+                it[description] = task.description
+                it[numberOfPomidors] = task.numberOfPomidors
+                it[this.userId] = userId
+            } get ActiveTasks.id)
+        }
+        return getTask(taskId, userId)!!
+    }
+
+    suspend fun updateTask(taskId: Int, task: ActiveTaskDTO, userId: Int): ActiveTaskDTO? {
+        dbQuery {
+            ActiveTasks.update({ (ActiveTasks.id eq taskId) and (ActiveTasks.userId eq userId) }) {
                 it[tag] = task.tag
                 it[description] = task.description
                 it[numberOfPomidors] = task.numberOfPomidors
             }
         }
-        return getTask(id, uid)
+        return getTask(taskId, userId)
     }
 
-    suspend fun updateQueueNumber(id: Int, queueNumber: Int, uid: Int): ActiveTaskDTO? {
+    suspend fun <T> updateField(taskId: Int, column: Column<T>, value: T, userId: Int): ActiveTaskDTO? {
         dbQuery {
-            ActiveTasks.update({ (ActiveTasks.id eq id) and (ActiveTasks.userId eq uid) }) {
-                it[inQueue] = queueNumber
+            ActiveTasks.update({ (ActiveTasks.id eq taskId) and (ActiveTasks.userId eq userId) }) {
+                it[column] = value
             }
         }
-        return getTask(id, uid)
+        return getTask(taskId, userId)
     }
 
-    suspend fun addTask(task: ActiveTaskDTO, uid: Int) {
-        dbQuery {
-            ActiveTasks.insert {
-                it[tag] = task.tag
-                it[description] = task.description
-                it[numberOfPomidors] = task.numberOfPomidors
-                it[userId] = uid
-            }
-        }
-    }
-
-    suspend fun deleteTask(id: Int, uid: Int): Boolean {
+    suspend fun deleteTask(taskId: Int, userId: Int): Boolean {
         return dbQuery {
-            ActiveTasks.deleteWhere { (ActiveTasks.id eq id) and (ActiveTasks.userId eq uid) } > 0
+            ActiveTasks.deleteWhere { (ActiveTasks.id eq taskId) and (ActiveTasks.userId eq userId) } > 0
         }
     }
 
