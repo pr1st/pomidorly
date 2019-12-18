@@ -26,7 +26,7 @@ fun Route.users(
 
         post("/signup") {
             val user = call.receive<UserDTO>()
-            if (usersService.isUserExists(user)) {
+            if (usersService.getUser(user.username) != null) {
                 call.respond(HttpStatusCode.Conflict)
             } else {
                 val addedUser = usersService.addUser(user)
@@ -37,12 +37,12 @@ fun Route.users(
 
         post("/signin") {
             val user = call.receive<UserDTO>()
-            if (usersService.isUserExists(user)) {
+            val userFromDb = usersService.getUser(user.username)
+            if (userFromDb != null && user.password == userFromDb.password) {
                 call.respond(HttpStatusCode.OK, TokenDTO(user.password, 3600))
             } else {
                 call.respond(HttpStatusCode.NotFound)
             }
         }
-
     }
 }
