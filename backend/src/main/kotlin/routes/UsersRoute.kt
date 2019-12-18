@@ -9,9 +9,13 @@ import io.ktor.routing.post
 import io.ktor.routing.route
 import model.TokenDTO
 import model.UserDTO
+import services.TimersService
 import services.UsersService
 
-fun Route.users(usersService: UsersService) {
+fun Route.users(
+    usersService: UsersService,
+    timersService: TimersService
+) {
     route("api/v1/auth/") {
 
         post("/refresh") {
@@ -25,7 +29,8 @@ fun Route.users(usersService: UsersService) {
             if (usersService.isUserExists(user)) {
                 call.respond(HttpStatusCode.Conflict)
             } else {
-                usersService.addUser(user)
+                val addedUser = usersService.addUser(user)
+                timersService.addDefaultTimer(addedUser.id)
                 call.respond(HttpStatusCode.NoContent)
             }
         }

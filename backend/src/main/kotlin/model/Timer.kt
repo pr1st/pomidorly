@@ -9,7 +9,7 @@ object Timers : Table() {
     val longBreakDuration = integer("long_break_duration")
     val numberOfPomidorsBeforeLongBreak = integer("number_of_pomidors_before_long_break")
     val alarmWhenZero = bool("alarm_when_zero")
-    val userId = (integer("user_id") references Users.id)
+    val userId = (integer("user_id") references Users.id).uniqueIndex()
 }
 
 data class Timer(
