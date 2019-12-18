@@ -13,11 +13,11 @@ class UsersService {
     suspend fun addUser(user: UserDTO): User {
         dbQuery {
             Users.insert {
-                it[username] = user.username
+                it[login] = user.login
                 it[password] = user.password
             }
         }
-        return getUser(user.username)!!
+        return getUser(user.login)!!
     }
 
     suspend fun getUserByToken(token: String): User? = dbQuery {
@@ -27,9 +27,9 @@ class UsersService {
             .singleOrNull()
     }
 
-    suspend fun getUser(username: String): User? = dbQuery {
+    suspend fun getUser(login: String): User? = dbQuery {
         Users.select {
-            (Users.username eq username)
+            (Users.login eq login)
         }.mapNotNull { toUser(it) }
             .singleOrNull()
     }
@@ -37,7 +37,7 @@ class UsersService {
     private fun toUser(row: ResultRow): User =
         User(
             id = row[Users.id],
-            username = row[Users.username],
+            login = row[Users.login],
             password = row[Users.password]
         )
 
