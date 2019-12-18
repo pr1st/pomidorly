@@ -26,4 +26,29 @@ object RoutesUtils {
         withUser(call) { user -> block(user.id) }
     }
 
+    suspend fun withTaskId(call: ApplicationCall, block: suspend (taskId: Int) -> Unit) {
+        withUrlIntParameters(call, listOf("id")) { block(it["id"]!!) }
+    }
+
+    suspend fun withTwoTaskIds(call: ApplicationCall, block: suspend (taskId1: Int, taskId2: Int) -> Unit) {
+        withUrlIntParameters(call, listOf("id1", "id2")) { block(it["id1"]!!, it["id2"]!!) }
+    }
+
+    private suspend fun withUrlIntParameters(
+        call: ApplicationCall,
+        names: List<String>,
+        block: suspend (parameters: Map<String, Int>) -> Unit
+    ) {
+        val parameters = mutableMapOf<String, Int>()
+        names.forEach {
+            val value = call.parameters[it]?.toInt()
+            if (value == null) {
+                call.respond(HttpStatusCode.BadRequest)
+                return@withUrlIntParameters
+            }
+            parameters[it] = value
+        }
+        block(parameters)
+    }
+
 }

@@ -28,15 +28,13 @@ fun Route.historyTasks(historyTasksService: HistoryTasksService) {
 
         delete("/{id}") {
             RoutesUtils.withUserId(call) { userId ->
-                val taskId = call.parameters["id"]?.toInt()
-                if (taskId == null) {
-                    call.respond(HttpStatusCode.BadRequest)
-                    return@withUserId
+                RoutesUtils.withTaskId(call) { taskId ->
+                    val removed = historyTasksService.deleteTask(taskId, userId)
+                    if (removed) call.respond(HttpStatusCode.NoContent)
+                    else call.respond(HttpStatusCode.NotFound)
                 }
-                val removed = historyTasksService.deleteTask(taskId, userId)
-                if (removed) call.respond(HttpStatusCode.NoContent)
-                else call.respond(HttpStatusCode.NotFound)
             }
         }
     }
+
 }
