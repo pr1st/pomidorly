@@ -1,45 +1,65 @@
 package routes
 
 import common.ServerTest
-import io.restassured.RestAssured.given
+import io.ktor.http.HttpStatusCode
+import io.restassured.RestAssured
 import io.restassured.http.ContentType
 import model.ActiveTaskDTO
+import model.TimerDTO
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import routes.RoutesTestUtils.addActiveTask
+import routes.RoutesTestUtils.getActiveTask
+import routes.RoutesTestUtils.withToken
 
 class ActiveTasksRoutesTest : ServerTest() {
 
     @Test
-    fun testCreateActiveTask() {
-        // when
-        val newTask = ActiveTaskDTO(null, "tag1", "desc1", 4, null)
-        val created = addActiveTask("GROB", newTask)
+    fun addActiveTaskTest() {
+        withToken("Bob", "qwerty") { token ->
+            val task = ActiveTaskDTO(null, "tag1", "desc1", 4, null)
+            val created = addActiveTask(task, token)
+            val retrieved = getActiveTask(created.id!!, token)
 
-        val retrieved = getActiveTask("GROB", created.id!!)
+            assertThat(created.tag).isEqualTo(task.tag)
+            assertThat(created.description).isEqualTo(task.description)
+            assertThat(created.numberOfPomidors).isEqualTo(task.numberOfPomidors)
 
-        // then
-        assertThat(created.tag).isEqualTo(newTask.tag)
-        assertThat(created.description).isEqualTo(newTask.description)
-        assertThat(created.numberOfPomidors).isEqualTo(newTask.numberOfPomidors)
-
-        assertThat(created).isEqualTo(retrieved)
+            assertThat(created).isEqualTo(retrieved)
+        }
     }
 
-    private fun addActiveTask(token: String, task: ActiveTaskDTO): ActiveTaskDTO = given()
-        .contentType(ContentType.JSON)
-        .header("Token", token)
-        .body(task)
-        .When()
-        .post("/current/tasks")
-        .then()
-        .extract().to()
+    @Test
+    fun addActiveTaskWithInvalidTokenTest() {
+        withToken("Bob", "qwerty") { token ->
+            val invalidToken = token + "abracadabra"
+            val task = ActiveTaskDTO(null, "tag1", "desc1", 4, null)
+            RestAssured.given()
+                .header("Token", invalidToken)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(task)
+                .`when`()
+                .post("/current/tasks")
+                .then()
+                .statusCode(HttpStatusCode.Unauthorized.value)
+        }
+    }
 
-    private fun getActiveTask(token: String, taskId: Int): ActiveTaskDTO = given()
-        .contentType(ContentType.JSON)
-        .header("Token", token)
-        .When()
-        .get("/current/tasks/{id}", taskId)
-        .then()
-        .extract().to()
+    @Test
+    fun addActiveTaskWithInvalidDataFieldsTest() {
+        withToken("Bob", "qwerty") { token ->
+            val invalidTask = TimerDTO(25, 5, 15, 4, true)
+            RestAssured.given()
+                .header("Token", token)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(invalidTask)
+                .`when`()
+                .post("/current/tasks")
+                .then()
+                .statusCode(HttpStatusCode.BadRequest.value)
+        }
+    }
 
 }
