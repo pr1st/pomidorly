@@ -60,4 +60,27 @@ class HistoryTasksRoutesTest : ServerTest() {
                 .statusCode(HttpStatusCode.BadRequest.value)
         }
     }
+
+    @Test
+    fun getAllHistoryTasksTest() {
+        withToken("Bob", "qwerty") { token ->
+            val task1 = HistoryTaskDTO(null, "tag1", "desc1", 1234567890)
+            val task2 = HistoryTaskDTO(null, "tag2", "desc2", 9876543210)
+            val addedTask1 = addHistoryTask(task1, token)
+            val addedTask2 = addHistoryTask(task2, token)
+
+            val allTasks = given()
+                .header("Token", token)
+                .accept(ContentType.JSON)
+                .When()
+                .get("/history/tasks")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(HttpStatusCode.OK.value)
+                .extract().to<Array<HistoryTaskDTO>>()
+
+            Assertions.assertThat(setOf(addedTask1, addedTask2)).isEqualTo(allTasks.toSet())
+        }
+    }
+
 }
