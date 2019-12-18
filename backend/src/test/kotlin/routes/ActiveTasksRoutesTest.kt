@@ -63,7 +63,7 @@ class ActiveTasksRoutesTest : ServerTest() {
     }
 
     @Test
-    fun getAllTasksTest() {
+    fun getAllActiveTasksTest() {
         withToken("Bob", "qwerty") { token ->
             val task1 = ActiveTaskDTO(null, "tag1", "desc1", 2, null)
             val task2 = ActiveTaskDTO(null, "tag2", "desc2", 4, null)
@@ -85,7 +85,7 @@ class ActiveTasksRoutesTest : ServerTest() {
     }
 
     @Test
-    fun updateTaskTest() {
+    fun updateActiveTaskTest() {
         withToken("Bob", "qwerty") { token ->
             val task = ActiveTaskDTO(null, "tag1", "desc1", 2, null)
             val current = addActiveTask(task, token)
@@ -109,7 +109,7 @@ class ActiveTasksRoutesTest : ServerTest() {
     }
 
     @Test
-    fun updateTaskWithInvalidIdTest() {
+    fun updateActiveTaskWithInvalidIdTest() {
         withToken("Bob", "qwerty") { token ->
             val task = ActiveTaskDTO(null, "tag1", "desc1", 2, null)
             addActiveTask(task, token)
@@ -128,7 +128,7 @@ class ActiveTasksRoutesTest : ServerTest() {
     }
 
     @Test
-    fun deleteTaskTest() {
+    fun deleteActiveTaskTest() {
         withToken("Bob", "qwerty") { token ->
             val task = ActiveTaskDTO(null, "tag1", "desc1", 2, null)
             val taskId = addActiveTask(task, token).id!!
@@ -151,7 +151,7 @@ class ActiveTasksRoutesTest : ServerTest() {
     }
 
     @Test
-    fun deleteTaskWithInvalidIdTest() {
+    fun deleteActiveTaskWithInvalidIdTest() {
         withToken("Bob", "qwerty") { token ->
             val task = ActiveTaskDTO(null, "tag1", "desc1", 2, null)
             addActiveTask(task, token)
@@ -167,7 +167,7 @@ class ActiveTasksRoutesTest : ServerTest() {
     }
 
     @Test
-    fun swapTasksTest() {
+    fun swapActiveTasksTest() {
         withToken("Bob", "qwerty") { token ->
             val task1 = ActiveTaskDTO(null, "tag1", "desc1", 2, null)
             val task2 = ActiveTaskDTO(null, "tag2", "desc2", 4, null)
@@ -197,7 +197,7 @@ class ActiveTasksRoutesTest : ServerTest() {
     }
 
     @Test
-    fun swapTasksWithInvalidIdTest() {
+    fun swapActiveTasksWithInvalidIdTest() {
         withToken("Bob", "qwerty") { token ->
             val task1 = ActiveTaskDTO(null, "tag1", "desc1", 2, null)
             val task2 = ActiveTaskDTO(null, "tag2", "desc2", 4, null)
