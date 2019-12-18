@@ -6,22 +6,23 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.*
 import model.HistoryTaskDTO
+import model.toDTO
 import services.HistoryTasksService
 
 fun Route.historyTasks(historyTasksService: HistoryTasksService) {
     route("api/v1/history/tasks") {
 
         get("/") {
-            RoutesUtils.withUserId(call) { uid ->
-                call.respond(historyTasksService.getAllTasks(uid))
+            RoutesUtils.withUserId(call) { userId ->
+                call.respond(HttpStatusCode.OK, historyTasksService.getAllTasks(userId).map { it.toDTO() })
             }
         }
 
         post("/") {
-            RoutesUtils.withUserId(call) { uid ->
+            RoutesUtils.withUserId(call) { userId ->
                 val task = call.receive<HistoryTaskDTO>()
-                historyTasksService.addTask(task, uid)
-                call.respond(HttpStatusCode.Created)
+                val addedTask = historyTasksService.addTask(task, userId)
+                call.respond(HttpStatusCode.Created, addedTask.toDTO())
             }
         }
 

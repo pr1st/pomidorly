@@ -7,6 +7,7 @@ import io.ktor.response.respond
 import io.ktor.routing.*
 import model.ActiveTaskDTO
 import model.ActiveTasks
+import model.toDTO
 import routes.RoutesUtils.withUserId
 import services.ActiveTasksService
 
@@ -14,8 +15,8 @@ fun Route.activeTasks(activeTasksService: ActiveTasksService) {
     route("api/v1/current/tasks") {
 
         get("/") {
-            withUserId(call) { uid ->
-                call.respond(activeTasksService.getAllTasks(uid))
+            withUserId(call) { userId ->
+                call.respond(HttpStatusCode.OK, activeTasksService.getAllTasks(userId).map { it.toDTO() })
             }
         }
 
@@ -29,7 +30,7 @@ fun Route.activeTasks(activeTasksService: ActiveTasksService) {
 
                 val task = activeTasksService.getTask(taskId, uid)
                 if (task == null) call.respond(HttpStatusCode.NotFound)
-                else call.respond(task)
+                else call.respond(HttpStatusCode.OK, task.toDTO())
             }
         }
 
@@ -37,7 +38,7 @@ fun Route.activeTasks(activeTasksService: ActiveTasksService) {
             withUserId(call) { uid ->
                 val task = call.receive<ActiveTaskDTO>()
                 val addedTask = activeTasksService.addTask(task, uid)
-                call.respond(HttpStatusCode.Created, addedTask)
+                call.respond(HttpStatusCode.Created, addedTask.toDTO())
             }
         }
 
@@ -84,8 +85,8 @@ fun Route.activeTasks(activeTasksService: ActiveTasksService) {
                     return@withUserId
                 }
 
-                activeTasksService.updateField(taskId1, ActiveTasks.inQueue, task2.inQueue!!, userId)
-                activeTasksService.updateField(taskId2, ActiveTasks.inQueue, task1.inQueue!!, userId)
+                activeTasksService.updateField(taskId1, ActiveTasks.inQueue, task2.inQueue, userId)
+                activeTasksService.updateField(taskId2, ActiveTasks.inQueue, task1.inQueue, userId)
                 call.respond(HttpStatusCode.NoContent)
             }
         }

@@ -1,25 +1,28 @@
 package services
 
 import DatabaseFactory.dbQuery
-import model.*
+import model.ActiveTasks
+import model.HistoryTask
+import model.HistoryTaskDTO
+import model.HistoryTasks
 import org.jetbrains.exposed.sql.*
 
 class HistoryTasksService {
 
-    suspend fun getAllTasks(userId: Int): List<HistoryTaskDTO> = dbQuery {
+    suspend fun getAllTasks(userId: Int): List<HistoryTask> = dbQuery {
         HistoryTasks.select {
             (ActiveTasks.userId eq userId)
-        }.map { toHistoryTask(it).toDTO() }
+        }.map { toHistoryTask(it) }
     }
 
-    suspend fun getTask(taskId: Int, userId: Int): HistoryTaskDTO? = dbQuery {
+    suspend fun getTask(taskId: Int, userId: Int): HistoryTask? = dbQuery {
         HistoryTasks.select {
             ((HistoryTasks.id eq taskId) and (HistoryTasks.userId eq userId))
-        }.mapNotNull { toHistoryTask(it).toDTO() }
+        }.mapNotNull { toHistoryTask(it) }
             .singleOrNull()
     }
 
-    suspend fun addTask(task: HistoryTaskDTO, userId: Int): HistoryTaskDTO {
+    suspend fun addTask(task: HistoryTaskDTO, userId: Int): HistoryTask {
         var taskId = 0
         dbQuery {
             taskId = (HistoryTasks.insert {

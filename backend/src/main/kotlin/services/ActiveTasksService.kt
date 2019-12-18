@@ -4,25 +4,24 @@ import DatabaseFactory.dbQuery
 import model.ActiveTask
 import model.ActiveTaskDTO
 import model.ActiveTasks
-import model.toDTO
 import org.jetbrains.exposed.sql.*
 
 class ActiveTasksService {
 
-    suspend fun getAllTasks(userId: Int): List<ActiveTaskDTO> = dbQuery {
+    suspend fun getAllTasks(userId: Int): List<ActiveTask> = dbQuery {
         ActiveTasks.select {
             (ActiveTasks.userId eq userId)
-        }.map { toActiveTask(it).toDTO() }
+        }.map { toActiveTask(it) }
     }
 
-    suspend fun getTask(taskId: Int, userId: Int): ActiveTaskDTO? = dbQuery {
+    suspend fun getTask(taskId: Int, userId: Int): ActiveTask? = dbQuery {
         ActiveTasks.select {
             ((ActiveTasks.id eq taskId) and (ActiveTasks.userId eq userId))
-        }.mapNotNull { toActiveTask(it).toDTO() }
+        }.mapNotNull { toActiveTask(it) }
             .singleOrNull()
     }
 
-    suspend fun addTask(task: ActiveTaskDTO, userId: Int): ActiveTaskDTO {
+    suspend fun addTask(task: ActiveTaskDTO, userId: Int): ActiveTask {
         var taskId = 0
         dbQuery {
             taskId = (ActiveTasks.insert {
@@ -35,7 +34,7 @@ class ActiveTasksService {
         return getTask(taskId, userId)!!
     }
 
-    suspend fun updateTask(taskId: Int, task: ActiveTaskDTO, userId: Int): ActiveTaskDTO? {
+    suspend fun updateTask(taskId: Int, task: ActiveTaskDTO, userId: Int): ActiveTask? {
         dbQuery {
             ActiveTasks.update({ (ActiveTasks.id eq taskId) and (ActiveTasks.userId eq userId) }) {
                 it[tag] = task.tag
@@ -46,7 +45,7 @@ class ActiveTasksService {
         return getTask(taskId, userId)
     }
 
-    suspend fun <T> updateField(taskId: Int, column: Column<T>, value: T, userId: Int): ActiveTaskDTO? {
+    suspend fun <T> updateField(taskId: Int, column: Column<T>, value: T, userId: Int): ActiveTask? {
         dbQuery {
             ActiveTasks.update({ (ActiveTasks.id eq taskId) and (ActiveTasks.userId eq userId) }) {
                 it[column] = value
