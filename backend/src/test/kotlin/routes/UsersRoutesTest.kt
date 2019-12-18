@@ -7,6 +7,7 @@ import io.restassured.http.ContentType
 import model.TimerDTO
 import model.TokenDTO
 import model.UserDTO
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class UsersRoutesTest : ServerTest() {
@@ -64,7 +65,7 @@ class UsersRoutesTest : ServerTest() {
             .contentType(ContentType.JSON)
             .extract().to<TokenDTO>()
 
-        assert(token.expiresIn > 0)
+        assertThat(token.expiresIn > 0)
     }
 
     @Test
