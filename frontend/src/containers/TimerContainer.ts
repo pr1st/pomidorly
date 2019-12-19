@@ -28,7 +28,6 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => {
         stopTimer: () => dispatch(stopTimer()),
         setConfig: (timerConfig: TimerConfigState) => {
             dispatch(putTimerConfig(timerConfig))
-            dispatch(fetchTimerConfig())
         },
         doPomidor: () => {
             dispatch(doOnePomidor())

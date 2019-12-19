@@ -123,9 +123,21 @@ describe("Test timer actions", () => {
                 shortBreakDuration: 4
             };
             const responseStatus = 204;
+            const responseConfig: TimerConfigState = {
+                alarmWhenZero: false,
+                longBreakDuration: 3,
+                numberOfPomidorsBeforeLongBreak: 4,
+                pomidorDuration: 2,
+                shortBreakDuration: 4
+            };
+            const responseHeaders = {
+                [CONTENT_TYPE]: APPLICATION_JSON
+            };
             // @ts-ignore
             request.mockResolvedValue({
-                status: responseStatus
+                status: responseStatus,
+                data: responseConfig,
+                headers: responseHeaders
             });
 
             return mockStore.dispatch(putTimerConfig(requestConfig))
@@ -139,7 +151,7 @@ describe("Test timer actions", () => {
                         [TOKEN]: initState.auth.token.token,
                     });
 
-                    expect(mockStore.getActions().length).toBe(0);
+                    expect(mockStore.getActions().length).toBe(1);
                 });
         });
     });

@@ -92,11 +92,9 @@ describe("Test timer container", () => {
             // @ts-ignore
             fetchTimerConfig.mockReturnValue(dummyAction);
             componentProps.setConfig({config: "dummy config"});
-            expect(store.getActions().length).toEqual(2);
+            expect(store.getActions().length).toEqual(1);
             // @ts-ignore
             expect(putTimerConfig.mock.calls.length).toEqual(1);
-            // @ts-ignore
-            expect(fetchTimerConfig.mock.calls.length).toEqual(1);
         });
 
         it("do one pomidor ", () => {

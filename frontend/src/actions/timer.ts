@@ -88,6 +88,7 @@ export function putTimerConfig(config: TimerConfigState) {
             .then(res => {
                 if (res.status === 204) {
                     console.log("Saved data to server");
+                    dispatch(fetchTimerConfig())
                 } else {
                     return Promise.reject("No 204 response");
                 }
