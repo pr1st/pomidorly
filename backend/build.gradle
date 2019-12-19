@@ -62,9 +62,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
-task buildFrontend (type:Exec){
-    workingDir "../frontend"
-    commandLine "sudo", "npm", "install"
-    commandLine "npm", "run", "build-to-server"
-}
