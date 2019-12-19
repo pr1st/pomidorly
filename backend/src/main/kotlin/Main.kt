@@ -13,6 +13,7 @@ import io.ktor.response.respond
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import routes.index
 import routes.pomidorly
 import services.ActiveTasksService
 import services.HistoryTasksService
@@ -43,6 +44,7 @@ fun Application.mainModule() {
             UsersService(),
             TimersService()
         )
+        index()
     }
 }
 
