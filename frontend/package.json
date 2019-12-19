@@ -44,8 +44,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "test-coverage": "npm t -- --coverage --watchAll=false",
-    "move-build": "export FEB=../backend/src/main/resources/frontend-build && rm -r -f $FEB && mkdir $FEB && mv ./build/* $FEB/",
-    "build-to-server": "npm run build && npm run move-build"
+    "remove-front-build": "rm -r -f ../backend/src/main/resources/frontend-build",
+    "create-front-build-dir": "mkdir ../backend/src/main/resources/frontend-build",
+    "move-front-build": "mv ./build/ ../backend/src/main/resources/frontend-build/",
+    "build-to-server": "npm run build && npm run remove-front-build && npm run create-front-build-dir && npm run move-front-build"
   },
   "eslintConfig": {
     "extends": "react-app"
