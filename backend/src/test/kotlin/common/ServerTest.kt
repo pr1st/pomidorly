@@ -44,12 +44,12 @@ open class ServerTest {
 
                 DatabaseFactory.init()
 
-                server = embeddedServer(Netty, 8080, module = Application::mainModule)
+                server = embeddedServer(Netty, 3503, module = Application::mainModule)
                 server.start()
                 serverStarted = true
 
                 RestAssured.baseURI = "http://localhost/api/v1"
-                RestAssured.port = 8080
+                RestAssured.port = 3503
                 Runtime.getRuntime().addShutdownHook(Thread { server.stop(0, 0, TimeUnit.SECONDS) })
             }
         }
