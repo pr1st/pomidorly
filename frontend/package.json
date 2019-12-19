@@ -46,7 +46,7 @@
     "test-coverage": "npm t -- --coverage --watchAll=false",
     "remove-front-build": "rm -r -f ../backend/src/main/resources/frontend-build",
     "create-front-build-dir": "mkdir ../backend/src/main/resources/frontend-build",
-    "move-front-build": "mv ./build/ ../backend/src/main/resources/frontend-build/",
+    "move-front-build": "mv ./build/* ../backend/src/main/resources/frontend-build/",
     "build-to-server": "npm run build && npm run remove-front-build && npm run create-front-build-dir && npm run move-front-build"
   },
   "eslintConfig": {
