@@ -20,7 +20,8 @@ fun Route.users(
 
         post("/refresh") {
             RoutesUtils.withUser(call) { user ->
-                call.respond(HttpStatusCode.OK, TokenDTO(user.password, 3600))
+                val authorizedUser = usersService.authorizeUser(user.login)
+                call.respond(HttpStatusCode.OK, TokenDTO(authorizedUser.token, 55000))
             }
         }
 
@@ -39,7 +40,8 @@ fun Route.users(
             val user = call.receive<UserDTO>()
             val userFromDb = usersService.getUser(user.login)
             if (userFromDb != null && user.password == userFromDb.password) {
-                call.respond(HttpStatusCode.OK, TokenDTO(user.password, 3600))
+                val authorizedUser = usersService.authorizeUser(userFromDb.login)
+                call.respond(HttpStatusCode.OK, TokenDTO(authorizedUser.token, 55000))
             } else {
                 call.respond(HttpStatusCode.NotFound)
             }

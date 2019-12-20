@@ -1,28 +1,48 @@
 package services
 
 import DatabaseFactory.dbQuery
-import model.User
-import model.UserDTO
-import model.Users
-import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
+import model.*
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import java.util.*
+import java.util.Date
+import kotlin.streams.asSequence
 
 class UsersService {
+
+    fun getRandomToken(): String {
+        val source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        return java.util.Random().ints(20, 0, source.length)
+            .asSequence()
+            .map(source::get)
+            .joinToString("")
+    }
 
     suspend fun addUser(user: UserDTO): User {
         dbQuery {
             Users.insert {
                 it[login] = user.login
                 it[password] = user.password
+                it[token] = ""
+                it[validUpTo] = 0
             }
         }
         return getUser(user.login)!!
     }
 
+    suspend fun authorizeUser(login: String): User {
+        dbQuery {
+            Users.update({ Users.login eq login }) {
+                it[token] = getRandomToken()
+                it[validUpTo] = 60000 + Date().time
+            }
+        }
+        return getUser(login)!!
+    }
+
     suspend fun getUserByToken(token: String): User? = dbQuery {
         Users.select {
-            (Users.password eq token)
+            (Users.token eq token)
         }.mapNotNull { toUser(it) }
             .singleOrNull()
     }
@@ -38,7 +58,9 @@ class UsersService {
         User(
             id = row[Users.id],
             login = row[Users.login],
-            password = row[Users.password]
+            password = row[Users.password],
+            token = row[Users.token],
+            validUpTo = row[Users.validUpTo]
         )
 
 }
